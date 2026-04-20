@@ -1,0 +1,11 @@
+*
+
+!*/
+
+!.github/workflows/*
+!Makefile
+!*.c
+!*.h
+!*.txt
+!.gitignore
+!*.md
