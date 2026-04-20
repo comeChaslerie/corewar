@@ -51,4 +51,7 @@ char *get_file(char *path);
 char *append_line(char *buffer, char *line);
 char *get_line(char *path, char *match);
 
+int my_htonl(int val);
+short my_htons(short val);
+
 #endif /* !MY_LIB_H_ */

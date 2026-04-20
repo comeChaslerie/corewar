@@ -5,12 +5,31 @@
 ## Makefile
 ##
 
-SRC = 	main.c \
-		src/utils/*.c \
+SRC = 	src/utils/get_file.c \
+		src/utils/is_in.c	\
+		src/utils/is_something.c	\
+		src/utils/linked_list.c	\
+		src/utils/linked_list2.c	\
+		src/utils/my_get_dbl.c	\
+		src/utils/my_getnbr.c	\
+		src/utils/my_htonls.c	\
+		src/utils/my_intlen.c	\
+		src/utils/my_put_dbl.c	\
+		src/utils/my_put_nbr.c	\
+		src/utils/my_putchar.c	\
+		src/utils/my_putstr.c	\
+		src/utils/my_revstr.c	\
+		src/utils/my_sort_str.c	\
+		src/utils/my_strcat.c	\
+		src/utils/my_strcmp.c	\
+		src/utils/my_strdup.c	\
+		src/utils/my_strlen.c	\
+		src/utils/put_error.c	\
+		src/utils/strlow_strup.c
 
 NAME =	project
 
-LIB = -L./lib/my_printf -lmy_printf
+LIB =
 
 CC = epiclang
 
@@ -19,25 +38,22 @@ INCLUDE = -I ./include
 .PHONY: all clean fclean re compile tests_run gcovrex tests_run_lib gcovrex_lib valgrind
 
 all:
-	$(MAKE) -C lib/my_printf all
-	$(CC) -o $(NAME) $(SRC) $(LIB) $(INCLUDE)
+	$(CC) -o $(NAME) bs_come/read_bin.c $(SRC) $(LIB) $(INCLUDE)
 
 clean:
 	rm -f *.gcno
 	rm -f *.gcda
 	rm -f unit_tests
-	$(MAKE) -C lib/my_printf clean
 
 fclean:	clean
 	rm -f $(NAME)
-	$(MAKE) -C lib/my_printf fclean
 
 re:
 	$(MAKE) fclean
 	$(MAKE) all
 
 tests_run:	clean
-	$(CC) -o unit_tests $(SRC) tests/*.c -lcriterion --coverage $(LIB) $(INCLUDE)
+	$(CC) -o unit_tests $(SRC) tests/*.c -lcriterion --coverage $(INCLUDE)
 	./unit_tests
 
 coverage:	tests_run
@@ -64,7 +80,7 @@ gcovrex_lib:	clean
 
 compile:
 	rm -f $(NAME)
-	$(CC) -o $(NAME) $(SRC) $(LIB) $(INCLUDE)
+	$(CC) -o $(NAME) $(SRC) $(INCLUDE)
 	valgrind ./$(NAME)
 
 valgrind: all
@@ -73,3 +89,7 @@ valgrind: all
          --track-origins=yes \
          --log-file=valgrind-out.txt \
          ./$(NAME)
+
+re_mac:
+	$(MAKE) fclean
+	$(MAKE) -j8 all
