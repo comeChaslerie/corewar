@@ -9,3 +9,5 @@
 !*.txt
 !.gitignore
 !*.md
+!examples/binaries/*
+!examples/champions/*
