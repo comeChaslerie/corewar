@@ -39,7 +39,7 @@ typedef char args_type_t;
 /* indirect always relative (ld 1,r1 put what's in the address (1+pc) into r1
 (4 bytes )) */
     #define T_IND 4
- /* LABEL */
+/* LABEL */
     #define T_LAB 8
 
 typedef struct op_s {
