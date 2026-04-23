@@ -10,7 +10,6 @@
 
     #include "struct.h"
     #include "op.h"
-    #include "lib.h"
     #include <stdio.h>
     #include <stdbool.h>
 
