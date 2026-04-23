@@ -5,27 +5,12 @@
 ## Makefile
 ##
 
-SRC = 	src/utils/get_file.c \
-		src/utils/is_in.c	\
-		src/utils/is_something.c	\
-		src/utils/linked_list.c	\
-		src/utils/linked_list2.c	\
-		src/utils/my_get_dbl.c	\
-		src/utils/my_getnbr.c	\
-		src/utils/my_htonls.c	\
-		src/utils/my_intlen.c	\
-		src/utils/my_put_dbl.c	\
-		src/utils/my_put_nbr.c	\
-		src/utils/my_putchar.c	\
-		src/utils/my_putstr.c	\
-		src/utils/my_revstr.c	\
-		src/utils/my_sort_str.c	\
-		src/utils/my_strcat.c	\
-		src/utils/my_strcmp.c	\
-		src/utils/my_strdup.c	\
-		src/utils/my_strlen.c	\
-		src/utils/put_error.c	\
-		src/utils/strlow_strup.c
+SRC = 	src/op.c	\
+		src/linked_lists/add_to_list.c	\
+		src/linked_lists/delete_node.c	\
+		src/linked_lists/destroy_list.c	\
+		src/linked_lists/disp_list.c	\
+		src/linked_lists/get_len_list.c
 
 NAME =	project
 
