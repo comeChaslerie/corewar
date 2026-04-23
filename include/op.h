@@ -49,6 +49,7 @@ typedef struct op_s {
     char code;
     int nbr_cycles;
     char *comment;
+    void *(*instr_func)(void *);
 } op_t;
 
 /*
