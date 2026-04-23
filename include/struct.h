@@ -10,17 +10,6 @@
 
     #include "op.h"
     #include <stdbool.h>
-typedef struct data_s {
-    int id;
-} data_t;
-
-typedef struct linked_list_s {
-    data_t *data;
-    void *data_void;
-    struct linked_list_s *prev;
-    struct linked_list_s *next;
-} linked_list_t;
-
 
 typedef struct robot_infos_s {
     header_t *header;
@@ -33,10 +22,18 @@ typedef struct robot_infos_s {
     int pos_end;
 } robot_infos_t;
 
+typedef struct args_s {
+    unsigned int cycle_dump;
+    char **all_filepath;
+    unsigned int *id_tab;
+    unsigned int nbr_robots;
+} args_t;
+
 typedef struct main_s {
+    args_t args;
     unsigned char arena[MEM_SIZE / 2];
     robot_infos_t robots[4];
     int cycle;
 } main_t;
 
-#endif /* !MY_STRUCT_H_ */
+#endif

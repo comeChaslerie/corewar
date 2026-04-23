@@ -19,5 +19,4 @@ bool check_magic_champions(header_t *header);
 int get_champion_infos(FILE *fp);
 void get_args(unsigned char value);
 
-
 #endif /* !MY_H_ */
