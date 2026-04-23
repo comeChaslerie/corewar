@@ -24,6 +24,8 @@
     #define COMMENT_CMD_STRING ".comment"
 
     #define PACKED_ATTR __attribute__((packed))
+
+    #define MAX_ROBOT_NBR 4
 /*
 ** regs
 */

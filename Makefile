@@ -10,7 +10,11 @@ SRC = 	src/op.c	\
 		src/linked_lists/delete_node.c	\
 		src/linked_lists/destroy_list.c	\
 		src/linked_lists/disp_list.c	\
-		src/linked_lists/get_len_list.c
+		src/linked_lists/get_len_list.c \
+		src/utils/my_strcmp.c \
+		src/utils/put_error.c \
+		src/utlis/my_getnbr.c \
+		src/utils/my_strlmen.c \
 
 NAME =	project
 
