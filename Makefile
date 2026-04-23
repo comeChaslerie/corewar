@@ -38,7 +38,7 @@ INCLUDE = -I ./include
 .PHONY: all clean fclean re compile tests_run gcovrex tests_run_lib gcovrex_lib valgrind
 
 all:
-	$(CC) -o $(NAME) bs_come/read_bin.c $(SRC) $(LIB) $(INCLUDE)
+	$(CC) -o $(NAME) $(SRC) $(LIB) $(INCLUDE)
 
 clean:
 	rm -f *.gcno
