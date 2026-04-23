@@ -7,6 +7,7 @@
 
 #include "linked_list.h"
 #include <stdbool.h>
+#include <stdlib.h>
 
 bool add_head(linked_list_t **list, void *data)
 {

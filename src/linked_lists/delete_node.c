@@ -6,6 +6,7 @@
 */
 
 #include "linked_list.h"
+#include <stdlib.h>
 
 void delete_node(linked_list_t *temp, linked_list_t **list,
     void(*destroy_data)(void *))
