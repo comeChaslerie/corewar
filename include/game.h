@@ -8,12 +8,17 @@
 #ifndef GAME_H_
     #define GAME_H_
 
-    #include "op.h"
     #include "struct.h"
     #include <stdbool.h>
 
 void dump(main_t *main);
 
 int main_functions(int argc, char **argv);
+
+bool apply_instructions(main_t *main);
+
+bool check_function(char *);
+
+unsigned int get_args_size(unsigned char);
 
 #endif
