@@ -11,15 +11,6 @@
 #include "utils.h"
 #include <stdlib.h>
 
-static bool is_nbr(char *str)
-{
-    for (unsigned int index = 0; index < my_strlen(str); index++) {
-        if (str[index] < '0' || str[index] > '9')
-            return false;
-    }
-    return true;
-}
-
 static bool check_following_nb(int argc, char **argv,
     unsigned int *index, int *nbr)
 {
