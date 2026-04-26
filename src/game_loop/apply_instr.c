@@ -28,7 +28,8 @@ bool apply_instructions(main_t *main)
         if (!instr)
             return put_error("Error: malloc in apply_instructions.\n", NULL);
         if (!check_function(instr))
-            return false;
+            return false; //instruction parsing fail -> corrupted memory -> skip/exit ?
+        //translate memory in args and call instruction
     }
     return true;
 }
