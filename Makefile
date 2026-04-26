@@ -18,14 +18,16 @@ SRC = 	src/instructions/basic_instr.c		\
 		src/parsing_args/alloc_args.c 		\
 		src/parsing_args/manage_flag.c 		\
 		src/parsing_args/parse_args.c 		\
+		src/game_loop/apply_instr.c	\
+		src/game_loop/game_loop.c	\
 		src/utils/my_strcmp.c 		\
 		src/utils/put_error.c 		\
 		src/utils/my_getnbr.c 		\
 		src/utils/my_strlen.c 		\
 		src/utils/my_strdup.c 		\
-		src/is_nbr.c 			\
+		src/utils/is_nbr.c 			\
 		src/main_functions.c 	\
-		src/op.c				\
+		src/op.c
 		
 
 NAME =	corewar
