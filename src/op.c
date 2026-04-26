@@ -6,7 +6,7 @@
 */
 
 #include "op.h"
-#include "my.h"
+#include "instructions.h"
 #include <unistd.h>
 
 const op_t op_tab[] = {

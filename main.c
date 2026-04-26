@@ -1,11 +1,14 @@
 /*
 ** EPITECH PROJECT, 2025
-** Project_name
+** corewar
 ** File description:
-** main_function
+** main
 */
+#include "game.h"
 
-int main(void)
+int main(int argc, char **argv)
 {
+    if (main_functions(argc, argv) == 84)
+        return 84;
     return 0;
 }

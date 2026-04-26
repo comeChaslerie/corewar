@@ -8,6 +8,8 @@
 #ifndef OP_H_
     #define OP_H_
 
+    #include <stdbool.h>
+
     #define MEM_SIZE (6 * 1024)
     #define IDX_MOD 512 /* modulo of the index < */
     #define MAX_ARGS_NUMBER 4 /* this may not be changed 2^*IND_SIZE */
@@ -22,6 +24,8 @@
     #define COMMENT_CMD_STRING ".comment"
 
     #define PACKED_ATTR __attribute__((packed))
+
+    #define MAX_ROBOT_NBR 4
 /*
 ** regs
 */
@@ -49,7 +53,7 @@ typedef struct op_s {
     char code;
     int nbr_cycles;
     char *comment;
-    void *(*instr_func)(void *);
+    bool (*instr_func)(void *);
 } op_t;
 
 /*

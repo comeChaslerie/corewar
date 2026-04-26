@@ -48,15 +48,6 @@ jobs:
         run: make 2>&1 | tee coding_style.log || true
         timeout-minutes: 2
 
-      - name: Display coding style errors if any
-        run: |
-          grep 'error' coding_style.log | while read -r line; do
-            file=$(echo "$line" | cut -d: -f1)
-            linenbr=$(echo "$line" | cut -d: -f2)
-            msg=$(echo "$line" | cut -d: -f5- | tr -d ' ')
-            echo "::error file=$file,line=$linenbr::$msg"
-          done
-
       - name: Display coding style warnings if any
         run: |
           grep '\[Banana\]' coding_style.log | while read -r line; do
