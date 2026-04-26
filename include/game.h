@@ -14,4 +14,6 @@
 
 void dump(main_t *main);
 
+int main_functions(int argc, char **argv);
+
 #endif

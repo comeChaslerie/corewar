@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2025
 ** corewar
 ** File description:
-** Parse all the args
+** alloc the ars struct
 */
 
 #include "op.h"
@@ -34,7 +34,8 @@ args_t *alloc_args(void)
         free(args);
         return put_error("Robots args alloc failed.", NULL);
     }
-    for (unsigned int robot_index = 0; robot_index < MAX_ROBOT_NBR; robot_index++) {
+    for (unsigned int robot_index = 0; robot_index < MAX_ROBOT_NBR;
+        robot_index++) {
         args->robots_args[robot_index].filepath = NULL;
         args->robots_args[robot_index].id = -1;
         args->robots_args[robot_index].load_pos = -1;
