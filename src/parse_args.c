@@ -10,59 +10,17 @@
 #include "utils.h"
 #include <stdlib.h>
 
-void *free_args_struct(args_t *args)
+bool check_all_flags(int argc, char **argv, unsigned int *robot_index, args_t *args)
 {
-    if (args == NULL)
-        return NULL;
-    if (args->robots_args == NULL)
-        return NULL;
-    free(args->robots_args);
-    free(args);
-    return NULL;
-}
-
-args_t *alloc_args(void)
-{
-    args_t *args = malloc(sizeof(args_t));
-
-    if (args == NULL)
-        return put_error("Args struct alloc failed.", NULL);
-    args->cycle_dump = -1;
-    args->nbr_robots = 0;
-    args->robots_args = malloc(sizeof(robot_args_t) * MAX_ROBOT_NBR);
-    if (args->robots_args == NULL) {
-        free(args);
-        return put_error("Robots args alloc failed.", NULL);
-    }
-    for (unsigned int robot_index = 0; robot_index < MAX_ROBOT_NBR; robot_index++) {
-        args->robots_args[robot_index].filepath_tab = NULL;
-        args->robots_args[robot_index].id_tab = 0;
-        args->robots_args[robot_index].load_pos = -1;
-    }
-    return args;
-}
-
-bool is_nbr(char *str)
-{
-    for (unsigned int index = 0; index < my_strlen(str); index++) {
-        if (str[index] < '0' || str[index] > '9')
-            return false;
-    }
-    return true;
-}
-
-bool manage_flag_dump(char **argv, unsigned int index, args_t *args)
-{
-    if (my_strcmp(argv[index], "-d") == -1) {
-        if (args->cycle_dump != 0)
-            return put_error("Too many -d flags.", false);
-        if (argv[index + 1] == NULL)
-            return put_error("Missing argument for th -d flag.", false);
-        if (!is_nbr(argv[index + 1]))
-            return put_error("The argument for the -d flag isn't in the right format.", false);
-        args->cycle_dump = my_getnbr(argv[index + 1], 0);
-        if (args->cycle_dump > CYCLE_TO_DIE || args->cycle_dump < 0)
-            return put_error("The argument for the -d flag is out of range.", false);
+    for (unsigned int index = 1; index < argc; index++) {
+        if (!manage_flag_dump(argc, argv, &index, args))
+            return free_args_struct(args);
+        if (!manage_flag_load(argc, argv, &index, &args->robots_args[*robot_index]))
+            return free_args_struct(args);
+        if (!manage_flag_id(argc, argv, &index, &args->robots_args[*robot_index]))
+            return free_args_struct(args);
+        if (!manage_flags_robot(argv, &index, robot_index, args))
+            return free_args_struct(args);
     }
     return true;
 }
@@ -77,9 +35,15 @@ args_t *parse_args(int argc, char **argv)
     args = alloc_args();
     if (args == NULL)
         return put_error("Args struct alloc failed.", NULL);
-    for (unsigned int index = 1; argv[index] != NULL; index++) {
-        if (!(bool)manage_flag_dump(argv, index, args))
-            return free_args_struct(args);
+    if (check_all_flags(argc, argv, &robot_index, args))
+        return NULL;
+    if (robot_index < 2) {
+        put_error("There needs to be at least two robots.", NULL);
+        return free_args_struct(args);
+    }
+    if (args->cycle_dump == -1) {
+        put_error("There needs to be a -d flag.", NULL);
+        return free_args_struct(args);
     }
     return args;
 }

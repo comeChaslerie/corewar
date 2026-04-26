@@ -23,9 +23,9 @@ typedef struct robot_infos_s {
 } robot_infos_t;
 
 typedef struct robot_args_s {
-    char *filepath_tab;
-    unsigned int id_tab;
-    unsigned int load_pos;
+    char *filepath;
+    int id;
+    int load_pos;
 } robot_args_t;
 
 typedef struct args_s {

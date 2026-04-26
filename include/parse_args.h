@@ -15,8 +15,16 @@
 
 void display_hello(void);
 
+args_t *alloc_args(void);
+void *free_args_struct(args_t *args);
+
 bool check_magic_champions(header_t *header);
 int get_champion_infos(FILE *fp);
 void get_args(unsigned char value);
+
+bool manage_flags_robot(char **argv, unsigned int *index, unsigned int *robot_index, args_t *args);
+bool manage_flag_id(int argc, char **argv, unsigned int *index, robot_args_t *robots_args);
+bool manage_flag_load(int argc, char **argv, unsigned int *index, robot_args_t *robots_args);
+bool manage_flag_dump(int argc, char **argv, unsigned int *index, args_t *args);
 
 #endif /* !MY_H_ */

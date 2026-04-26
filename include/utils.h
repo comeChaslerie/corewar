@@ -13,5 +13,6 @@ int my_strncmp(char *s1, char *s2, int end);
 int my_strcmp(char *s1, char *s2);
 int my_getnbr(char const *str, int start);
 int my_strlen(const char *str);
+char *my_strdup(char *src);
 
 #endif
