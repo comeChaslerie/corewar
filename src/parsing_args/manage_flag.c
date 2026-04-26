@@ -35,6 +35,8 @@ static bool check_following_nb(int argc, char **argv,
 
 bool manage_flag_dump(int argc, char **argv, unsigned int *index, args_t *args)
 {
+    if (*index > argc)
+        return true;
     if (my_strcmp(argv[*index], "-d") == 0) {
         if (args->cycle_dump != -1)
             return put_error("Too many -d flags.", false);
@@ -51,6 +53,8 @@ bool manage_flag_dump(int argc, char **argv, unsigned int *index, args_t *args)
 bool manage_flag_load(int argc, char **argv, unsigned int *index,
     robot_args_t *robots_args)
 {
+    if (*index > argc)
+        return true;
     if (my_strcmp(argv[*index], "-a") == 0) {
         if (robots_args->load_pos != -1)
             return put_error("Too many -a flags for one robot.",
@@ -68,6 +72,8 @@ bool manage_flag_load(int argc, char **argv, unsigned int *index,
 bool manage_flag_id(int argc, char **argv, unsigned int *index,
     robot_args_t *robots_args)
 {
+    if (*index > argc)
+        return true;
     if (my_strcmp(argv[*index], "-n") == 0) {
         if (robots_args->id != -1)
             return put_error("Too many -n flags for one robot.",
@@ -85,9 +91,11 @@ bool manage_flag_id(int argc, char **argv, unsigned int *index,
 bool manage_flags_robot(char **argv, unsigned int *index,
     unsigned int *robot_index, args_t *args)
 {
-    if (argv[*index][0] != '-' && (index != 0 && argv[*index - 1][0] != '-')) {
+    if (argv[*index] == NULL)
+        return true;
+    if (argv[*index][0] != '-' && index != 0 && argv[*index - 1][0] != '-') {
         args->robots_args[*robot_index].filepath = my_strdup(argv[*index]);
-        robot_index += 1;
+        *robot_index += 1;
     }
     if (*robot_index == 4 && argv[*index + 1] != NULL)
         return put_error("There can be only 4 robots.", false);
