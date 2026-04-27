@@ -20,7 +20,7 @@ typedef struct pos_infos_s {
 typedef struct robot_infos_s {
     header_t *header;
     unsigned int id;
-    int regs[REG_NUMBER];
+    int *regs;
     int cycles_remaining;
     bool carry;
     int pc;

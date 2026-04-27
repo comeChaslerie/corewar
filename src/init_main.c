@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2025
 ** corewar
 ** File description:
-** main_functions
+** init main struct with args struct
 */
 #include "op.h"
 #include "parse_args.h"
@@ -17,18 +17,51 @@ void *free_main(char *str, main_t *main, args_t *args)
         return free_args_struct(args);
     if (main->arena != NULL)
         free(main->arena);
-    //if (main->robots != NULL)
-    //    free_robots();
+    if (main->robots == NULL) {
+        free(main);
+        return free_args_struct(args);
+    }
+    for (unsigned int index = 0; index < args->nbr_robots; index++) {
+        if (main->robots[index].pos_infos != NULL)
+            free(main->robots[index].pos_infos);
+        if (main->robots[index].regs != NULL)
+            free(main->robots[index].regs);
+    }
+    free(main->robots);
     free(main);
     return free_args_struct(args);
 }
 
-robot_infos_t *init_robots()
+bool init_one_robot(robot_infos_t *robot_infos, robot_args_t *robot_args)
 {
-    robot_infos_t *robot_infos = malloc(sizeof(robot_infos_t));
+    robot_infos->carry = 0;
+    robot_infos->id = robot_args->id;
+    robot_infos->pc = 0;
+    robot_infos->cycles_remaining = 0;
+    robot_infos->header = NULL;
+    robot_infos->pos_infos = malloc(sizeof(pos_infos_t));
+    if (robot_infos->pos_infos == NULL)
+        return false;
+    robot_infos->regs = malloc(sizeof(int) * REG_NUMBER);
+    if (robot_infos->regs == NULL)
+        return false;
+    robot_infos->pos_infos->pos_start = robot_args->load_pos;
+    robot_infos->pos_infos->pos_end = 0;
+    robot_infos->pos_infos->pos_next_instr = robot_args->load_pos;
+    return true;
+}
+
+robot_infos_t *init_robots(args_t *args)
+{
+    robot_infos_t *robot_infos = malloc(sizeof(robot_infos_t) *
+        args->nbr_robots);
 
     if (robot_infos == NULL)
         return put_error("Robot infos alloc failed.", NULL);
+    for (unsigned int index; index < args->nbr_robots; index++) {
+        if (!init_one_robot(&robot_infos[index], &args->robots_args[index]))
+            return put_error("One robot init failed.", NULL);
+    }
     return robot_infos;
 }
 
@@ -41,7 +74,7 @@ main_t *init_main(args_t *args)
     main->arena = malloc(sizeof(unsigned char) * (MEM_SIZE / 2));
     if (main->arena == NULL)
         return free_main("Arena alloc failed.", main, args);
-    main->robots = init_robots();
+    main->robots = init_robots(args);
     if (main->robots == NULL)
         return free_main("Robots alloc failed.", main, args);
     main->cycle = 0;
