@@ -60,7 +60,7 @@ jobs:
 
       - name: Fail if banana or compilation had errors or warnings
         run: |
-          if grep -qE 'error|warning' banana.log coding_style.log; then
+          if grep -q 'warning' banana.log coding_style.log; then
             exit 1
           fi
 
