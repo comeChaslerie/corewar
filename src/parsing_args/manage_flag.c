@@ -86,6 +86,8 @@ bool manage_flags_robot(char **argv, unsigned int *index,
         return true;
     if (argv[*index][0] != '-' && index != 0 && argv[*index - 1][0] != '-') {
         args->robots_args[*robot_index].filepath = my_strdup(argv[*index]);
+        if (args->robots_args[*robot_index].id == -1)
+            args->robots_args[*robot_index].id = 0;
         *robot_index += 1;
     }
     if (*robot_index == 4 && argv[*index + 1] != NULL)

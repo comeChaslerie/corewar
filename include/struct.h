@@ -11,15 +11,20 @@
     #include "op.h"
     #include <stdbool.h>
 
+typedef struct pos_infos_s {
+    int pos_next_instr;
+    int pos_start;
+    int pos_end;
+} pos_infos_t;
+
 typedef struct robot_infos_s {
     header_t *header;
+    unsigned int id;
     int regs[REG_NUMBER];
     int cycles_remaining;
     bool carry;
     int pc;
-    int pos_next_instr;
-    int pos_start;
-    int pos_end;
+    pos_infos_t *pos_infos;
 } robot_infos_t;
 
 typedef struct robot_args_s {
@@ -38,7 +43,8 @@ typedef struct main_s {
     args_t args;
     unsigned char arena[MEM_SIZE / 2];
     robot_infos_t robots[MAX_ROBOT_NBR];
-    int cycle;
+    unsigned int cycle;
+    unsigned int cycle_dump;
 } main_t;
 
 #endif
