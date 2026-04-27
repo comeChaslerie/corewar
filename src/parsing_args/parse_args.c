@@ -23,8 +23,6 @@ bool is_in_args_tab(int id, robot_args_t *robots_args, int actual_index_robot)
 
 bool check_after_parsing(args_t *args)
 {
-    if (args->cycle_dump == -1)
-        return put_error("There needs to be a -d flag.", false);
     for (unsigned int index_robot = 0; index_robot < 4; index_robot++) {
         if (args->robots_args[index_robot].id == -1)
             continue;
