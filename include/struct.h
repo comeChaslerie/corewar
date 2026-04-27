@@ -8,8 +8,28 @@
 #ifndef MY_STRUCT_H_
     #define MY_STRUCT_H_
 
-    #include "op.h"
     #include <stdbool.h>
+    #include "op_define.h"
+
+typedef struct
+header_s {
+    int magic;
+    char prog_name[PROG_NAME_LENGTH + 1];
+    char padding[3];
+    int prog_size;
+    char comment[COMMENT_LENGTH + 1];
+    char padding2[3];
+} header_t;
+
+typedef struct argument_s {
+    char type;
+    unsigned char *arg;
+} arg_t;
+
+typedef struct instruction_s {
+    unsigned int id;
+    arg_t *args[MAX_ARGS_NUMBER];
+} instr_t;
 
 typedef struct robot_infos_s {
     header_t *header;
