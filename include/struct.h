@@ -40,11 +40,11 @@ typedef struct args_s {
 } args_t;
 
 typedef struct main_s {
-    args_t args;
-    unsigned char arena[MEM_SIZE / 2];
-    robot_infos_t robots[MAX_ROBOT_NBR];
+    unsigned char *arena;
+    robot_infos_t *robots;
     unsigned int cycle;
     unsigned int cycle_dump;
+    unsigned int nbr_robots;
 } main_t;
 
 #endif
