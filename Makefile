@@ -5,7 +5,8 @@
 ## Makefile
 ##
 
-SRC = 	src/fill_instr/fill_robot_instr.c 			\
+SRC = 	src/fill_instr/check_instr.c 				\
+		src/fill_instr/fill_robot_instr.c 			\
 		src/instructions/basic_instr.c			\
 		src/instructions/bin_instr.c			\
 		src/instructions/fork_instr.c			\

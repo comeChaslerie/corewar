@@ -30,7 +30,8 @@ static void add_to_arena(unsigned char *arena, unsigned char *buffer,
     }
 }
 
-unsigned char *check_instr(unsigned char *elem, unsigned int *size_buffer, FILE *fp)
+unsigned char *check_instr(unsigned char *elem, unsigned int *size_buffer,
+    FILE *fp)
 {
     unsigned char *buffer = NULL;
     unsigned int size_elem = 0;
