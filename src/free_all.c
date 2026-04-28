@@ -1,0 +1,51 @@
+/*
+** EPITECH PROJECT, 2025
+** corewar
+** File description:
+** free the structs
+*/
+#include "parse_args.h"
+#include "struct.h"
+#include "utils.h"
+#include "handle_main.h"
+#include <stdlib.h>
+
+void *free_args_struct(args_t *args)
+{
+    if (args == NULL)
+        return NULL;
+    if (args->robots_args == NULL)
+        return NULL;
+    free(args->robots_args);
+    free(args);
+    return NULL;
+}
+
+void free_robots(main_t *main, args_t *args)
+{
+    for (unsigned int index = 0; index < args->nbr_robots; index++) {
+        if (main->robots[index].pos_infos != NULL)
+            free(main->robots[index].pos_infos);
+        if (main->robots[index].game_infos->regs != NULL)
+            free(main->robots[index].game_infos->regs);
+        if (main->robots[index].game_infos != NULL)
+            free(main->robots[index].game_infos);
+    }
+}
+
+void *free_main(char *str, main_t *main, args_t *args)
+{
+    put_error(str, NULL);
+    if (main == NULL)
+        return free_args_struct(args);
+    if (main->arena != NULL)
+        free(main->arena);
+    if (main->robots == NULL) {
+        free(main);
+        return free_args_struct(args);
+    }
+    free_robots(main, args);
+    free(main->robots);
+    free(main);
+    return free_args_struct(args);
+}

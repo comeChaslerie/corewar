@@ -17,13 +17,17 @@ typedef struct pos_infos_s {
     int pos_end;
 } pos_infos_t;
 
-typedef struct robot_infos_s {
-    header_t *header;
-    unsigned int id;
+typedef struct robot_game_infos_s {
     int *regs;
     int cycles_remaining;
     bool carry;
     int pc;
+} robot_game_infos_t;
+
+typedef struct robot_infos_s {
+    header_t *header;
+    unsigned int id;
+    robot_game_infos_t *game_infos;
     pos_infos_t *pos_infos;
 } robot_infos_t;
 

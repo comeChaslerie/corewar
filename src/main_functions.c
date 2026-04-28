@@ -6,7 +6,7 @@
 */
 #include "struct.h"
 #include "parse_args.h"
-#include "init_main.h"
+#include "handle_main.h"
 #include <stdio.h>
 
 int main_functions(int argc, char **argv)

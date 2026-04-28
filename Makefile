@@ -24,6 +24,8 @@ SRC = 	src/instructions/basic_instr.c		\
 		src/utils/my_strlen.c 		\
 		src/utils/my_strdup.c 		\
 		src/utils/is_nbr.c 			\
+		src/fill_robot_instr.c 	\
+		src/free_all.c 			\
 		src/init_main.c			\
 		src/main_functions.c 	\
 		src/op.c				\

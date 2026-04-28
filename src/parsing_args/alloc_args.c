@@ -10,17 +10,6 @@
 #include "utils.h"
 #include <stdlib.h>
 
-void *free_args_struct(args_t *args)
-{
-    if (args == NULL)
-        return NULL;
-    if (args->robots_args == NULL)
-        return NULL;
-    free(args->robots_args);
-    free(args);
-    return NULL;
-}
-
 args_t *alloc_args(void)
 {
     args_t *args = malloc(sizeof(args_t));
