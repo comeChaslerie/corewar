@@ -9,5 +9,6 @@
 !*.txt
 !.gitignore
 !*.md
+!tester/run.py
 !examples/binaries/*
 !examples/champions/*
