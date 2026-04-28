@@ -1,7 +1,7 @@
 name: CI
 
 env:
-  MIRROR_SSH_URL: 'git@github.com:EpitechPGE1-2025/G-DOP-200-NAN-2-1-bschocolatine-18.git'
+  MIRROR_SSH_URL: 'git@github.com:EpitechPGE1-2025/G-CPE-200-NAN-2-1-corewar-1.git'
   EXECUTABLES: "project"
 
 on:
