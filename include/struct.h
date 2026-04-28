@@ -11,15 +11,24 @@
     #include "op.h"
     #include <stdbool.h>
 
-typedef struct robot_infos_s {
-    header_t *header;
-    int regs[REG_NUMBER];
-    int cycles_remaining;
-    bool carry;
-    int pc;
+typedef struct pos_infos_s {
     int pos_next_instr;
     int pos_start;
     int pos_end;
+} pos_infos_t;
+
+typedef struct robot_game_infos_s {
+    int *regs;
+    int cycles_remaining;
+    bool carry;
+    int pc;
+} robot_game_infos_t;
+
+typedef struct robot_infos_s {
+    header_t header;
+    unsigned int id;
+    robot_game_infos_t *game_infos;
+    pos_infos_t *pos_infos;
 } robot_infos_t;
 
 typedef struct robot_args_s {
@@ -35,10 +44,11 @@ typedef struct args_s {
 } args_t;
 
 typedef struct main_s {
-    args_t args;
-    unsigned char arena[MEM_SIZE / 2];
-    robot_infos_t robots[MAX_ROBOT_NBR];
-    int cycle;
+    unsigned char *arena;
+    robot_infos_t *robots;
+    unsigned int cycle;
+    unsigned int cycle_dump;
+    unsigned int nbr_robots;
 } main_t;
 
 #endif
