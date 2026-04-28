@@ -25,7 +25,7 @@ typedef struct robot_game_infos_s {
 } robot_game_infos_t;
 
 typedef struct robot_infos_s {
-    header_t *header;
+    header_t header;
     unsigned int id;
     robot_game_infos_t *game_infos;
     pos_infos_t *pos_infos;

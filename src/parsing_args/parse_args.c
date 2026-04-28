@@ -35,12 +35,12 @@ static bool check_after_parsing(args_t *args)
     return true;
 }
 
-static bool is_a_flag(const char *elem)
+static bool is_a_flag(char *elem)
 {
     if (elem[0] != '-')
         return true;
     if (elem[0] == '-' && elem[1] != '\0')
-        if ((elem[1] == 'd' || elem[1] == 'a' || elem[1] == 'n')
+        if ((my_strcmp(elem, "-dump") == 0 || elem[1] == 'a' || elem[1] == 'n')
             && elem[2] == '\0')
             return true;
     return false;

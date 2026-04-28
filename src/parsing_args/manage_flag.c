@@ -28,7 +28,7 @@ bool manage_flag_dump(int argc, char **argv, unsigned int *index, args_t *args)
 {
     if (*index > argc)
         return true;
-    if (my_strcmp(argv[*index], "-d") == 0) {
+    if (my_strcmp(argv[*index], "-dump") == 0) {
         if (args->cycle_dump != -1)
             return put_error("Too many -d flags.", false);
         if (!check_following_nb(argc, argv, index, &args->cycle_dump))
