@@ -89,6 +89,17 @@ static int update_id(robot_args_t *robots_args)
     return index_tab;
 }
 
+static void update_load_pos(robot_args_t *robots_args, unsigned int nbr_robots)
+{
+    int slice_size = MEM_SIZE / nbr_robots;
+
+    for (unsigned int index_tab = 0; index_tab <= nbr_robots; index_tab++) {
+        if (robots_args[index_tab].load_pos == -1)
+            robots_args[index_tab].load_pos = slice_size *
+                (robots_args[index_tab].id - 1);
+    }
+}
+
 bool finish_completing_struct(args_t *args)
 {
     args->nbr_robots = update_id(args->robots_args);
@@ -97,6 +108,7 @@ bool finish_completing_struct(args_t *args)
         if (args->robots_args[index_tab].id > args->nbr_robots)
             return put_error("One of the id is too high.", false);
     }
+    update_load_pos(args->robots_args, args->nbr_robots);
     return true;
 }
 

@@ -46,6 +46,7 @@ $(NAME):	$(OBJ)
 	$(CC) -o $(NAME) main.c $(OBJ) $(CFLAGS)
 
 clean:
+	rm -f $(OBJ)
 	rm -f *.gcno
 	rm -f *.gcda
 	rm -f unit_tests
