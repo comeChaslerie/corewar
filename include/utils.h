@@ -17,5 +17,7 @@ int my_getnbr(char const *str, int start);
 int my_strlen(const char *str);
 char *my_strdup(char *src);
 bool is_nbr(char *str);
+unsigned char *my_ustrcat(unsigned char *dest, unsigned int *size_dest,
+    unsigned char *src, unsigned int size_src);
 
 #endif

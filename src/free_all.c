@@ -40,12 +40,10 @@ void *free_main(char *str, main_t *main, args_t *args)
         return free_args_struct(args);
     if (main->arena != NULL)
         free(main->arena);
-    if (main->robots == NULL) {
-        free(main);
-        return free_args_struct(args);
+    if (main->robots != NULL) {
+        free_robots(main, args);
+        free(main->robots);
     }
-    free_robots(main, args);
-    free(main->robots);
     free(main);
     return free_args_struct(args);
 }
