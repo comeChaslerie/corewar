@@ -33,12 +33,17 @@ NAME =	corewar
 
 CC = epiclang
 
-INCLUDE = -I ./include
+CFLAGS = -I./include
+
+OBJ = 	$(SRC:.c=.o)
 
 .PHONY: all clean fclean re compile tests_run gcovrex tests_run_lib gcovrex_lib valgrind
 
-all:
-	$(CC) -o $(NAME) main.c $(SRC) $(INCLUDE)
+
+all: 	$(NAME)
+
+$(NAME):	$(OBJ)
+	$(CC) -o $(NAME) main.c $(OBJ) $(CFLAGS)
 
 clean:
 	rm -f *.gcno
