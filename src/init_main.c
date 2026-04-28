@@ -49,7 +49,7 @@ robot_infos_t *init_robots(args_t *args, main_t *main)
 
     if (robot_infos == NULL)
         return put_error("Robot infos alloc failed.", NULL);
-    for (unsigned int index; index < args->nbr_robots; index++) {
+    for (unsigned int index = 0; index < args->nbr_robots; index++) {
         if (!init_one_robot(&robot_infos[index],
                 &args->robots_args[index], main))
             return put_error("One robot init failed.", NULL);

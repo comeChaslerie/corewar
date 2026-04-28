@@ -22,13 +22,14 @@ bool is_in_args_tab(int id, robot_args_t *robots_args, int actual_index_robot)
     return false;
 }
 
-static bool check_after_parsing(args_t *args)
+static bool check_after_parsing(robot_args_t *robots_args)
 {
     for (unsigned int index_robot = 0; index_robot < 4; index_robot++) {
-        if (args->robots_args[index_robot].id == -1)
+        if (robots_args[index_robot].id == 0 ||
+            robots_args[index_robot].id == -1)
             continue;
-        if (is_in_args_tab(args->robots_args[index_robot].id,
-                args->robots_args, index_robot))
+        if (is_in_args_tab(robots_args[index_robot].id,
+                robots_args, index_robot))
             return put_error("There can't be two robots with the same id.",
                 false);
     }
@@ -64,9 +65,6 @@ bool check_all_flags(int argc, char **argv, args_t *args)
         if (!is_a_flag(argv[index]))
             return put_error("The flag doesn't exist.", false);
     }
-    if (robot_index < 2)
-        return put_error("There needs to be at least two robots.",
-            false);
     return true;
 }
 
@@ -116,7 +114,7 @@ args_t *parse_args(int argc, char **argv)
 {
     args_t *args = NULL;
 
-    if (argc < 3)
+    if (argc < 2)
         return put_error("There is not enough arguments.",
             NULL);
     args = alloc_args();
@@ -124,7 +122,7 @@ args_t *parse_args(int argc, char **argv)
         return put_error("Args struct alloc failed.", NULL);
     if (!check_all_flags(argc, argv, args))
         return free_args_struct(args);
-    if (!check_after_parsing(args))
+    if (!check_after_parsing(args->robots_args))
         return free_args_struct(args);
     if (!finish_completing_struct(args))
         return free_args_struct(args);

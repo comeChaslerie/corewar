@@ -20,6 +20,7 @@ SRC = 	src/fill_instr/check_instr.c 				\
 		src/parsing_args/alloc_args.c 	\
 		src/parsing_args/manage_flag.c 	\
 		src/parsing_args/parse_args.c 	\
+		src/utils/conversions.c 	\
 		src/utils/my_strcmp.c 		\
 		src/utils/put_error.c 		\
 		src/utils/my_getnbr.c 		\

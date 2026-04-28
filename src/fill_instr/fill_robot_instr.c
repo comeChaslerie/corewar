@@ -35,14 +35,15 @@ unsigned char *check_instr(unsigned char *elem, unsigned int *size_buffer,
 {
     unsigned char *buffer = NULL;
     unsigned int size_elem = 0;
+    unsigned int id_instr = 0;
 
     buffer = my_ustrcat(buffer, size_buffer, elem, 1);
-    if (!check_id(elem, &size_elem))
+    if (!check_id(elem[0], &size_elem, &id_instr))
         return put_error("Bad id.", NULL);
     if (size_elem == 1) {
         fread(elem, sizeof(unsigned char), 1, fp);
         buffer = my_ustrcat(buffer, size_buffer, elem, size_elem);
-        if (!check_byte_code(elem, &size_elem))
+        if (!check_byte_code(elem[0], &size_elem, id_instr))
             return put_error("Bad byte code.", NULL);
     }
     fread(elem, sizeof(unsigned char), size_elem, fp);

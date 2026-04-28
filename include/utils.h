@@ -19,5 +19,6 @@ char *my_strdup(char *src);
 bool is_nbr(char *str);
 unsigned char *my_ustrcat(unsigned char *dest, unsigned int *size_dest,
     unsigned char *src, unsigned int size_src);
+char *to_bin(unsigned char value);
 
 #endif
