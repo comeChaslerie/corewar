@@ -63,35 +63,25 @@ re:
 	$(MAKE) all
 
 tests_run:	clean
-	$(CC) -o unit_tests $(SRC) tests/*.c -lcriterion --coverage $(INCLUDE)
+	$(CC) -o unit_tests $(SRC) tests/*.c -lcriterion --coverage $(CFLAGS)
 	./unit_tests
 
 coverage:	tests_run
 	gcovr --gcov-executable "llvm-cov-20 gcov" --exclude tests/
 	gcovr --branches --gcov-executable "llvm-cov-20 gcov" --exclude tests/
 
-tests_run_lib:	clean
-	gcc -o unit_tests --coverage -lcriterion \
-		./tests_lib/*.c \
-		./src/utils/*.c \
-		./lib/my_printf/*.c \
-		./lib/my_printf/arguments/*.c \
-		./lib/my_printf/flags/*.c \
-		./lib/my_printf/lib/*.c \
-		-I./include
+#for mac
 
-gcovrex_lib:	clean
-	$(MAKE) tests_run_lib
+mac_tests_run:	clean
+	gcc -o unit_tests $(SRC) tests/*.c -lcriterion --coverage $(CFLAGS)
 	./unit_tests
-	gcovr --gcov-executable "llvm-cov gcov" \
-		--exclude "tests/.*" --exclude "tests_lib/.*"
-	gcovr --txt-metric branch --gcov-executable "llvm-cov gcov" \
-		--exclude "tests/.*" --exclude "tests_lib/.*"
 
-compile:
-	rm -f $(NAME)
-	$(CC) -o $(NAME) $(SRC) $(INCLUDE)
-	valgrind ./$(NAME)
+gcovrex:	re
+	$(MAKE) mac_tests_run
+	gcovr --gcov-executable "llvm-cov gcov" \
+		--exclude "tests/.*"
+	gcovr --txt-metric branch --gcov-executable "llvm-cov gcov" \
+		--exclude "tests/.*"
 
 valgrind: all
 	valgrind --leak-check=full \
