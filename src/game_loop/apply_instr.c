@@ -19,7 +19,7 @@ static unsigned char *get_instr_mem(main_t *main, unsigned int id)
     unsigned int size = 0;
     unsigned int *args_size = NULL;
 
-    pos_start = main->robots[id].pos_start;
+    pos_start = main->robots[id].pos_infos->pos_start;
     args_size = get_args_size(main->arena[pos_start]);
     if (!args_size)
         return NULL;
@@ -32,8 +32,8 @@ static unsigned char *get_instr_mem(main_t *main, unsigned int id)
 
 static bool decrement_robot_cycle(main_t *main, unsigned int id)
 {
-    if (main->robots[id].cycles_remaining){
-        main->robots[id].cycles_remaining--;
+    if (main->robots[id].game_infos->cycles_remaining){
+        main->robots[id].game_infos->cycles_remaining--;
         return true;
     }
     return false;
@@ -50,7 +50,7 @@ bool apply_instructions(main_t *main)
     unsigned char *instr = NULL;
     instr_t *args = NULL;
 
-    for (unsigned int i = 0; i < main->args.nbr_robots; i++){
+    for (unsigned int i = 0; i < main->nbr_robots; i++){
         if (decrement_robot_cycle(main, i))
             continue;
         instr = get_instr_mem(main, i);

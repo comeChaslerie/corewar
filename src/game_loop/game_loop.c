@@ -16,7 +16,7 @@ bool game_loop(main_t *main)
     for (unsigned int i = 0; i < CYCLE_TO_DIE; i++){
         if (!apply_instructions(main))
             return false;
-        if (main->args.cycle_dump == i)
+        if (main->cycle_dump == i)
             dump(main);
     }
     return true;
