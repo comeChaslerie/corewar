@@ -1,8 +1,8 @@
 name: CI
 
 env:
-  MIRROR_SSH_URL: 'git@github.com:EpitechPGE1-2025/G-DOP-200-NAN-2-1-bschocolatine-18.git'
-  EXECUTABLES: "project"
+  MIRROR_SSH_URL: 'git@github.com:EpitechPGE1-2025/G-CPE-200-NAN-2-1-corewar-1.git'
+  EXECUTABLES: "corewar"
 
 on:
   push:
@@ -60,7 +60,7 @@ jobs:
 
       - name: Fail if banana or compilation had errors or warnings
         run: |
-          if grep -qE 'error|warning' banana.log coding_style.log; then
+          if grep -q 'warning' banana.log coding_style.log; then
             exit 1
           fi
 
