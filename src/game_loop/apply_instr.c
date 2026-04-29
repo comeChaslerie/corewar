@@ -18,12 +18,15 @@ static unsigned char *get_instr_mem(main_t *main, unsigned int id)
     unsigned char *instr = NULL;
     unsigned int size = 0;
     unsigned int *args_size = NULL;
+    unsigned int nbr_args = 0;
 
     pos_start = main->robots[id].pos_infos->pos_start;
-    args_size = get_args_size(main->arena[pos_start]);
+    args_size = get_coding_byte_tab(main->arena[pos_start + 1]);
     if (!args_size)
         return NULL;
-    size = get_global_size(args_size);
+    size = get_global_size(args_size, &nbr_args);
+    if (nbr_args != op_tab[main->arena[pos_start + 1]].nbr_args)
+        return false;
     instr = my_ustrndup(main->arena, pos_start, pos_start + size);
     if (!instr)
         return put_error("Error: dup in apply_instructions.\n", NULL);
@@ -56,8 +59,8 @@ bool apply_instructions(main_t *main)
         instr = get_instr_mem(main, i);
         if (!instr)
             return false;
-        if (!check_function(instr))
-            continue;
+        /*if (!check_function(instr))
+            continue;*/
         args = translate_mem(instr);
         if (!args || !apply_instr(main, args))
             return false;

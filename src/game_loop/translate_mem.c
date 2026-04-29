@@ -40,7 +40,7 @@ instr_t *translate_mem(unsigned char *instr)
         return NULL;
     new_instr->id = instr[0];
     if (op_tab[(int)new_instr->id].coding_byte)
-        args_size = get_args_size(instr[1]);
+        args_size = get_coding_byte_tab(instr[1]);
     else
         arg_size = get_size_from_id(instr[0]);
     if (!fill_instr(args_size, arg_size, new_instr, &(instr[1])))

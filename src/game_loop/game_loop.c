@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include "struct.h"
 #include "game.h"
+#include <unistd.h>
 
 bool game_loop(main_t *main)
 {
@@ -17,7 +18,8 @@ bool game_loop(main_t *main)
         if (!apply_instructions(main))
             return false;
         if (main->cycle_dump == i)
-            dump(main);
+            write(1, "dump\n", 6);
+            //dump(main);
     }
     return true;
 }
