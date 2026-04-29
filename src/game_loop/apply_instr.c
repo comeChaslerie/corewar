@@ -59,8 +59,6 @@ bool apply_instructions(main_t *main)
         instr = get_instr_mem(main, i);
         if (!instr)
             return false;
-        /*if (!check_function(instr))
-            continue;*/
         args = translate_mem(instr);
         if (!args || !apply_instr(main, args))
             return false;

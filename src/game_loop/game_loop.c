@@ -19,7 +19,6 @@ bool game_loop(main_t *main)
             return false;
         if (main->cycle_dump == i)
             write(1, "dump\n", 6);
-            //dump(main);
     }
     return true;
 }
