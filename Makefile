@@ -21,14 +21,19 @@ SRC = 	src/fill_instr/check_instr.c 		\
 		src/parsing_args/manage_flag.c		\
 		src/parsing_args/parse_args.c		\
 		src/utils/conversions.c			\
+		src/game_loop/get_size_from_id.c	\
+		src/game_loop/translate_mem.c	\
 		src/game_loop/apply_instr.c		\
 		src/game_loop/game_loop.c		\
+		src/init/init_arg.c	\
+		src/init/init_instr.c	\
 		src/utils/my_strcmp.c 		\
 		src/utils/put_error.c 		\
 		src/utils/my_getnbr.c 		\
 		src/utils/my_strlen.c 		\
 		src/utils/my_strdup.c 		\
 		src/utils/my_ustrcat.c 		\
+		src/utils/my_ustrndup.c	\
 		src/utils/is_nbr.c 			\
 		src/free_all.c 			\
 		src/init_main.c			\
