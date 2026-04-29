@@ -18,7 +18,7 @@ int main_functions(int argc, char **argv)
         return 84;
     main = init_main(args);
     if (main == NULL)
-        return 0;
+        return 84;
     free_main("", main, args);
     return 0;
 }

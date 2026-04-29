@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "game.h"
 #include "op.h"
 #include "op_define.h"
 #include "utils.h"
@@ -16,7 +17,7 @@ bool check_id(unsigned char elem, unsigned int *size_elem,
 {
     if (elem > 15)
         return false;
-    *size_elem = 1;
+    *size_elem = get_size_from_id(elem);
     *id_instr = (unsigned int)elem;
     return true;
 }

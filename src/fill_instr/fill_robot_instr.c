@@ -25,6 +25,8 @@ int my_htonl(int val)
 static void add_to_arena(unsigned char *arena, unsigned char *buffer,
     unsigned int size_buffer)
 {
+    if (buffer == NULL)
+        return;
     for (unsigned int index = 0; index < size_buffer; index++) {
         arena[index] = buffer[index];
     }
@@ -33,10 +35,9 @@ static void add_to_arena(unsigned char *arena, unsigned char *buffer,
 }
 
 unsigned char *check_instr(unsigned char instr, unsigned int *size_buffer,
-    FILE *fp)
+    FILE *fp, unsigned char *buffer)
 {
     unsigned char *elem = NULL;
-    unsigned char *buffer = NULL;
     unsigned int size_elem = 0;
     unsigned int id_instr = 0;
 
@@ -45,7 +46,7 @@ unsigned char *check_instr(unsigned char instr, unsigned int *size_buffer,
         return put_error("Bad id.", NULL);
     if (size_elem == 1) {
         fread(&instr, sizeof(unsigned char), 1, fp);
-        buffer = my_ustrcat(buffer, size_buffer, elem, size_elem);
+        buffer = my_ustrcat(buffer, size_buffer, &instr, size_elem);
         if (!check_byte_code(instr, &size_elem, id_instr))
             return put_error("Bad byte code.", NULL);
     }
@@ -67,15 +68,15 @@ bool get_instructions(main_t *main, robot_infos_t *robot_infos, FILE *fp)
     unsigned int pos = robot_infos->pos_infos->pos_start;
 
     while (fread(&elem, sizeof(unsigned char), 1, fp) != 0) {
-        printf("check instr start\n");
-        buffer = check_instr(elem, &size_buffer, fp);
-        printf("check_instr\n");
+        buffer = check_instr(elem, &size_buffer, fp, buffer);
         if (buffer == NULL)
-            return false;
+            return put_error("Buffer equals null.", false);
         if (pos + size_total + size_buffer > MEM_SIZE / 2)
             return put_error("Champions instr goes out of memory.", false);
         add_to_arena(&main->arena[pos + size_total], buffer, size_buffer);
         size_total += size_buffer;
+        printf("size_total: %i\n", size_total);
+        size_buffer = 0;
     }
     robot_infos->pos_infos->pos_end =
         robot_infos->pos_infos->pos_start + size_total;

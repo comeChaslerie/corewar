@@ -5,6 +5,7 @@
 ** add two strings in a new one
 */
 #include <stdlib.h>
+#include <stdio.h>
 
 unsigned char *my_ustrcat(unsigned char *dest, unsigned int *size_dest,
     unsigned char *src, unsigned int size_src)
