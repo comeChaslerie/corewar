@@ -27,6 +27,7 @@ SRC = 	src/fill_instr/check_instr.c 		\
 		src/game_loop/game_loop.c		\
 		src/init/init_arg.c	\
 		src/init/init_instr.c	\
+		src/init/init_main.c			\
 		src/utils/my_strcmp.c 		\
 		src/utils/put_error.c 		\
 		src/utils/my_getnbr.c 		\
@@ -36,7 +37,6 @@ SRC = 	src/fill_instr/check_instr.c 		\
 		src/utils/my_ustrndup.c	\
 		src/utils/is_nbr.c 			\
 		src/free_all.c 			\
-		src/init_main.c			\
 		src/main_functions.c 	\
 		src/op.c
 		

@@ -6,7 +6,6 @@
 */
 #include <stdbool.h>
 #include <stdio.h>
-#include "op.h"
 #include "struct.h"
 #include "utils.h"
 #include "handle_main.h"

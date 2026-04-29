@@ -6,7 +6,6 @@
 */
 
 #include "parse_args.h"
-#include "op.h"
 #include "struct.h"
 #include "utils.h"
 #include <stdlib.h>
