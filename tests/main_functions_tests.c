@@ -16,7 +16,6 @@ Test(main_functions, basic_args)
     cr_assert(main_functions(argc, argv) == 84); //should return 0
 }
 
-
 Test(main_functions, basic_wrong_args)
 {
     int argc = 2;

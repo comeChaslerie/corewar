@@ -78,7 +78,7 @@ coverage:	tests_run
 #for mac
 
 mac_tests_run:	clean
-	gcc -o unit_tests $(SRC) tests/*.c -lcriterion --coverage $(CFLAGS)
+	gcc -o unit_tests $(SRC) tests/*.c tests/utils_tests/*.c -lcriterion --coverage $(CFLAGS)
 	./unit_tests
 
 gcovrex:	re
