@@ -21,8 +21,10 @@ void *free_args_struct(args_t *args)
     return NULL;
 }
 
-void free_robots(main_t *main, args_t *args)
+void *free_robots(main_t *main, args_t *args, void *return_value)
 {
+    if (main->robots == NULL)
+        return return_value;
     for (unsigned int index = 0; index < args->nbr_robots; index++) {
         if (main->robots[index].pos_infos != NULL)
             free(main->robots[index].pos_infos);
@@ -31,6 +33,8 @@ void free_robots(main_t *main, args_t *args)
         if (main->robots[index].game_infos != NULL)
             free(main->robots[index].game_infos);
     }
+    free(main->robots);
+    return return_value;
 }
 
 void *free_main(char *str, main_t *main, args_t *args)
@@ -41,7 +45,7 @@ void *free_main(char *str, main_t *main, args_t *args)
     if (main->arena != NULL)
         free(main->arena);
     if (main->robots != NULL) {
-        free_robots(main, args);
+        free_robots(main, args, NULL);
         free(main->robots);
     }
     free(main);

@@ -14,6 +14,8 @@ static bool is_a_flag(char *elem, unsigned int *index)
 {
     if (elem == NULL)
         return true;
+    if (elem[0] != '-')
+        return true;
     *index -= 1;
     if (my_strcmp(elem, "-dump") == 0 ||
         my_strcmp(elem, "-a") == 0 ||

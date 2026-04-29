@@ -32,39 +32,44 @@ static void add_to_arena(unsigned char *arena, unsigned char *buffer,
     buffer = NULL;
 }
 
-unsigned char *check_instr(unsigned char *elem, unsigned int *size_buffer,
+unsigned char *check_instr(unsigned char instr, unsigned int *size_buffer,
     FILE *fp)
 {
+    unsigned char *elem = NULL;
     unsigned char *buffer = NULL;
     unsigned int size_elem = 0;
     unsigned int id_instr = 0;
 
-    buffer = my_ustrcat(buffer, size_buffer, elem, 1);
-    if (!check_id(elem[0], &size_elem, &id_instr))
+    buffer = my_ustrcat(buffer, size_buffer, &instr, 1);
+    if (!check_id(instr, &size_elem, &id_instr))
         return put_error("Bad id.", NULL);
     if (size_elem == 1) {
-        fread(elem, sizeof(unsigned char), 1, fp);
+        fread(&instr, sizeof(unsigned char), 1, fp);
         buffer = my_ustrcat(buffer, size_buffer, elem, size_elem);
-        if (!check_byte_code(elem[0], &size_elem, id_instr))
+        if (!check_byte_code(instr, &size_elem, id_instr))
             return put_error("Bad byte code.", NULL);
     }
+    elem = malloc(sizeof(unsigned char) * size_elem);
     fread(elem, sizeof(unsigned char), size_elem, fp);
     buffer = my_ustrcat(buffer, size_buffer, elem, size_elem);
     if (!check_args(elem, &size_elem))
         return put_error("Bad args.", NULL);
+    free(elem);
     return buffer;
 }
 
 bool get_instructions(main_t *main, robot_infos_t *robot_infos, FILE *fp)
 {
-    unsigned char *elem;
+    unsigned char elem = '\0';
     unsigned char *buffer = NULL;
     unsigned int size_buffer = 0;
     unsigned int size_total = 0;
     unsigned int pos = robot_infos->pos_infos->pos_start;
 
-    while (fread(elem, sizeof(unsigned char), 1, fp) != -1) {
+    while (fread(&elem, sizeof(unsigned char), 1, fp) != 0) {
+        printf("check instr start\n");
         buffer = check_instr(elem, &size_buffer, fp);
+        printf("check_instr\n");
         if (buffer == NULL)
             return false;
         if (pos + size_total + size_buffer > MEM_SIZE / 2)
@@ -84,7 +89,8 @@ bool fill_robot_instr(main_t *main, robot_infos_t *robot_infos,
 
     if (fp == NULL)
         return put_error("File open failed.", false);
-    fread(&robot_infos->header, sizeof(header_t), 1, fp);
+    if (fread(&robot_infos->header, sizeof(header_t), 1, fp) == 0)
+        return put_error("The header isn't in the right format.", false);
     if (my_htonl(robot_infos->header.magic) != COREWAR_EXEC_MAGIC)
         return put_error("Bad magic number.", false);
     if (!get_instructions(main, robot_infos, fp))

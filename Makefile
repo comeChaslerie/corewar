@@ -89,11 +89,13 @@ gcovrex:	re
 		--exclude "tests/.*"
 
 valgrind: re
+	$(MAKE) clean
 	valgrind --leak-check=full \
          --show-leak-kinds=all \
          --track-origins=yes \
          --log-file=valgrind-out.txt \
          ./$(NAME) -dump 10 -a 2 examples/champions/bill.cor 
+
 
 re_mac:
 	$(MAKE) fclean
