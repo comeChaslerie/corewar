@@ -4,29 +4,32 @@
 ** File description:
 ** instructions functions basic
 */
+
 #include <stdbool.h>
+#include "op_define.h"
+#include "struct.h"
 
-bool live_instr(void *value)
+bool live_instr(void *value, arg_t *args[MAX_ARGS_NUMBER])
 {
     return true;
 }
 
-bool add_instr(void *value)
+bool add_instr(void *value, arg_t *args[MAX_ARGS_NUMBER])
 {
     return true;
 }
 
-bool sub_instr(void *value)
+bool sub_instr(void *value, arg_t *args[MAX_ARGS_NUMBER])
 {
     return true;
 }
 
-bool print_instr(void *value)
+bool print_instr(void *value, arg_t *args[MAX_ARGS_NUMBER])
 {
     return true;
 }
 
-bool jump_instr(void *value)
+bool jump_instr(void *value, arg_t *args[MAX_ARGS_NUMBER])
 {
     return true;
 }

@@ -16,7 +16,10 @@ int my_strcmp(char *s1, char *s2);
 int my_getnbr(char const *str, int start);
 int my_strlen(const char *str);
 char *my_strdup(char *src);
+char *my_strndup(char *src, int start, int end);
 bool is_nbr(char *str);
+unsigned char *my_ustrndup(unsigned char *src, unsigned int start,
+    unsigned int end);
 unsigned char *my_ustrcat(unsigned char *dest, unsigned int *size_dest,
     unsigned char *src, unsigned int size_src);
 char *to_bin(unsigned char value);

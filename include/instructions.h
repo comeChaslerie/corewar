@@ -8,27 +8,24 @@
 #ifndef INSTRUCTIONS_H_
     #define INSTRUCTIONS_H_
 
-    #include "op.h"
+    #include "struct.h"
     #include <stdbool.h>
 
-bool live_instr(void *value);
-bool load_instr(void *value);
-bool store_instr(void *value);
-bool add_instr(void *value);
-bool sub_instr(void *value);
-bool bin_and_instr(void *value);
-bool bin_or_instr(void *value);
-bool bin_xor_instr(void *value);
-bool jump_instr(void *value);
-bool load_ind_instr(void *value);
-bool store_ind_instr(void *value);
-bool fork_instr(void *value);
-bool load_long_instr(void *value);
-bool load_long_ind_instr(void *value);
-bool fork_long_instr(void *value);
-bool live_instr(void *value);
-bool live_instr(void *value);
-bool print_instr(void *value);
+bool live_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool load_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool store_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool add_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool sub_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool bin_and_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool bin_or_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool bin_xor_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool jump_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool load_ind_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool store_ind_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool fork_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool load_long_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool load_long_ind_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool fork_long_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
+bool print_instr(void *main, arg_t *args[MAX_ARGS_NUMBER]);
 
-
-#endif /* !MY_H_ */
+#endif /* !INSTRUCTIONS_H_ */
