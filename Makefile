@@ -88,12 +88,12 @@ gcovrex:	re
 	gcovr --txt-metric branch --gcov-executable "llvm-cov gcov" \
 		--exclude "tests/.*"
 
-valgrind: all
+valgrind: re
 	valgrind --leak-check=full \
          --show-leak-kinds=all \
          --track-origins=yes \
          --log-file=valgrind-out.txt \
-         ./$(NAME)
+         ./$(NAME) -dump 10 -a 2 examples/champions/bill.cor 
 
 re_mac:
 	$(MAKE) fclean

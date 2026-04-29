@@ -6,7 +6,6 @@
 !Makefile
 !*.c
 !*.h
-!*.txt
 !.gitignore
 !*.md
 !tester/run.py

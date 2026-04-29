@@ -73,7 +73,6 @@ bool check_byte_code(unsigned char elem, unsigned int *size_elem,
     size = get_global_size(tab, &nbr_args);
     free(tab);
     *size_elem = size;
-    printf("nbr args: %i actual: %i\n", op_tab[id_instr].nbr_args, nbr_args);
     if (nbr_args != op_tab[id_instr].nbr_args)
         return put_error("Number of args differs from instr.", false);
     return true;
