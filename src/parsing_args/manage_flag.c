@@ -43,7 +43,7 @@ static bool check_following_nb(int argc, char **argv,
     unsigned int *index, int *nbr)
 {
     *index += 1;
-    if (*index > argc)
+    if (*index >= argc)
         return put_error("Missing argument after a flag.", false);
     if (!is_nbr(argv[*index]))
         return put_error("The argument for the flag isn't in the right format.",

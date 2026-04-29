@@ -49,9 +49,6 @@ CFLAGS = -I./include
 
 OBJ = 	$(SRC:.c=.o)
 
-.PHONY: all clean fclean re compile tests_run gcovrex tests_run_lib gcovrex_lib valgrind
-
-
 all: 	$(NAME)
 
 $(NAME):	$(OBJ)
@@ -104,3 +101,5 @@ re_mac:
 
 tester_run: re
 	python3 tester/run.py
+
+.PHONY: all clean fclean re compile tests_run gcovrex tests_run_lib gcovrex_lib valgrind
