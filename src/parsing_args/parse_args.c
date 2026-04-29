@@ -51,7 +51,7 @@ static bool update_id(args_t *args)
     unsigned int index_tab = 0;
 
     for (unsigned int index_robot = 1; args->robots_args[index_tab].id != -1 &&
-        index_robot <= MAX_ROBOT_NBR; index_robot++) {
+        index_tab < MAX_ROBOT_NBR; index_robot++) {
         if (args->robots_args[index_tab].id != 0) {
             index_tab += 1;
             index_robot -= 1;
@@ -74,8 +74,10 @@ bool finish_completing_struct(args_t *args)
         return false;
     for (unsigned int index_tab = 0; index_tab < args->nbr_robots;
         index_tab++) {
-        if (args->robots_args[index_tab].id > args->nbr_robots)
+        if (args->robots_args[index_tab].id > args->nbr_robots) {
+            printf("id: %i nbr_robots: %i\n", args->robots_args[index_tab].id, args->nbr_robots);
             return put_error("One of the id is too high.", false);
+        }
     }
     update_load_pos(args->robots_args, args->nbr_robots);
     return true;
