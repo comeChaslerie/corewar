@@ -14,13 +14,12 @@ static bool is_a_flag(char *elem, unsigned int *index)
 {
     if (elem == NULL)
         return true;
+    *index -= 1;
     if (my_strcmp(elem, "-dump") == 0 ||
         my_strcmp(elem, "-a") == 0 ||
         my_strcmp(elem, "-n") == 0) {
-        *index -= 1;
         return true;
     }
-    printf("elem: %s\n", elem);
     return false;
 }
 
@@ -34,8 +33,9 @@ bool manage_flags_robot(char **argv, unsigned int *index,
         if (args->robots_args[*robot_index].id == -1)
             args->robots_args[*robot_index].id = 0;
         *robot_index += 1;
+        *index += 1;
     }
-    if (*robot_index == 4 && argv[*index + 1] != NULL)
+    if (*robot_index > 4)
         return put_error("There can be only 4 robots.", false);
     return true;
 }
