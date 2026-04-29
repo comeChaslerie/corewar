@@ -99,7 +99,7 @@ re_mac:
 	$(MAKE) fclean
 	$(MAKE) -j8 all
 
-tester_run: re
+tester_run: $(NAME)
 	python3 tester/run.py
 
 .PHONY: all clean fclean re compile tests_run gcovrex tests_run_lib gcovrex_lib valgrind

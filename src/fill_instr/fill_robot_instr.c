@@ -6,6 +6,7 @@
 */
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "struct.h"
 #include "utils.h"
 #include "handle_main.h"
@@ -27,6 +28,8 @@ static void add_to_arena(unsigned char *arena, unsigned char *buffer,
     for (unsigned int index = 0; index < size_buffer; index++) {
         arena[index] = buffer[index];
     }
+    free(buffer);
+    buffer = NULL;
 }
 
 unsigned char *check_instr(unsigned char *elem, unsigned int *size_buffer,
@@ -65,7 +68,7 @@ bool get_instructions(main_t *main, robot_infos_t *robot_infos, FILE *fp)
         if (buffer == NULL)
             return false;
         if (pos + size_total + size_buffer > MEM_SIZE / 2)
-            return false;
+            return put_error("Champions instr goes out of memory.", false);
         add_to_arena(&main->arena[pos + size_total], buffer, size_buffer);
         size_total += size_buffer;
     }
@@ -80,12 +83,12 @@ bool fill_robot_instr(main_t *main, robot_infos_t *robot_infos,
     FILE *fp = fopen(robot_args->filepath, "r");
 
     if (fp == NULL)
-        return false;
+        return put_error("File open failed.", false);
     fread(&robot_infos->header, sizeof(header_t), 1, fp);
     if (my_htonl(robot_infos->header.magic) != COREWAR_EXEC_MAGIC)
-        return false;
+        return put_error("Bad magic number.", false);
     if (!get_instructions(main, robot_infos, fp))
-        return false;
+        return put_error("Get instr failed.", false);
     fclose(fp);
     return true;
 }

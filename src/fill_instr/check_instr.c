@@ -6,6 +6,7 @@
 */
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "op.h"
 #include "op_define.h"
 #include "utils.h"
@@ -51,10 +52,10 @@ unsigned int get_global_size(unsigned int *tab, unsigned int *nbr_args)
 {
     unsigned int size = 0;
 
-    for (unsigned int index; index < MAX_ARGS_NUMBER; index++) {
+    for (unsigned int index = 0; index < MAX_ARGS_NUMBER; index++) {
         if (tab[index] != 0) {
             size += tab[index];
-            (*nbr_args)++;
+            *nbr_args += 1;;
         }
     }
     return size;
@@ -68,12 +69,13 @@ bool check_byte_code(unsigned char elem, unsigned int *size_elem,
     unsigned int nbr_args = 0;
 
     if (tab == NULL)
-        return false;
+        return put_error("Tab alloc failed.", false);
     size = get_global_size(tab, &nbr_args);
     free(tab);
     *size_elem = size;
+    printf("nbr args: %i actual: %i\n", op_tab[id_instr].nbr_args, nbr_args);
     if (nbr_args != op_tab[id_instr].nbr_args)
-        return false;
+        return put_error("Number of args differs from instr.", false);
     return true;
 }
 

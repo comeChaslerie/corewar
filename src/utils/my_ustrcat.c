@@ -12,7 +12,8 @@ unsigned char *my_ustrcat(unsigned char *dest, unsigned int *size_dest,
     unsigned char *new_str = NULL;
     int i = 0;
 
-    if (dest == NULL || src == NULL)
+    if ((dest == NULL && *size_dest != 0) ||
+        (src == NULL && size_src != 0))
         return NULL;
     new_str = malloc(sizeof(unsigned char) *
         (*size_dest + size_src));

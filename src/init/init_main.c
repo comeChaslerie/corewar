@@ -29,16 +29,16 @@ bool init_one_robot(robot_infos_t *robot_infos, robot_args_t *robot_args,
     main_t *main)
 {
     if (!init_game_infos(robot_infos))
-        return false;
+        return put_error("Game alloc failed.", false);
     robot_infos->id = robot_args->id;
     robot_infos->pos_infos = malloc(sizeof(pos_infos_t));
     if (robot_infos->pos_infos == NULL)
-        return false;
+        return put_error("Pos alloc failed.", false);
     robot_infos->pos_infos->pos_start = robot_args->load_pos;
     robot_infos->pos_infos->pos_end = 0;
     robot_infos->pos_infos->pos_next_instr = robot_args->load_pos;
     if (!fill_robot_instr(main, robot_infos, robot_args))
-        return false;
+        return put_error("Fill robot failed.", false);
     return true;
 }
 
