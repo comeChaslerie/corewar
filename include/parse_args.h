@@ -31,5 +31,6 @@ bool manage_flag_load(int argc, char **argv, unsigned int *index,
     robot_args_t *robots_args);
 bool manage_flag_dump(int argc, char **argv, unsigned int *index,
     args_t *args);
+bool check_all_flags(int argc, char **argv, args_t *args);
 
 #endif /* !MY_H_ */

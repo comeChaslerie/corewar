@@ -21,7 +21,7 @@ bool is_in_args_tab(int id, robot_args_t *robots_args, int actual_index_robot)
     return false;
 }
 
-static bool check_after_parsing(robot_args_t *robots_args)
+static bool check_id_after_parsing(robot_args_t *robots_args)
 {
     for (unsigned int index_robot = 0; index_robot < 4; index_robot++) {
         if (robots_args[index_robot].id == 0 ||
@@ -35,36 +35,15 @@ static bool check_after_parsing(robot_args_t *robots_args)
     return true;
 }
 
-static bool is_a_flag(char *elem)
+static void update_load_pos(robot_args_t *robots_args, unsigned int nbr_robots)
 {
-    if (elem[0] != '-')
-        return true;
-    if (elem[0] == '-' && elem[1] != '\0')
-        if ((my_strcmp(elem, "-dump") == 0 || elem[1] == 'a' || elem[1] == 'n')
-            && elem[2] == '\0')
-            return true;
-    return false;
-}
+    int slice_size = MEM_SIZE / nbr_robots;
 
-bool check_all_flags(int argc, char **argv, args_t *args)
-{
-    unsigned int robot_index = 0;
-
-    for (unsigned int index = 1; index < argc; index++) {
-        if (!manage_flag_dump(argc, argv, &index, args))
-            return false;
-        if (!manage_flag_load(argc, argv, &index,
-                &args->robots_args[robot_index]))
-            return false;
-        if (!manage_flag_id(argc, argv, &index,
-                &args->robots_args[robot_index]))
-            return false;
-        if (!manage_flags_robot(argv, &index, &robot_index, args))
-            return false;
-        if (!is_a_flag(argv[index]))
-            return put_error("The flag doesn't exist.", false);
+    for (unsigned int index_tab = 0; index_tab <= nbr_robots; index_tab++) {
+        if (robots_args[index_tab].load_pos == -1)
+            robots_args[index_tab].load_pos = slice_size *
+                (robots_args[index_tab].id - 1);
     }
-    return true;
 }
 
 static int update_id(robot_args_t *robots_args)
@@ -84,17 +63,6 @@ static int update_id(robot_args_t *robots_args)
         }
     }
     return index_tab;
-}
-
-static void update_load_pos(robot_args_t *robots_args, unsigned int nbr_robots)
-{
-    int slice_size = MEM_SIZE / nbr_robots;
-
-    for (unsigned int index_tab = 0; index_tab <= nbr_robots; index_tab++) {
-        if (robots_args[index_tab].load_pos == -1)
-            robots_args[index_tab].load_pos = slice_size *
-                (robots_args[index_tab].id - 1);
-    }
 }
 
 bool finish_completing_struct(args_t *args)
@@ -121,7 +89,7 @@ args_t *parse_args(int argc, char **argv)
         return put_error("Args struct alloc failed.", NULL);
     if (!check_all_flags(argc, argv, args))
         return free_args_struct(args);
-    if (!check_after_parsing(args->robots_args))
+    if (!check_id_after_parsing(args->robots_args))
         return free_args_struct(args);
     if (!finish_completing_struct(args))
         return free_args_struct(args);
