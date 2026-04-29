@@ -10,16 +10,17 @@
 #include "utils.h"
 #include <stdlib.h>
 
-static bool is_a_flag(char *elem)
+static bool is_a_flag(char *elem, unsigned int *index)
 {
     if (elem == NULL)
         return true;
-    if (elem[0] != '-')
+    if (my_strcmp(elem, "-dump") == 0 ||
+        my_strcmp(elem, "-a") == 0 ||
+        my_strcmp(elem, "-n") == 0) {
+        *index -= 1;
         return true;
-    if (elem[0] == '-' && elem[1] != '\0')
-        if ((my_strcmp(elem, "-dump") == 0 || elem[1] == 'a' || elem[1] == 'n')
-            && elem[2] == '\0')
-            return true;
+    }
+    printf("elem: %s\n", elem);
     return false;
 }
 
@@ -119,7 +120,7 @@ bool check_all_flags(int argc, char **argv, args_t *args)
             return false;
         if (!manage_flags_robot(argv, &index, &robot_index, args))
             return false;
-        if (!is_a_flag(argv[index]))
+        if (!is_a_flag(argv[index], &index))
             return put_error("The flag doesn't exist.", false);
     }
     return true;

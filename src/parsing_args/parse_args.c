@@ -75,7 +75,6 @@ bool finish_completing_struct(args_t *args)
     for (unsigned int index_tab = 0; index_tab < args->nbr_robots;
         index_tab++) {
         if (args->robots_args[index_tab].id > args->nbr_robots) {
-            printf("id: %i nbr_robots: %i\n", args->robots_args[index_tab].id, args->nbr_robots);
             return put_error("One of the id is too high.", false);
         }
     }
