@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "op.h"
+#include "op_define.h"
 #include "utils.h"
 
 bool check_id(unsigned char elem, unsigned int *size_elem,
@@ -33,18 +34,30 @@ static unsigned int find_params(char *bin)
     return T_DIR;
 }
 
-static unsigned int *get_coding_byte_tab(unsigned char elem)
+unsigned int *get_coding_byte_tab(unsigned char elem)
 {
     char *bin = to_bin(elem);
-    unsigned int *tab = malloc(sizeof(int) * 4);
+    unsigned int *tab = malloc(sizeof(int) * MAX_ARGS_NUMBER);
     unsigned int pos = 0;
 
     if (tab == NULL)
         return put_error("Tab alloc failed.", NULL);
-    for (unsigned int index = 0; index < 4; index++) {
+    for (unsigned int index = 0; index < MAX_ARGS_NUMBER; index++)
         tab[index] = find_params(bin + index * 2);
-    }
     return tab;
+}
+
+unsigned int get_global_size(unsigned int *tab, unsigned int *nbr_args)
+{
+    unsigned int size = 0;
+
+    for (unsigned int index; index < MAX_ARGS_NUMBER; index++) {
+        if (tab[index] != 0) {
+            size += tab[index];
+            (*nbr_args)++;
+        }
+    }
+    return size;
 }
 
 bool check_byte_code(unsigned char elem, unsigned int *size_elem,
@@ -56,12 +69,7 @@ bool check_byte_code(unsigned char elem, unsigned int *size_elem,
 
     if (tab == NULL)
         return false;
-    for (unsigned int index; index < 4; index++) {
-        if (tab[index] != 0) {
-            size += tab[index];
-            nbr_args += 1;
-        }
-    }
+    size = get_global_size(tab, &nbr_args);
     free(tab);
     *size_elem = size;
     if (nbr_args != op_tab[id_instr].nbr_args)
