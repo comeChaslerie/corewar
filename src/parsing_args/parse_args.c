@@ -46,28 +46,32 @@ static void update_load_pos(robot_args_t *robots_args, unsigned int nbr_robots)
     }
 }
 
-static int update_id(robot_args_t *robots_args)
+static bool update_id(args_t *args)
 {
     unsigned int index_tab = 0;
 
-    for (unsigned int index_robot = 1; robots_args[index_tab].id != -1 &&
+    for (unsigned int index_robot = 1; args->robots_args[index_tab].id != -1 &&
         index_robot <= MAX_ROBOT_NBR; index_robot++) {
-        if (robots_args[index_tab].id != 0) {
+        if (args->robots_args[index_tab].id != 0) {
             index_tab += 1;
             index_robot -= 1;
             continue;
         }
-        if (!is_in_args_tab(index_robot, robots_args, -2)) {
-            robots_args[index_tab].id = index_robot;
+        if (!is_in_args_tab(index_robot, args->robots_args, -2)) {
+            args->robots_args[index_tab].id = index_robot;
             index_tab += 1;
         }
     }
-    return index_tab;
+    args->nbr_robots = index_tab;
+    if (args->nbr_robots == 0)
+        return put_error("There needs to be at lest one robot.", false);
+    return true;
 }
 
 bool finish_completing_struct(args_t *args)
 {
-    args->nbr_robots = update_id(args->robots_args);
+    if (!update_id(args))
+        return false;
     for (unsigned int index_tab = 0; index_tab < args->nbr_robots;
         index_tab++) {
         if (args->robots_args[index_tab].id > args->nbr_robots)
