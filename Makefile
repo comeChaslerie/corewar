@@ -92,3 +92,6 @@ valgrind: all
 re_mac:
 	$(MAKE) fclean
 	$(MAKE) -j8 all
+
+tester_run: re
+	python3 tester/run.py

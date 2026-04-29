@@ -15,6 +15,17 @@ tests_mine = [
     ["./corewar", "examples/champions/abel.cor", "examples/champions/bill.cor", "examples/champions/pdd.cor", "examples/champions/tyron.cor"],
     ["./corewar", "examples/champions/abel.cor", "examples/champions/abel.cor"],
     ["./corewar", "-dump", "0", "examples/champions/abel.cor"],
+    ["./corewar", "-dump", "0", "examples/champions/abel.cor", "examples/champions/bill.cor"],
+    ["./corewar", "-dump", "0", "examples/champions/abel.cor", "examples/champions/bill.cor", "examples/champions/pdd.cor"],
+    ["./corewar", "-dump", "0", "examples/champions/abel.cor", "examples/champions/bill.cor", "examples/champions/pdd.cor", "examples/champions/tyron.cor"],
+    ["./corewar", "examples/champions/abel.cor", "-dump", "0"],
+    ["./corewar", "-dump", "0"],
+    ["./corewar", "-dump", "0", "examples/champions/abel.cor", "-dump", "0"],
+    ["./corewar", "examples/champions/abel.cor", "-dump", "0"],
+    ["./corewar", "examples/champions/abel.cor", "examples/champions/bill.cor", "-dump", "0"],
+    ["./corewar", "examples/champions/abel.cor", "examples/champions/bill.cor", "-dump", "0", "examples/champions/pdd.cor"],
+    ["./corewar", "examples/champions/abel.cor", "examples/champions/bill.cor", "-dump", "0", "-dump", "0"],
+    ["./corewar", "examples/champions/abel.cor", "examples/champions/bill.cor", "-dump", "0", "-dump", "100"],
 ]
 
 tests_ref = [
@@ -25,7 +36,19 @@ tests_ref = [
     ["./examples/binaries/corewar", "examples/champions/abel.cor", "examples/champions/bill.cor", "examples/champions/pdd.cor", "examples/champions/tyron.cor"],
     ["./examples/binaries/corewar", "examples/champions/abel.cor", "examples/champions/abel.cor"],
     ["./examples/binaries/corewar", "-dump", "0", "examples/champions/abel.cor"],
+    ["./examples/binaries/corewar", "-dump", "0", "examples/champions/abel.cor", "examples/champions/bill.cor"],
+    ["./examples/binaries/corewar", "-dump", "0", "examples/champions/abel.cor", "examples/champions/bill.cor", "examples/champions/pdd.cor"],
+    ["./examples/binaries/corewar", "-dump", "0", "examples/champions/abel.cor", "examples/champions/bill.cor", "examples/champions/pdd.cor", "examples/champions/tyron.cor"],
+    ["./examples/binaries/corewar", "examples/champions/abel.cor", "-dump", "0"],
+    ["./examples/binaries/corewar", "-dump", "0"],
+    ["./examples/binaries/corewar", "-dump", "0", "examples/champions/abel.cor", "-dump", "0"],
+    ["./examples/binaries/corewar", "examples/champions/abel.cor", "-dump", "0"],
+    ["./examples/binaries/corewar", "examples/champions/abel.cor", "examples/champions/bill.cor", "-dump", "0"],
+    ["./examples/binaries/corewar", "examples/champions/abel.cor", "examples/champions/bill.cor", "-dump", "0", "examples/champions/pdd.cor"],
+    ["./examples/binaries/corewar", "examples/champions/abel.cor", "examples/champions/bill.cor", "-dump", "0", "-dump", "0"],
+    ["./examples/binaries/corewar", "examples/champions/abel.cor", "examples/champions/bill.cor", "-dump", "0", "-dump", "100"],
 ]
+
 
 nb_tests = len(tests_mine)
 nb_tests_failed = 0
