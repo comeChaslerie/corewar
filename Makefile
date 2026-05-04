@@ -5,36 +5,36 @@
 ## Makefile
 ##
 
-SRC = 	src/fill_instr/check_instr.c 		\
-		src/fill_instr/fill_robot_instr.c 	\
+SRC = 	src/fill_instr/check_instr.c 			\
+		src/fill_instr/fill_robot_instr.c 		\
 		src/instructions/basic_instr.c		\
 		src/instructions/bin_instr.c		\
 		src/instructions/fork_instr.c		\
 		src/instructions/load_instr.c		\
 		src/instructions/store_instr.c		\
-		src/linked_lists/add_to_list.c		\
-		src/linked_lists/delete_node.c		\
-		src/linked_lists/destroy_list.c		\
-		src/linked_lists/disp_list.c		\
-		src/linked_lists/get_len_list.c		\
-		src/parsing_args/alloc_args.c		\
-		src/parsing_args/manage_flag.c		\
-		src/parsing_args/parse_args.c		\
+		src/linked_lists/add_to_list.c			\
+		src/linked_lists/delete_node.c			\
+		src/linked_lists/destroy_list.c			\
+		src/linked_lists/disp_list.c			\
+		src/linked_lists/get_len_list.c			\
+		src/parsing_args/alloc_args.c			\
+		src/parsing_args/manage_flag.c			\
+		src/parsing_args/parse_args.c			\
 		src/utils/conversions.c			\
 		src/game_loop/get_size_from_id.c	\
-		src/game_loop/translate_mem.c	\
-		src/game_loop/apply_instr.c		\
-		src/game_loop/game_loop.c		\
-		src/init/init_arg.c	\
+		src/game_loop/translate_mem.c		\
+		src/game_loop/apply_instr.c			\
+		src/game_loop/game_loop.c			\
+		src/init/init_arg.c		\
 		src/init/init_instr.c	\
-		src/init/init_main.c			\
+		src/init/init_main.c	\
 		src/utils/my_strcmp.c 		\
 		src/utils/put_error.c 		\
 		src/utils/my_getnbr.c 		\
 		src/utils/my_strlen.c 		\
 		src/utils/my_strdup.c 		\
 		src/utils/my_ustrcat.c 		\
-		src/utils/my_ustrndup.c	\
+		src/utils/my_ustrndup.c		\
 		src/utils/is_nbr.c 			\
 		src/free_all.c 			\
 		src/main_functions.c 	\

@@ -11,6 +11,8 @@ int my_strlen(const char *str)
 {
     unsigned int index = 0;
 
+    if (str == NULL)
+        return index;
     while (str[index] != '\0') {
         index++;
     }
