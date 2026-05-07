@@ -21,7 +21,7 @@ instr_t *translate_mem(unsigned char *instr);
 
 unsigned int get_size_from_id(unsigned int instr_id);
 
-unsigned int *get_coding_byte_tab(unsigned char elem);
+unsigned int *get_coding_byte_tab(unsigned char elem, unsigned int id_instr);
 
 unsigned int get_global_size(unsigned int *tab, unsigned int *nbr_args);
 

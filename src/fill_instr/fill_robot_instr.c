@@ -45,6 +45,7 @@ unsigned char *check_instr(unsigned char instr, unsigned int *size_buffer,
     if (!check_id(instr, &size_elem, &id_instr))
         return put_error("Bad id.", NULL);
     if (size_elem == 1) {
+        printf("has a coding byte\n");
         fread(&instr, sizeof(unsigned char), 1, fp);
         buffer = my_ustrcat(buffer, size_buffer, &instr, size_elem);
         if (!check_byte_code(instr, &size_elem, id_instr))
@@ -75,7 +76,7 @@ bool get_instructions(main_t *main, robot_infos_t *robot_infos, FILE *fp)
             return put_error("Champions instr goes out of memory.", false);
         add_to_arena(&main->arena[pos + size_total], buffer, size_buffer);
         size_total += size_buffer;
-        printf("size_total: %i\n", size_total);
+        printf("size_total: %i\n\n", size_total);
         size_buffer = 0;
     }
     robot_infos->pos_infos->pos_end =

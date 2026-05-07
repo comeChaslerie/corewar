@@ -22,6 +22,7 @@ typedef struct op_s {
     int nbr_cycles;
     char *comment;
     bool coding_byte;
+    bool is_index;
     bool (*instr_func)(void *, arg_t *[MAX_ARGS_NUMBER]);
 } op_t;
 

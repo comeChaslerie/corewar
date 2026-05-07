@@ -6,12 +6,17 @@
 */
 
 #include "op.h"
+#include "op_define.h"
 
 unsigned int get_size_from_id(unsigned int instr_id)
 {
-    unsigned int size = 0;
-    char csize = op_tab[instr_id].type[0];
+    char ctype = op_tab[instr_id].type[0];
 
-    size = (unsigned int)csize;
-    return size;
+    if (ctype == T_DIR && op_tab[instr_id].is_index)
+        return IND_SIZE;
+    if (ctype == T_IND)
+        return IND_SIZE;
+    if (ctype == T_REG)
+        return REG_SIZE;
+    return DIR_SIZE;
 }

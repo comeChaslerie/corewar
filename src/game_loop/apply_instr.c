@@ -21,7 +21,7 @@ static unsigned char *get_instr_mem(main_t *main, unsigned int id)
     unsigned int nbr_args = 0;
 
     pos_start = main->robots[id].pos_infos->pos_start;
-    args_size = get_coding_byte_tab(main->arena[pos_start + 1]);
+    args_size = get_coding_byte_tab(main->arena[pos_start + 1], id);
     if (!args_size)
         return NULL;
     size = get_global_size(args_size, &nbr_args);
