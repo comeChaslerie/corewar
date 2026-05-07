@@ -16,7 +16,6 @@ bool check_id(unsigned char elem, unsigned int *size_elem,
     unsigned int *id_instr)
 {
     *id_instr = (unsigned int)elem;
-    printf("id_instr: %i\n", (int)elem);
     if (*id_instr > 15)
         return false;
     if (op_tab[(int)*id_instr].coding_byte)
@@ -60,7 +59,6 @@ unsigned int get_global_size(unsigned int *tab, unsigned int *nbr_args)
     unsigned int size = 0;
 
     for (unsigned int index = 0; index < MAX_ARGS_NUMBER; index++) {
-        printf("tab[%i]: %i\n", index, tab[index]);
         if (tab[index] != 0) {
             size += tab[index];
             *nbr_args += 1;;
@@ -79,10 +77,8 @@ bool check_byte_code(unsigned char elem, unsigned int *size_elem,
     if (tab == NULL)
         return put_error("Tab alloc failed.", false);
     size = get_global_size(tab, &nbr_args);
-    printf("size args: %i\n", size);
     free(tab);
     *size_elem = size;
-    printf("nbr_args: %i actual_nbr: %i\n", op_tab[id_instr].nbr_args, nbr_args);
     if (nbr_args != op_tab[id_instr].nbr_args)
         return put_error("Number of args differs from instr.", false);
     return true;
