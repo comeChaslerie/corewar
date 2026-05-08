@@ -18,7 +18,7 @@ bool check_id(unsigned char elem, unsigned int *size_elem,
     *id_instr = (unsigned int)elem;
     if (*id_instr > 15)
         return false;
-    if (op_tab[(int)*id_instr].coding_byte)
+    if (op_tab[(int) *id_instr].coding_byte)
         *size_elem = 1;
     else
         *size_elem = get_size_from_id(elem);
