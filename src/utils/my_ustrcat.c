@@ -28,6 +28,8 @@ unsigned char *my_ustrcat(unsigned char *dest, unsigned int *size_dest,
         new_str[i] = src[j];
         i += 1;
     }
+    if (dest != NULL)
+        free(dest);
     *size_dest += size_src;
     return new_str;
 }
