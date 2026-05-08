@@ -46,7 +46,6 @@ void *free_main(char *str, main_t *main, args_t *args)
         free(main->arena);
     if (main->robots != NULL) {
         free_robots(main, args, NULL);
-        free(main->robots);
     }
     free(main);
     return free_args_struct(args);
