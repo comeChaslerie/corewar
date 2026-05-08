@@ -51,6 +51,7 @@ unsigned int *get_coding_byte_tab(unsigned char elem, unsigned int id_instr)
         return put_error("Tab alloc failed.", NULL);
     for (unsigned int index = 0; index < MAX_ARGS_NUMBER; index++)
         tab[index] = find_params(bin + index * 2, id_instr);
+    free(bin);
     return tab;
 }
 
