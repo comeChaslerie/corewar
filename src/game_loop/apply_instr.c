@@ -62,6 +62,8 @@ bool apply_instructions(main_t *main)
         args = translate_mem(instr);
         if (!args || !apply_instr(main, args))
             return false;
+        main->robots[i].game_infos->cycles_remaining
+        = op_tab[args->id].nbr_cycles;
         free(instr);
         free(args);
     }
