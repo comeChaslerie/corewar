@@ -5,7 +5,10 @@
 ## Makefile
 ##
 
-SRC = 	src/fill_instr/check_instr.c 			\
+SRC = 	src/hexa_calc/hexa_diff.c	\
+		src/hexa_calc/hexa_sum.c	\
+		src/utils/uctoui.c	\
+		src/fill_instr/check_instr.c 			\
 		src/fill_instr/fill_robot_instr.c 		\
 		src/instructions/basic_instr.c		\
 		src/instructions/bin_instr.c		\
@@ -45,7 +48,7 @@ NAME =	corewar
 
 CC = epiclang
 
-CFLAGS = -I./include
+CFLAGS = -I./include -g
 
 OBJ = 	$(SRC:.c=.o)
 
