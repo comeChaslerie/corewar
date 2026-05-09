@@ -9,6 +9,7 @@
 #include "struct.h"
 #include "game.h"
 #include <unistd.h>
+#include <stdio.h>
 
 bool game_loop(main_t *main)
 {
@@ -18,7 +19,7 @@ bool game_loop(main_t *main)
         if (!apply_instructions(main))
             return false;
         if (main->cycle_dump == i)
-            write(1, "dump\n", 6);
+            printf("dump\n");
     }
     return true;
 }

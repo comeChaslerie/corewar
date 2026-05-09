@@ -7,6 +7,7 @@
 #include "struct.h"
 #include "parse_args.h"
 #include "handle_main.h"
+#include "game.h"
 #include <stdio.h>
 
 int main_functions(int argc, char **argv)
@@ -19,6 +20,7 @@ int main_functions(int argc, char **argv)
     main = init_main(args);
     if (main == NULL)
         return 84;
+    dump(main);
     free_main("", main, args);
     return 0;
 }
