@@ -19,7 +19,7 @@ bool game_loop(main_t *main)
         if (!apply_instructions(main))
             return false;
         if (main->cycle_dump == i)
-            printf("dump\n");
+            write(1, "dump\n", 6);
     }
     return true;
 }
