@@ -9,7 +9,7 @@
     #define OP_H_
 
     #include "struct.h"
-    #include "op_define.h"
+    #include "define.h"
     #include <stdbool.h>
 
 typedef char args_type_t;

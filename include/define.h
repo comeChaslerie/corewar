@@ -5,8 +5,8 @@
 ** Header for the operations
 */
 
-#ifndef OP_DEFINE_H_
-    #define OP_DEFINE_H_
+#ifndef DEFINE_H_
+    #define DEFINE_H_
 
     #include <stdbool.h>
 
@@ -66,5 +66,16 @@ typedef char args_type_t;
     #define CYCLE_TO_DIE 1536 /* number of cycle before beig declared dead */
     #define CYCLE_DELTA 5
     #define NBR_LIVE 40
+
+/*
+** corewar functions
+*/
+    #define SUCCESS 0
+    #define SECURE_DIST 50
+    #define NO_ROBOT -1
+    #define NO_ID_ROBOT 0
+    #define NOT_ID -2
+    #define NO_VALUE_LOAD_POS -1
+    #define NO_CYCLE_DUMP -1
 
 #endif /* OP_DEFINE_H_ */
