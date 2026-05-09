@@ -8,17 +8,20 @@
 #include "op_define.h"
 #include "struct.h"
 
-bool bin_and_instr(void *value, arg_t *args[MAX_ARGS_NUMBER])
+bool bin_and_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
+    unsigned int robot_id)
 {
     return true;
 }
 
-bool bin_or_instr(void *value, arg_t *args[MAX_ARGS_NUMBER])
+bool bin_or_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
+    unsigned int robot_id)
 {
     return true;
 }
 
-bool bin_xor_instr(void *value, arg_t *args[MAX_ARGS_NUMBER])
+bool bin_xor_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
+    unsigned int robot_id)
 {
     return true;
 }

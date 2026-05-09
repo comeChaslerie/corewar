@@ -8,12 +8,14 @@
 #include "op_define.h"
 #include "struct.h"
 
-bool fork_long_instr(void *value, arg_t *args[MAX_ARGS_NUMBER])
+bool fork_long_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
+    unsigned int robot_id)
 {
     return true;
 }
 
-bool fork_instr(void *value, arg_t *args[MAX_ARGS_NUMBER])
+bool fork_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
+    unsigned int robot_id)
 {
     return true;
 }
