@@ -7,6 +7,8 @@
 #include "struct.h"
 #include "parse_args.h"
 #include "handle_main.h"
+#include "game.h"
+#include "utils.h"
 #include <stdio.h>
 
 int main_functions(int argc, char **argv)
@@ -19,6 +21,9 @@ int main_functions(int argc, char **argv)
     main = init_main(args);
     if (main == NULL)
         return 84;
+    if (!game_loop(main)){
+        return (long)put_error("game loop failed.\n", (void *)84);
+    }
     free_main("", main, args);
     return 0;
 }
