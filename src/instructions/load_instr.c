@@ -8,18 +8,19 @@
 #include "op_define.h"
 #include "struct.h"
 #include "hexa_calc.h"
+#include "utils.h"
 
 bool load_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
     unsigned int source = uctoui(args[0]->arg, args[0]->type);
     unsigned int reg_id = (unsigned int)args[1]->arg[0];
-    main_t *main = (main_t *)value;
-    unsigned char **regs = main->robots[robot_id].game_infos->regs;
+    robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
 
-    source += main->robots[robot_id].pos_infos->pos_next_instr;
+    source += ((main_t *)value)->robots[robot_id].pos_infos->pos_next_instr;
     for (unsigned int i = 0; i < REG_SIZE; i++)
-        regs[reg_id][i] = main->arena[source + i];
+        infos->regs[reg_id][i] = ((main_t *)value)->arena[source + i];
+    set_carry_null_reg(infos->regs[reg_id], infos);
     return true;
 }
 
