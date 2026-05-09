@@ -25,8 +25,8 @@ args_t *alloc_args(void)
     for (unsigned int robot_index = 0; robot_index < MAX_ROBOT_NBR;
         robot_index++) {
         args->robots_args[robot_index].filepath = NULL;
-        args->robots_args[robot_index].id = -1;
-        args->robots_args[robot_index].load_pos = -1;
+        args->robots_args[robot_index].id = NO_ROBOT;
+        args->robots_args[robot_index].load_pos = NO_VALUE_LOAD_POS;
     }
     return args;
 }

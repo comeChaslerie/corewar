@@ -4,7 +4,7 @@
 ** File description:
 ** free the structs
 */
-#include "op_define.h"
+#include "define.h"
 #include "parse_args.h"
 #include "struct.h"
 #include "handle_main.h"

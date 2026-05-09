@@ -6,6 +6,7 @@
 */
 
 #include "parse_args.h"
+#include "define.h"
 #include "struct.h"
 #include "utils.h"
 #include <stdlib.h>
@@ -23,9 +24,10 @@ bool is_in_args_tab(int id, robot_args_t *robots_args, int actual_index_robot)
 
 static bool check_id_after_parsing(robot_args_t *robots_args)
 {
-    for (unsigned int index_robot = 0; index_robot < 4; index_robot++) {
-        if (robots_args[index_robot].id == 0 ||
-            robots_args[index_robot].id == -1)
+    for (unsigned int index_robot = 0; index_robot < MAX_ROBOT_NBR;
+        index_robot++) {
+        if (robots_args[index_robot].id == NO_ID_ROBOT ||
+            robots_args[index_robot].id == NO_ROBOT)
             continue;
         if (is_in_args_tab(robots_args[index_robot].id,
                 robots_args, index_robot))
@@ -39,8 +41,10 @@ static void update_load_pos(robot_args_t *robots_args, unsigned int nbr_robots)
 {
     int slice_size = MEM_SIZE / nbr_robots;
 
-    for (unsigned int index_tab = 0; index_tab <= nbr_robots; index_tab++) {
-        if (robots_args[index_tab].load_pos == -1)
+    for (unsigned int index_tab = 0; index_tab < nbr_robots; index_tab++) {
+        if (index_tab - 1 == nbr_robots)
+            slice_size -= SECURE_DIST;
+        if (robots_args[index_tab].load_pos == NO_VALUE_LOAD_POS)
             robots_args[index_tab].load_pos = slice_size *
                 (robots_args[index_tab].id - 1);
     }
@@ -50,14 +54,14 @@ static bool update_id(args_t *args)
 {
     unsigned int index_tab = 0;
 
-    for (unsigned int index_robot = 1; args->robots_args[index_tab].id != -1 &&
-        index_tab < MAX_ROBOT_NBR; index_robot++) {
-        if (args->robots_args[index_tab].id != 0) {
+    for (unsigned int index_robot = 1; args->robots_args[index_tab].id !=
+        NO_ROBOT && index_tab < MAX_ROBOT_NBR; index_robot++) {
+        if (args->robots_args[index_tab].id != NO_ID_ROBOT) {
             index_tab += 1;
             index_robot -= 1;
             continue;
         }
-        if (!is_in_args_tab(index_robot, args->robots_args, -2)) {
+        if (!is_in_args_tab(index_robot, args->robots_args, NOT_ID)) {
             args->robots_args[index_tab].id = index_robot;
             index_tab += 1;
         }

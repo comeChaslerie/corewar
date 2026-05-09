@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include "game.h"
 #include "op.h"
-#include "op_define.h"
+#include "define.h"
 #include "utils.h"
 
 bool check_id(unsigned char elem, unsigned int *size_elem,

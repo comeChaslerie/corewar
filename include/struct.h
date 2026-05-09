@@ -9,7 +9,7 @@
     #define MY_STRUCT_H_
 
     #include <stdbool.h>
-    #include "op_define.h"
+    #include "define.h"
 
 typedef struct
 header_s {
