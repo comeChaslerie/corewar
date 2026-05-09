@@ -31,7 +31,8 @@ bool manage_flags_robot(char **argv, unsigned int *index,
 {
     if (argv[*index] == NULL)
         return true;
-    if (argv[*index][0] != FLAG_CHAR && index != 0 && argv[*index - 1][0] != FLAG_CHAR) {
+    if (argv[*index][0] != FLAG_CHAR && index != 0 &&
+        argv[*index - 1][0] != FLAG_CHAR) {
         args->robots_args[*robot_index].filepath = my_strdup(argv[*index]);
         if (args->robots_args[*robot_index].id == NO_ROBOT)
             args->robots_args[*robot_index].id = NO_ID_ROBOT;
