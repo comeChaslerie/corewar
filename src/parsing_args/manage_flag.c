@@ -37,7 +37,6 @@ bool manage_flags_robot(char **argv, unsigned int *index,
         if (args->robots_args[*robot_index].id == NO_ROBOT)
             args->robots_args[*robot_index].id = NO_ID_ROBOT;
         *robot_index += 1;
-        *index += 1;
     }
     if (*robot_index > MAX_ROBOT_NBR)
         return put_error("There can be only 4 robots.", false);
