@@ -94,8 +94,8 @@ typedef char args_type_t;
     #define LIST_HEXA "0123456789abcdef"
     #define NB_HEXA 16
     #define NB_BYTE_LINE 32
-    #define NEW_LINE_CHAR '\n'
-    #define SPACE_CHAR ' '
-    #define ZERO_CHAR '0'
+    #define NEW_LINE_CHAR "\n"
+    #define SPACE_CHAR " "
+    #define ZERO_CHAR "0"
 
-#endif /* OP_DEFINE_H_ */
+#endif /* DEFINE_H_ */
