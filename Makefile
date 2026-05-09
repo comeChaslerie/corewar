@@ -28,6 +28,7 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/init/init_arg.c		\
 		src/init/init_instr.c	\
 		src/init/init_main.c	\
+		src/flag/dump_flag.c	\
 		src/utils/my_strcmp.c 		\
 		src/utils/put_error.c 		\
 		src/utils/my_getnbr.c 		\
