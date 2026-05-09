@@ -38,7 +38,7 @@ typedef struct pos_infos_s {
 } pos_infos_t;
 
 typedef struct robot_game_infos_s {
-    int *regs;
+    unsigned char **regs;
     int cycles_remaining;
     bool carry;
     int pc;

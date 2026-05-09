@@ -8,6 +8,7 @@
 #include "parse_args.h"
 #include "struct.h"
 #include "handle_main.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 void *free_args_struct(args_t *args)
@@ -44,9 +45,7 @@ void *free_robots(main_t *main, void *return_value)
 
 void *free_main(char *str, main_t *main, args_t *args)
 {
-    if (main == NULL)
-        return free_args_struct(args);
-    if (main->arena != NULL)
+    if (main->arena)
         free(main->arena);
     if (main->robots != NULL) {
         free_robots(main, NULL);

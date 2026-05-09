@@ -32,7 +32,7 @@ static unsigned int find_params(char *bin, unsigned int id_instr)
     if (bin[0] == '0') {
         if (bin[1] == '0')
             return 0;
-        return REG_SIZE;
+        return REG_ARG_SIZE;
     }
     if (bin[1] == '1')
         return IND_SIZE;

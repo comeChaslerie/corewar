@@ -51,7 +51,8 @@ typedef char args_type_t;
 */
     #define IND_SIZE 2
     #define DIR_SIZE 4
-    #define REG_SIZE 1
+    #define REG_ARG_SIZE 1
+    #define REG_SIZE 4
 
 /*
 ** header
