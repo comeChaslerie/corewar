@@ -71,11 +71,21 @@ typedef char args_type_t;
 ** corewar functions
 */
     #define SUCCESS 0
+
+    #define FLAG_CHAR '-'
+    #define DUMP_FLAG "-dump"
+    #define LOAD_FLAG "-a"
+    #define ID_FLAG "-n"
+
     #define SECURE_DIST 50
+
     #define NO_ROBOT -1
     #define NO_ID_ROBOT 0
+
     #define NOT_ID -2
+
     #define NO_VALUE_LOAD_POS -1
+
     #define NO_CYCLE_DUMP -1
 
 #endif /* OP_DEFINE_H_ */

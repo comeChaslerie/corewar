@@ -15,12 +15,12 @@ static bool is_a_flag(char *elem, unsigned int *index)
 {
     if (elem == NULL)
         return true;
-    if (elem[0] != '-')
+    if (elem[0] != FLAG_CHAR)
         return true;
     *index -= 1;
-    if (my_strcmp(elem, "-dump") == SUCCESS ||
-        my_strcmp(elem, "-a") == SUCCESS ||
-        my_strcmp(elem, "-n") == SUCCESS) {
+    if (my_strcmp(elem, DUMP_FLAG) == SUCCESS ||
+        my_strcmp(elem, LOAD_FLAG) == SUCCESS ||
+        my_strcmp(elem, ID_FLAG) == SUCCESS) {
         return true;
     }
     return false;
@@ -31,7 +31,7 @@ bool manage_flags_robot(char **argv, unsigned int *index,
 {
     if (argv[*index] == NULL)
         return true;
-    if (argv[*index][0] != '-' && index != 0 && argv[*index - 1][0] != '-') {
+    if (argv[*index][0] != FLAG_CHAR && index != 0 && argv[*index - 1][0] != FLAG_CHAR) {
         args->robots_args[*robot_index].filepath = my_strdup(argv[*index]);
         if (args->robots_args[*robot_index].id == NO_ROBOT)
             args->robots_args[*robot_index].id = NO_ID_ROBOT;
