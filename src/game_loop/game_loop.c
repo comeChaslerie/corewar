@@ -9,7 +9,6 @@
 #include "struct.h"
 #include "game.h"
 #include <unistd.h>
-#include <stdio.h>
 
 bool game_loop(main_t *main)
 {
