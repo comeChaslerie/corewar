@@ -42,9 +42,11 @@ static bool decrement_robot_cycle(main_t *main, unsigned int id)
     return false;
 }
 
-static bool apply_instr(main_t *main, instr_t *instr)
+static bool apply_instr(main_t *main, instr_t *instr,
+    unsigned int robot_id)
 {
-    return op_tab[instr->id].instr_func(main, instr->args);
+    return op_tab[instr->id].instr_func(main, instr->args,
+        robot_id);
 }
 
 bool apply_instructions(main_t *main)
@@ -60,7 +62,7 @@ bool apply_instructions(main_t *main)
         if (!instr)
             return false;
         args = translate_mem(instr);
-        if (!args || !apply_instr(main, args))
+        if (!args || !apply_instr(main, args, i))
             return false;
         main->robots[i].game_infos->cycles_remaining
         = op_tab[args->id].nbr_cycles;
