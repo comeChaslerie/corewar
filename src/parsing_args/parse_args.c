@@ -24,7 +24,8 @@ bool is_in_args_tab(int id, robot_args_t *robots_args, int actual_index_robot)
 
 static bool check_id_after_parsing(robot_args_t *robots_args)
 {
-    for (unsigned int index_robot = 0; index_robot < MAX_ROBOT_NBR; index_robot++) {
+    for (unsigned int index_robot = 0; index_robot < MAX_ROBOT_NBR;
+        index_robot++) {
         if (robots_args[index_robot].id == NO_ID_ROBOT ||
             robots_args[index_robot].id == NO_ROBOT)
             continue;
@@ -53,8 +54,8 @@ static bool update_id(args_t *args)
 {
     unsigned int index_tab = 0;
 
-    for (unsigned int index_robot = 1; args->robots_args[index_tab].id != NO_ROBOT &&
-        index_tab < MAX_ROBOT_NBR; index_robot++) {
+    for (unsigned int index_robot = 1; args->robots_args[index_tab].id !=
+        NO_ROBOT && index_tab < MAX_ROBOT_NBR; index_robot++) {
         if (args->robots_args[index_tab].id != NO_ID_ROBOT) {
             index_tab += 1;
             index_robot -= 1;
