@@ -7,7 +7,6 @@
 
 SRC = 	src/hexa_calc/hexa_diff.c	\
 		src/hexa_calc/hexa_sum.c	\
-		src/utils/uctoui.c	\
 		src/fill_instr/check_instr.c 			\
 		src/fill_instr/fill_robot_instr.c 		\
 		src/instructions/basic_instr.c		\
@@ -39,6 +38,12 @@ SRC = 	src/hexa_calc/hexa_diff.c	\
 		src/utils/my_ustrcat.c 		\
 		src/utils/my_ustrndup.c		\
 		src/utils/is_nbr.c 			\
+		src/utils/uctoui.c	\
+		src/utils/uctohex.c	\
+		src/utils/set_carry_null_reg.c	\
+		src/utils/free_values.c	\
+		src/utils/get_type_size.c	\
+		src/utils/hextouc.c	\
 		src/free_all.c 			\
 		src/main_functions.c 	\
 		src/op.c

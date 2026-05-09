@@ -9,8 +9,8 @@
 #include <stdbool.h>
 #include "hexa_calc.h"
 
-bool hexa_sum(unsigned char *value1[8], unsigned char *value2[8],
-    unsigned char *result[8])
+bool hexa_sum(unsigned char **value1, unsigned char **value2,
+    unsigned char **result)
 {
     unsigned char retain = 0;
 
