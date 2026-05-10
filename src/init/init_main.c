@@ -5,7 +5,7 @@
 ** init main struct with args struct
 */
 
-#include "op_define.h"
+#include "define.h"
 #include "parse_args.h"
 #include "struct.h"
 #include "utils.h"
@@ -71,7 +71,7 @@ main_t *init_main(args_t *args)
 
     if (main == NULL)
         return put_error("Main alloc failed.", NULL);
-    main->arena = malloc(sizeof(unsigned char) * (MEM_SIZE / 2));
+    main->arena = malloc(sizeof(unsigned char) * (MEM_SIZE));
     if (main->arena == NULL)
         return free_main("Arena alloc failed.", main, args);
     main->robots = init_robots(args, main);

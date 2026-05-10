@@ -9,14 +9,14 @@
 #include <stdio.h>
 #include "game.h"
 #include "op.h"
-#include "op_define.h"
+#include "define.h"
 #include "utils.h"
 
 bool check_id(unsigned char elem, unsigned int *size_elem,
     unsigned int *id_instr)
 {
     *id_instr = (unsigned int)elem;
-    if (*id_instr > 15)
+    if (*id_instr > NB_INSTR)
         return false;
     if (op_tab[(int) *id_instr].coding_byte)
         *size_elem = 1;

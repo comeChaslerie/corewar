@@ -5,11 +5,12 @@
 ** Header for the operations
 */
 
-#ifndef OP_DEFINE_H_
-    #define OP_DEFINE_H_
+#ifndef DEFINE_H_
+    #define DEFINE_H_
 
     #include <stdbool.h>
 
+    #define NB_INSTR 16
     #define MEM_SIZE (6 * 1024)
     #define IDX_MOD 512 /* modulo of the index < */
     #define MAX_ARGS_NUMBER 4 /* this may not be changed 2^*IND_SIZE */
@@ -68,4 +69,39 @@ typedef char args_type_t;
     #define CYCLE_DELTA 5
     #define NBR_LIVE 40
 
-#endif /* OP_DEFINE_H_ */
+/*
+** parsing
+*/
+    #define SUCCESS 0
+
+    #define FLAG_CHAR '-'
+    #define DUMP_FLAG "-dump"
+    #define LOAD_FLAG "-a"
+    #define ID_FLAG "-n"
+
+    #define SECURE_DIST 50
+
+    #define NO_ROBOT -1
+    #define NO_ID_ROBOT 0
+
+    #define NOT_ID -2
+
+    #define NO_VALUE_LOAD_POS -1
+
+    #define NO_CYCLE_DUMP -1
+
+/*
+** dump
+*/
+    #define LIST_HEXA "0123456789ABCDEF"
+    #define NB_HEXA 16
+    #define NB_BYTE_LINE 32
+    #define NEW_LINE_CHAR "\n"
+    #define SPACE_CHAR " "
+    #define ZERO_CHAR "0"
+    #define COLON_CHAR ":"
+    #define SIZE_INDEX 10
+    #define SEPARATOR_MEMORY "--"
+    #define SIZE_BEFORE_SEP 10
+
+#endif /* DEFINE_H_ */

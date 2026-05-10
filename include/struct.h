@@ -9,7 +9,7 @@
     #define MY_STRUCT_H_
 
     #include <stdbool.h>
-    #include "op_define.h"
+    #include "define.h"
 
 typedef struct
 header_s {
@@ -49,6 +49,8 @@ typedef struct robot_infos_s {
     unsigned int id;
     robot_game_infos_t *game_infos;
     pos_infos_t *pos_infos;
+    struct robot_infos_s *child;
+    struct robot_infos_s *parent;
 } robot_infos_t;
 
 typedef struct robot_args_s {

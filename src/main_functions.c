@@ -24,6 +24,7 @@ int main_functions(int argc, char **argv)
     if (!game_loop(main)){
         return (long)put_error("game loop failed.\n", (void *)84);
     }
+    dump(main);
     free_main("", main, args);
     return 0;
 }

@@ -5,7 +5,7 @@
 ** file
 */
 
-#include "op_define.h"
+#include "define.h"
 
 unsigned int get_type_size(int type)
 {

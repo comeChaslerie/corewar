@@ -5,7 +5,7 @@
 ** instructions functions load
 */
 #include <stdbool.h>
-#include "op_define.h"
+#include "define.h"
 #include "struct.h"
 #include "hexa_calc.h"
 #include "utils.h"

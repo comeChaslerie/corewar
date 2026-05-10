@@ -23,6 +23,9 @@ SRC = 	src/hexa_calc/hexa_diff.c	\
 		src/parsing_args/manage_flag.c			\
 		src/parsing_args/parse_args.c			\
 		src/utils/conversions.c			\
+		src/utils/my_intlen.c			\
+		src/utils/my_put_nbr.c			\
+		src/utils/my_putchar.c			\
 		src/game_loop/get_size_from_id.c	\
 		src/game_loop/translate_mem.c		\
 		src/game_loop/apply_instr.c			\
@@ -46,6 +49,7 @@ SRC = 	src/hexa_calc/hexa_diff.c	\
 		src/utils/hextouc.c	\
 		src/free_all.c 			\
 		src/main_functions.c 	\
+		src/dump_flag.c			\
 		src/op.c
 		
 

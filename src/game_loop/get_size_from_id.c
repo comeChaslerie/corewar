@@ -6,7 +6,7 @@
 */
 
 #include "op.h"
-#include "op_define.h"
+#include "define.h"
 
 unsigned int get_size_from_id(unsigned int instr_id)
 {

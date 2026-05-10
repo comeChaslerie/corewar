@@ -5,7 +5,7 @@
 ** instructions functions bin calculous
 */
 #include <stdbool.h>
-#include "op_define.h"
+#include "define.h"
 #include "struct.h"
 
 bool bin_and_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],

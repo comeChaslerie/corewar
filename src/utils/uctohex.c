@@ -6,7 +6,7 @@
 */
 
 #include "hexa_calc.h"
-#include "op_define.h"
+#include "define.h"
 #include "utils.h"
 #include <stdlib.h>
 

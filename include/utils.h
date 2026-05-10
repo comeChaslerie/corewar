@@ -28,5 +28,9 @@ unsigned int get_type_size(int type);
 void free_values(void **values, unsigned int nb_values);
 void set_carry_null_reg(unsigned char *reg,
     robot_game_infos_t *game_infos);
+int my_intlen(int nb);
+int my_intlen_u(unsigned int nb);
+int my_put_nbr_u(unsigned int n);
+void my_putchar(char c);
 
 #endif
