@@ -39,7 +39,7 @@ static bool check_id_after_parsing(robot_args_t *robots_args)
 
 static void update_load_pos(robot_args_t *robots_args, unsigned int nbr_robots)
 {
-    int slice_size = (MEM_SIZE / 2) / nbr_robots;
+    int slice_size = (MEM_SIZE) / nbr_robots;
 
     for (unsigned int index_tab = 0; index_tab < nbr_robots; index_tab++) {
         if (index_tab - 1 == nbr_robots)

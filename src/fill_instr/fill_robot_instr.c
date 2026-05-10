@@ -71,7 +71,7 @@ bool get_instructions(main_t *main, robot_infos_t *robot_infos, FILE *fp)
         buffer = check_instr(elem, &size_buffer, fp, buffer);
         if (buffer == NULL)
             return put_error("Buffer equals null.", false);
-        if (pos + size_total + size_buffer > MEM_SIZE / 2)
+        if (pos + size_total + size_buffer > MEM_SIZE)
             return put_error("Champions instr goes out of memory.", false);
         add_to_arena(&main->arena[pos + size_total], buffer, size_buffer);
         size_total += size_buffer;
