@@ -21,6 +21,8 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/parsing_args/manage_flag.c			\
 		src/parsing_args/parse_args.c			\
 		src/utils/conversions.c			\
+		src/utils/my_intlen.c			\
+		src/utils/my_getstr.c			\
 		src/game_loop/get_size_from_id.c	\
 		src/game_loop/translate_mem.c		\
 		src/game_loop/apply_instr.c			\
@@ -28,7 +30,6 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/init/init_arg.c		\
 		src/init/init_instr.c	\
 		src/init/init_main.c	\
-		src/flag/dump_flag.c	\
 		src/utils/my_strcmp.c 		\
 		src/utils/put_error.c 		\
 		src/utils/my_getnbr.c 		\
@@ -39,6 +40,7 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/utils/is_nbr.c 			\
 		src/free_all.c 			\
 		src/main_functions.c 	\
+		src/dump_flag.c			\
 		src/op.c
 		
 

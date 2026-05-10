@@ -91,11 +91,14 @@ typedef char args_type_t;
 /*
 ** dump
 */
-    #define LIST_HEXA "0123456789abcdef"
+    #define LIST_HEXA "0123456789ABCDEF"
     #define NB_HEXA 16
     #define NB_BYTE_LINE 32
     #define NEW_LINE_CHAR "\n"
     #define SPACE_CHAR " "
     #define ZERO_CHAR "0"
+    #define COLON_CHAR ":"
+    #define SIZE_INDEX 10
+    #define SEPARATOR_MEMORY "--"
 
 #endif /* DEFINE_H_ */

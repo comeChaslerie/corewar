@@ -11,7 +11,7 @@
     #include "struct.h"
     #include <stdbool.h>
 
-void dump(main_t *main);
+bool dump(main_t *main);
 
 int main_functions(int argc, char **argv);
 

@@ -23,5 +23,8 @@ unsigned char *my_ustrndup(unsigned char *src, unsigned int start,
 unsigned char *my_ustrcat(unsigned char *dest, unsigned int *size_dest,
     unsigned char *src, unsigned int size_src);
 char *to_bin(unsigned char value);
+int my_intlen(int nb);
+int my_intlen_u(unsigned int nb);
+char *my_getstr(unsigned int nbr);
 
 #endif
