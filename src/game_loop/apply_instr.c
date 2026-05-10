@@ -20,16 +20,17 @@ static unsigned char *get_instr_mem(main_t *main, unsigned int id)
     unsigned int *args_size = NULL;
     unsigned int nbr_args = 0;
 
-    pos_start = main->robots[id].pos_infos->pos_start;
-    args_size = get_coding_byte_tab(main->arena[pos_start + 1], id);
+    pos_start = main->robots[id].pos_infos->pos_next_instr;
+    args_size = get_coding_byte_tab(main->arena[pos_start], id);
     if (!args_size)
         return put_error("incorrect coding byte tab in get_instr_mem", NULL);
     size = get_global_size(args_size, &nbr_args);
-    /*if (nbr_args != op_tab[main->arena[pos_start + 1]].nbr_args)
+    /*if (nbr_args != op_tab[main->arena[pos_start]].nbr_args)
         return put_error("incorrect args nbr\n", NULL);*/
     instr = my_ustrndup(main->arena, pos_start, pos_start + size);
     if (!instr)
         return put_error("Error: dup in apply_instructions.\n", NULL);
+    main->robots[id].pos_infos->pos_next_instr += pos_start;
     return instr;
 }
 
