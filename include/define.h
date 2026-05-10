@@ -100,5 +100,6 @@ typedef char args_type_t;
     #define COLON_CHAR ":"
     #define SIZE_INDEX 10
     #define SEPARATOR_MEMORY "--"
+    #define SIZE_BEFORE_SEP 10
 
 #endif /* DEFINE_H_ */

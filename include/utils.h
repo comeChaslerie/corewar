@@ -25,6 +25,7 @@ unsigned char *my_ustrcat(unsigned char *dest, unsigned int *size_dest,
 char *to_bin(unsigned char value);
 int my_intlen(int nb);
 int my_intlen_u(unsigned int nb);
-char *my_getstr(unsigned int nbr);
+int my_put_nbr_u(unsigned int n);
+void my_putchar(char c);
 
 #endif

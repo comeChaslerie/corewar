@@ -48,24 +48,18 @@ static void print_arena(unsigned char *arena)
     }
 }
 
-static bool print_cycle(main_t *main)
+static void print_cycle(unsigned int cycle)
 {
-    char *cycle = my_strdup(my_getstr(main->cycle));
-
-    if (cycle == NULL)
-        return false;
     write(1, "Cycle", 5);
     write(1, COLON_CHAR, 1);
     write(1, SPACE_CHAR, 1);
-    write(1, cycle, my_strlen(cycle));
+    my_put_nbr_u(cycle);
     write(1, NEW_LINE_CHAR, 1);
-    free(cycle);
-    return true;
 }
 
 static void print_memory(void)
 {
-    write(1, "Memory:   ", 10);
+    write(1, "Memory:   ", SIZE_BEFORE_SEP);
     for (unsigned int index = 0; index < NB_BYTE_LINE; index++) {
         if (index < NB_HEXA)
             write(1, ZERO_CHAR, 1);
@@ -74,11 +68,11 @@ static void print_memory(void)
     }
     write(1, NEW_LINE_CHAR, 1);
     for (unsigned int i = 0; i < NB_BYTE_LINE + SIZE_INDEX; i++) {
-        if (i < 10)
+        if (i < SIZE_BEFORE_SEP)
             write(1, SPACE_CHAR, 1);
         if (i == NB_BYTE_LINE + SIZE_INDEX)
             write(1, SEPARATOR_MEMORY, 2);
-        if (i >= 10) {
+        if (i >= SIZE_BEFORE_SEP) {
             write(1, SEPARATOR_MEMORY, 2);
             write(1, SPACE_CHAR, 1);
         }
@@ -86,11 +80,9 @@ static void print_memory(void)
     write(1, NEW_LINE_CHAR, 1);
 }
 
-bool dump(main_t *main)
+void dump(main_t *main)
 {
-    if (!print_cycle(main))
-        return false;
+    print_cycle(main->cycle);
     print_memory();
     print_arena(main->arena);
-    return true;
 }
