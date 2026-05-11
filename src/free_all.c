@@ -45,6 +45,8 @@ void *free_robots(main_t *main, void *return_value)
 
 void *free_main(char *str, main_t *main, args_t *args)
 {
+    if (!main)
+        return NULL;
     if (main->arena)
         free(main->arena);
     if (main->robots != NULL) {
