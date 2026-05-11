@@ -23,8 +23,14 @@ bool fork_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     pos_infos_t *pos_infos = main->robots[robot_id].pos_infos;
     unsigned int offset = uctoui(args[0]->arg, T_IND);
 
+    if (main->robots[robot_id].parent)
+        return true;
     if (!cp_robot(&(main->robots[robot_id])))
         return false;
     main->robots[robot_id].child->pos_infos->pos_next_instr += offset;
+    if (main->robots[robot_id].child->pos_infos->pos_next_instr + offset >
+        main->robots[robot_id].child->pos_infos->pos_end)
+        main->robots[robot_id].child->pos_infos->pos_next_instr =
+            main->robots[robot_id].child->pos_infos->pos_start;
     return true;
 }
