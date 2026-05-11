@@ -57,7 +57,8 @@ static bool translate_and_apply(instr_t *args, unsigned char *instr,
     main_t *main, unsigned int index)
 {
     args = translate_mem(instr);
-    if (!args || !apply_instr(main, args, index))
+    if (!args || args->id > NB_INSTR || args->id < 1 ||
+        !apply_instr(main, args, index))
         return put_error("incorrects args or apply_instr failed", false);
     main->robots[index].game_infos->cycles_remaining
     = op_tab[args->id].nbr_cycles;
