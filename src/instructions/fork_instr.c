@@ -5,6 +5,7 @@
 ** instructions functions load
 */
 #include <stdbool.h>
+#include <stdlib.h>
 #include "define.h"
 #include "struct.h"
 #include "utils.h"
@@ -21,16 +22,16 @@ bool fork_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 {
     main_t *main = (main_t *)value;
     pos_infos_t *pos_infos = main->robots[robot_id].pos_infos;
+    pos_infos_t *child_pos = NULL;
     unsigned int offset = uctoui(args[0]->arg, T_IND);
 
     if (main->robots[robot_id].parent)
         return true;
     if (!cp_robot(&(main->robots[robot_id])))
         return false;
+    child_pos = main->robots[robot_id].child->pos_infos;
     main->robots[robot_id].child->pos_infos->pos_next_instr += offset;
-    if (main->robots[robot_id].child->pos_infos->pos_next_instr + offset >
-        main->robots[robot_id].child->pos_infos->pos_end)
-        main->robots[robot_id].child->pos_infos->pos_next_instr =
-            main->robots[robot_id].child->pos_infos->pos_start;
+    if (child_pos->pos_next_instr > child_pos->pos_end)
+        child_pos->pos_next_instr = child_pos->pos_start;
     return true;
 }
