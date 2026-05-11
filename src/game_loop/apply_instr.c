@@ -81,6 +81,8 @@ bool apply_robot_instr(main_t *main, unsigned int index, robot_infos_t *robot)
     }
     if (!translate_and_apply(args, instr, main, index))
         return false;
+    if (robot->pos_infos->pos_next_instr > robot->pos_infos->pos_end)
+        robot->pos_infos->pos_next_instr = robot->pos_infos->pos_start;
     if (robot->child)
         return apply_robot_instr(main, index, robot->child);
     return true;
