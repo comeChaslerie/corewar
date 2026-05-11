@@ -23,7 +23,7 @@ typedef struct op_s {
     char *comment;
     bool coding_byte;
     bool is_index;
-    bool (*instr_func)(void *, arg_t *[MAX_ARGS_NUMBER]);
+    bool (*instr_func)(void *, arg_t *[MAX_ARGS_NUMBER], unsigned int);
 } op_t;
 
 /*

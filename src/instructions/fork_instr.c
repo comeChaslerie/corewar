@@ -5,15 +5,33 @@
 ** instructions functions load
 */
 #include <stdbool.h>
+#include <stdlib.h>
 #include "define.h"
 #include "struct.h"
+#include "utils.h"
+#include "hexa_calc.h"
 
-bool fork_long_instr(void *value, arg_t *args[MAX_ARGS_NUMBER])
+bool fork_long_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
+    unsigned int robot_id)
 {
     return true;
 }
 
-bool fork_instr(void *value, arg_t *args[MAX_ARGS_NUMBER])
+bool fork_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
+    unsigned int robot_id)
 {
+    main_t *main = (main_t *)value;
+    pos_infos_t *pos_infos = main->robots[robot_id].pos_infos;
+    pos_infos_t *child_pos = NULL;
+    unsigned int offset = uctoui(args[0]->arg, T_IND);
+
+    if (main->robots[robot_id].parent)
+        return true;
+    if (!cp_robot(&(main->robots[robot_id])))
+        return false;
+    child_pos = main->robots[robot_id].child->pos_infos;
+    main->robots[robot_id].child->pos_infos->pos_next_instr += offset;
+    if (child_pos->pos_next_instr > child_pos->pos_end)
+        child_pos->pos_next_instr = child_pos->pos_start;
     return true;
 }

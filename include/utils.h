@@ -9,6 +9,7 @@
     #define UTILS_H_
 
     #include <stdbool.h>
+    #include "struct.h"
 
 void *put_error(const char *str, void *return_value);
 int my_strncmp(char *s1, char *s2, int end);
@@ -23,9 +24,16 @@ unsigned char *my_ustrndup(unsigned char *src, unsigned int start,
 unsigned char *my_ustrcat(unsigned char *dest, unsigned int *size_dest,
     unsigned char *src, unsigned int size_src);
 char *to_bin(unsigned char value);
+unsigned int get_type_size(int type);
+void free_values(void **values, unsigned int nb_values);
+void set_carry_null_reg(unsigned char *reg,
+    robot_game_infos_t *game_infos);
 int my_intlen(int nb);
 int my_intlen_u(unsigned int nb);
 int my_put_nbr_u(unsigned int n);
 void my_putchar(char c);
+void add_to_arena(unsigned char *arena, unsigned char *buffer,
+    unsigned int size_buffer);
+bool cp_robot(robot_infos_t *robot);
 
 #endif

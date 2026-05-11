@@ -10,6 +10,7 @@
 
     #include <stdbool.h>
 
+    #define NB_INSTR 16
     #define MEM_SIZE (6 * 1024)
     #define IDX_MOD 512 /* modulo of the index < */
     #define MAX_ARGS_NUMBER 4 /* this may not be changed 2^*IND_SIZE */
@@ -51,7 +52,8 @@ typedef char args_type_t;
 */
     #define IND_SIZE 2
     #define DIR_SIZE 4
-    #define REG_SIZE 1
+    #define REG_ARG_SIZE 1
+    #define REG_SIZE 4
 
 /*
 ** header

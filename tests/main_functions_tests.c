@@ -31,13 +31,3 @@ Test(main_functions, basic_file_args)
 
     cr_assert(main_functions(argc, argv) == 84);
 }
-
-/*Test(main_functions, full_args)
-{
-    int argc = 11;
-    char *argv[11] = {"./corewar", "-dump", "200", "-a", "168",
-        "-n", "2", "examples/champions/bill.cor", "-n", "1", "examples/champions/pdd.cor"};
-
-    cr_assert(main_functions(argc, argv) == 84); //should return 0
-}*/
-//crsah in test but not in terminal
