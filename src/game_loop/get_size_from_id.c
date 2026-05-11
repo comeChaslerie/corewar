@@ -17,6 +17,6 @@ unsigned int get_size_from_id(unsigned int instr_id)
     if (ctype == T_IND)
         return IND_SIZE;
     if (ctype == T_REG)
-        return REG_SIZE;
+        return REG_ARG_SIZE;
     return DIR_SIZE;
 }

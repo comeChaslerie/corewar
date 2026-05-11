@@ -7,6 +7,15 @@
 
 SRC = 	src/fill_instr/check_instr.c 			\
 		src/fill_instr/fill_robot_instr.c 		\
+		src/game_loop/get_size_from_id.c	\
+		src/game_loop/translate_mem.c		\
+		src/game_loop/apply_instr.c			\
+		src/game_loop/game_loop.c			\
+		src/hexa_calc/hexa_diff.c	\
+		src/hexa_calc/hexa_sum.c	\
+		src/init/init_arg.c		\
+		src/init/init_instr.c	\
+		src/init/init_main.c	\
 		src/instructions/basic_instr.c		\
 		src/instructions/bin_instr.c		\
 		src/instructions/fork_instr.c		\
@@ -24,21 +33,21 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/utils/my_intlen.c			\
 		src/utils/my_put_nbr.c			\
 		src/utils/my_putchar.c			\
-		src/game_loop/get_size_from_id.c	\
-		src/game_loop/translate_mem.c		\
-		src/game_loop/apply_instr.c			\
-		src/game_loop/game_loop.c			\
-		src/init/init_arg.c		\
-		src/init/init_instr.c	\
-		src/init/init_main.c	\
-		src/utils/my_strcmp.c 		\
-		src/utils/put_error.c 		\
-		src/utils/my_getnbr.c 		\
-		src/utils/my_strlen.c 		\
-		src/utils/my_strdup.c 		\
-		src/utils/my_ustrcat.c 		\
-		src/utils/my_ustrndup.c		\
-		src/utils/is_nbr.c 			\
+		src/utils/my_strcmp.c 			\
+		src/utils/put_error.c 			\
+		src/utils/my_getnbr.c 			\
+		src/utils/my_strlen.c 			\
+		src/utils/my_strdup.c 			\
+		src/utils/my_ustrcat.c 			\
+		src/utils/my_ustrndup.c			\
+		src/utils/is_nbr.c 				\
+		src/utils/uctoui.c				\
+		src/utils/uctohex.c				\
+		src/utils/set_carry_null_reg.c	\
+		src/utils/free_values.c			\
+		src/utils/get_type_size.c		\
+		src/utils/hextouc.c				\
+		src/utils/cp_robot.c			\
 		src/free_all.c 			\
 		src/main_functions.c 	\
 		src/dump_flag.c			\
@@ -49,7 +58,7 @@ NAME =	corewar
 
 CC = epiclang
 
-CFLAGS = -I./include
+CFLAGS = -I./include -g
 
 OBJ = 	$(SRC:.c=.o)
 

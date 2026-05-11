@@ -7,13 +7,31 @@
 #include <stdbool.h>
 #include "define.h"
 #include "struct.h"
+#include "hexa_calc.h"
 
-bool store_instr(void *value, arg_t *args[MAX_ARGS_NUMBER])
+bool store_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
+    unsigned int robot_id)
 {
+    unsigned int src = (unsigned int)args[0]->arg[0];
+    unsigned int dest = 0;
+    main_t *main = (main_t *)value;
+    unsigned char **regs = main->robots[robot_id].game_infos->regs;
+
+    if (args[1]->type == T_REG){
+        dest = (unsigned int)args[1]->arg[0];
+        for (unsigned int i = 0; i < REG_SIZE; i++)
+            regs[dest][i] = regs[src][i];
+        return true;
+    }
+    dest = uctoui(args[1]->arg, args[1]->type);
+    dest += main->robots[robot_id].pos_infos->pos_next_instr;
+    for (unsigned int i = 0; i < REG_SIZE; i++)
+        regs[src][i] = main->arena[dest + i];
     return true;
 }
 
-bool store_ind_instr(void *value, arg_t *args[MAX_ARGS_NUMBER])
+bool store_ind_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
+    unsigned int robot_id)
 {
     return true;
 }
