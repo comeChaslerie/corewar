@@ -100,7 +100,20 @@ static void print_robot_name(robot_infos_t *robots)
 
 static void print_register(unsigned char **regs)
 {
-    for ()
+    char register_value[9] = "000000000";
+
+    for (unsigned int i = 0; i < NB_REG; i++) {
+        for (unsigned int j = 0; j < NB_SPACE; j++)
+            write(1, SPACE_CHAR, 1);
+        write(1, REGISTER_LETTER, 1);
+        my_put_nbr_u(i);
+        if (i < 10)
+            write(1, SPACE_CHAR, 1);
+        write(1, COLON_CHAR, 1);
+        write(1, SPACE_CHAR, 1);
+        print_index_hexa(regs[i][0], register_value);
+    }
+    write(1, NEW_LINE_CHAR, 1);
 }
 
 static void print_robot(main_t *main)
