@@ -101,5 +101,7 @@ typedef char args_type_t;
     #define SIZE_INDEX 10
     #define SEPARATOR_MEMORY "--"
     #define SIZE_BEFORE_SEP 10
+    #define OPEN_PARENTHESE "("
+    #define CLOSE_PARENTHESE ")"
 
 #endif /* DEFINE_H_ */

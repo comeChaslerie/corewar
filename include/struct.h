@@ -42,6 +42,7 @@ typedef struct robot_game_infos_s {
     int cycles_remaining;
     bool carry;
     int pc;
+    bool alive;
 } robot_game_infos_t;
 
 typedef struct robot_infos_s {

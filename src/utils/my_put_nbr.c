@@ -69,7 +69,6 @@ int my_put_nbr_u(unsigned int nb)
     if (nb != 0){
         my_put_nbr_u(nb / 10);
         my_putchar(nb % 10 + '0');
-    } else
-        my_putchar('0');
+    }
     return 0;
 }

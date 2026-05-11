@@ -53,7 +53,10 @@ static void print_cycle(unsigned int cycle)
     write(1, "Cycle", 5);
     write(1, COLON_CHAR, 1);
     write(1, SPACE_CHAR, 1);
-    my_put_nbr_u(cycle);
+    if (cycle == 0)
+        write(1, ZERO_CHAR, 1);
+    else
+        my_put_nbr_u(cycle);
     write(1, NEW_LINE_CHAR, 1);
 }
 
@@ -80,9 +83,34 @@ static void print_memory(void)
     write(1, NEW_LINE_CHAR, 1);
 }
 
+void print_robot_name(robot_infos_t *robots)
+{
+    write(1, SPACE_CHAR, 1);
+    write(1, SPACE_CHAR, 1);
+    write(1, robots->header.prog_name, my_strlen(robots->header.prog_name));
+    write(1, OPEN_PARENTHESE, 1);
+    my_put_nbr_u(robots->id);
+    write(1, CLOSE_PARENTHESE, 1);
+    write(1, COLON_CHAR, 1);
+    write(1, SPACE_CHAR, 1);
+    if (robots->game_infos->alive == true)
+        write(1, "alive", 5);
+    write(1, NEW_LINE_CHAR, 1);
+}
+
+void print_robot(main_t *main)
+{
+    write(1, "Registers:", 10);
+    write(1, NEW_LINE_CHAR, 1);
+    for (unsigned int i = 0; i < main->nbr_robots; i++) {
+        print_robot_name(&main->robots[i]);
+    }
+}
+
 void dump(main_t *main)
 {
     print_cycle(main->cycle);
+    print_robot(main);
     print_memory();
     print_arena(main->arena);
 }
