@@ -32,5 +32,8 @@ int my_intlen(int nb);
 int my_intlen_u(unsigned int nb);
 int my_put_nbr_u(unsigned int n);
 void my_putchar(char c);
+void add_to_arena(unsigned char *arena, unsigned char *buffer,
+    unsigned int size_buffer);
+bool cp_robot(robot_infos_t *robot);
 
 #endif

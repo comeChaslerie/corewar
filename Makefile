@@ -47,6 +47,7 @@ SRC = 	src/hexa_calc/hexa_diff.c	\
 		src/utils/free_values.c	\
 		src/utils/get_type_size.c	\
 		src/utils/hextouc.c	\
+		src/utils/cp_robot.c	\
 		src/free_all.c 			\
 		src/main_functions.c 	\
 		src/dump_flag.c			\

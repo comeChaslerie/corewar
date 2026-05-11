@@ -7,6 +7,8 @@
 #include <stdbool.h>
 #include "define.h"
 #include "struct.h"
+#include "utils.h"
+#include "hexa_calc.h"
 
 bool fork_long_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
@@ -17,5 +19,12 @@ bool fork_long_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 bool fork_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
+    main_t *main = (main_t *)value;
+    pos_infos_t *pos_infos = main->robots[robot_id].pos_infos;
+    unsigned int offset = uctoui(args[0]->arg, T_IND);
+
+    if (!cp_robot(&(main->robots[robot_id])))
+        return false;
+    main->robots[robot_id].child->pos_infos->pos_next_instr += offset;
     return true;
 }

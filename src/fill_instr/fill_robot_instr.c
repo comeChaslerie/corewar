@@ -22,14 +22,13 @@ int my_htonl(int val)
     return result;
 }
 
-static void add_to_arena(unsigned char *arena, unsigned char *buffer,
+void add_to_arena(unsigned char *arena, unsigned char *buffer,
     unsigned int size_buffer)
 {
     if (buffer == NULL)
         return;
-    for (unsigned int index = 0; index < size_buffer; index++) {
+    for (unsigned int index = 0; index < size_buffer; index++)
         arena[index] = buffer[index];
-    }
     free(buffer);
     buffer = NULL;
 }

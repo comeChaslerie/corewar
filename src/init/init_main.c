@@ -30,6 +30,8 @@ bool init_game_infos(robot_infos_t *robot_infos)
     robot_infos->game_infos->carry = 0;
     robot_infos->game_infos->pc = 0;
     robot_infos->game_infos->cycles_remaining = 0;
+    robot_infos->child = NULL;
+    robot_infos->parent = NULL;
     return true;
 }
 
