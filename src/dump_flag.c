@@ -83,7 +83,7 @@ static void print_memory(void)
     write(1, NEW_LINE_CHAR, 1);
 }
 
-void print_robot_name(robot_infos_t *robots)
+static void print_robot_name(robot_infos_t *robots)
 {
     write(1, SPACE_CHAR, 1);
     write(1, SPACE_CHAR, 1);
@@ -98,7 +98,12 @@ void print_robot_name(robot_infos_t *robots)
     write(1, NEW_LINE_CHAR, 1);
 }
 
-void print_robot(main_t *main)
+static void print_register(unsigned char **regs)
+{
+    for ()
+}
+
+static void print_robot(main_t *main)
 {
     char index_pc[9] = "00000000";
 
@@ -106,6 +111,7 @@ void print_robot(main_t *main)
     write(1, NEW_LINE_CHAR, 1);
     for (unsigned int i = 0; i < main->nbr_robots; i++) {
         print_robot_name(&main->robots[i]);
+        print_register(main->robots[i].game_infos->regs);
         for (unsigned int j = 0; j < NB_SPACE; j++)
             write(1, SPACE_CHAR, 1);
         write(1, "PC : ", 5);

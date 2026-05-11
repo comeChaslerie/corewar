@@ -107,5 +107,6 @@ typedef char args_type_t;
     #define CLOSE_PARENTHESE ")"
     #define NB_SPACE 4
     #define PC_SIZE 8
+    #define NB_REG 16
 
 #endif /* DEFINE_H_ */
