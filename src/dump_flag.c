@@ -100,10 +100,21 @@ void print_robot_name(robot_infos_t *robots)
 
 void print_robot(main_t *main)
 {
+    char index_pc[9] = "00000000";
+
     write(1, "Registers:", 10);
     write(1, NEW_LINE_CHAR, 1);
     for (unsigned int i = 0; i < main->nbr_robots; i++) {
         print_robot_name(&main->robots[i]);
+        for (unsigned int j = 0; j < NB_SPACE; j++)
+            write(1, SPACE_CHAR, 1);
+        write(1, "PC : ", 5);
+        print_index_hexa(main->robots[i].game_infos->pc, index_pc);
+        for (unsigned int j = 0; j < NB_SPACE; j++)
+            write(1, SPACE_CHAR, 1);
+        write(1, "carry: ", 7);
+        my_puthexa(main->robots[i].game_infos->carry);
+        write(1, NEW_LINE_CHAR, 1);
     }
 }
 

@@ -103,5 +103,7 @@ typedef char args_type_t;
     #define SIZE_BEFORE_SEP 10
     #define OPEN_PARENTHESE "("
     #define CLOSE_PARENTHESE ")"
+    #define NB_SPACE 4
+    #define PC_SIZE 8
 
 #endif /* DEFINE_H_ */
