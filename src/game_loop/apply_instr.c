@@ -66,23 +66,32 @@ static bool translate_and_apply(instr_t *args, unsigned char *instr,
     return true;
 }
 
-bool apply_instructions(main_t *main)
+bool apply_robot_instr(main_t *main, unsigned int index, robot_infos_t *robot)
 {
-    unsigned int size = 0;
     unsigned char *instr = NULL;
     instr_t *args = NULL;
 
-    for (unsigned int i = 0; i < main->nbr_robots; i++){
-        if (decrement_robot_cycle(main, i))
-            continue;
-        instr = get_instr_mem(main, i);
-        if (!instr){
-            free_values((void *[2]){(void *)instr, (void *)args}, 2);
-            main->robots[i].pos_infos->pos_next_instr++;
-            continue;
-        }
-        if (!translate_and_apply(args, instr, main, i))
-            return false;
+    if (decrement_robot_cycle(main, index))
+        return true;
+    instr = get_instr_mem(main, index);
+    if (!instr){
+        free_values((void *[2]){(void *)instr, (void *)args}, 2);
+        robot->pos_infos->pos_next_instr++;
+        return true;
     }
+    if (!translate_and_apply(args, instr, main, index))
+        return false;
+    if (robot->child)
+        return apply_robot_instr(main, index, robot->child);
+    return true;
+}
+
+bool apply_cycle(main_t *main)
+{
+    unsigned int size = 0;
+
+    for (unsigned int i = 0; i < main->nbr_robots; i++)
+        if (!apply_robot_instr(main, i, &(main->robots[i])))
+            return false;
     return true;
 }

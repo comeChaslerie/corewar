@@ -15,7 +15,7 @@ void dump(main_t *main);
 
 int main_functions(int argc, char **argv);
 
-bool apply_instructions(main_t *main);
+bool apply_cycle(main_t *main);
 
 instr_t *translate_mem(unsigned char *instr);
 
