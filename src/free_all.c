@@ -11,6 +11,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void free_instr(instr_t *instr)
+{
+    if (!instr)
+        return;
+    for (unsigned int i = 0; i < MAX_ARGS_NUMBER; i++)
+        if (instr->args[i])
+            free(instr->args[i]);
+}
+
 void *free_args_struct(args_t *args)
 {
     if (args == NULL)
@@ -26,21 +35,41 @@ void *free_args_struct(args_t *args)
     return NULL;
 }
 
-void *free_robots(main_t *main, void *return_value)
+static void free_infos(robot_game_infos_t *infos)
+{
+    if (!infos)
+        return;
+    for (unsigned int i = 0; i < REG_NUMBER && infos->regs; i++)
+        if (infos->regs[i])
+            free(infos->regs[i]);
+    if (infos->regs)
+        free(infos->regs);
+    free(infos);
+}
+
+static void free_robot(robot_infos_t *infos)
+{
+    if (!infos)
+        return;
+    if (infos->pos_infos)
+        free(infos->pos_infos);
+    if (infos->game_infos)
+        free_infos(infos->game_infos);
+    if (infos->child)
+        free_robot(infos->child);
+    free(infos);
+}
+
+
+void *free_robots(main_t *main)
 {
     if (main->robots == NULL)
-        return return_value;
+        return NULL;
     for (unsigned int index = 0; index < main->nbr_robots; index++) {
-        if (main->robots[index].pos_infos != NULL)
-            free(main->robots[index].pos_infos);
-        if (main->robots[index].game_infos != NULL &&
-            main->robots[index].game_infos->regs != NULL) {
-            free(main->robots[index].game_infos->regs);
-            free(main->robots[index].game_infos);
-        }
+        free_robot(&(main->robots[index]));
     }
     free(main->robots);
-    return return_value;
+    return NULL;
 }
 
 void *free_main(char *str, main_t *main, args_t *args)
@@ -50,7 +79,7 @@ void *free_main(char *str, main_t *main, args_t *args)
     if (main->arena)
         free(main->arena);
     if (main->robots != NULL) {
-        free_robots(main, NULL);
+        free_robots(main);
     }
     free(main);
     return NULL;

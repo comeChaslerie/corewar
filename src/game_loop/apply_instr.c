@@ -70,11 +70,14 @@ static bool translate_and_apply(instr_t *args, unsigned char *instr,
     main_t *main, unsigned int index)
 {
     args = translate_mem(instr);
-    if (!args || !apply_instr(main, args, index))
+    if (!args || !apply_instr(main, args, index)){
+        free_instr(args);
         return put_error("incorrects args or apply_instr failed", false);
-    main->robots[index].game_infos->cycles_remaining
+    }
+    main->robots[index].game_infos->cycles_remaining 
     = op_tab[args->id].nbr_cycles;
-    free_values((void *[2]){(void *)instr, (void *)args}, 2);
+    free_values((void *[5]){(void *)instr, (void *)(&(args->args[0])),
+        (void *)(&(args->args[1])), (void *)(&(args->args[2])), (void *)args}, 5);
     return true;
 }
 

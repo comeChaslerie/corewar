@@ -29,13 +29,13 @@ void add_to_arena(unsigned char *arena, unsigned char *buffer,
         return;
     for (unsigned int index = 0; index < size_buffer; index++)
         arena[index] = buffer[index];
-    free(buffer);
-    buffer = NULL;
+    free(buffer); 
 }
 
 unsigned char *check_instr(unsigned char instr, unsigned int *size_buffer,
-    FILE *fp, unsigned char *buffer)
+    FILE *fp)
 {
+    unsigned char *buffer = NULL;
     unsigned char *elem = NULL;
     unsigned int size_elem = 0;
     unsigned int id_instr = 0;
@@ -67,7 +67,7 @@ bool get_instructions(main_t *main, robot_infos_t *robot_infos, FILE *fp)
     unsigned int pos = robot_infos->pos_infos->pos_start;
 
     while (fread(&elem, sizeof(unsigned char), 1, fp) != 0) {
-        buffer = check_instr(elem, &size_buffer, fp, buffer);
+        buffer = check_instr(elem, &size_buffer, fp);
         if (buffer == NULL)
             return put_error("Buffer equals null.", false);
         if (pos + size_total + size_buffer > MEM_SIZE)

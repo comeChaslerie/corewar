@@ -26,6 +26,7 @@ unsigned char *my_ustrcat(unsigned char *dest, unsigned int *size_dest,
 char *to_bin(unsigned char value);
 unsigned int get_type_size(int type);
 void free_values(void **values, unsigned int nb_values);
+void free_instr(instr_t *instr);
 void set_carry_null_reg(unsigned char *reg,
     robot_game_infos_t *game_infos);
 int my_intlen(int nb);

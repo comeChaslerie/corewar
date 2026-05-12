@@ -107,7 +107,7 @@ valgrind: re
          --show-leak-kinds=all \
          --track-origins=yes \
          --log-file=valgrind-out.txt \
-         ./$(NAME) -dump 10 -a 2 examples/champions/bill.cor examples/champions/pdd.cor
+         ./$(NAME) -dump 0 examples/champions/bill.cor
 
 
 re_mac:
