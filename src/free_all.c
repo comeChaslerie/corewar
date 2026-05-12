@@ -60,7 +60,6 @@ static void free_robot(robot_infos_t *infos)
     free(infos);
 }
 
-
 void *free_robots(main_t *main)
 {
     if (main->robots == NULL)

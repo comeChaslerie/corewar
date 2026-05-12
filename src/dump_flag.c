@@ -33,7 +33,7 @@ static void print_arena(unsigned char *arena)
 {
     char index_arena[9] = "00000000";
 
-    for (unsigned int index = 0; index < (MEM_SIZE); index++){
+    for (unsigned int index = 0; index < MEM_SIZE; index++){
         if (index % NB_BYTE_LINE == 0) {
             print_index_hexa(index, index_arena);
             write(1, COLON_CHAR, 1);
