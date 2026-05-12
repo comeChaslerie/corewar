@@ -15,10 +15,10 @@
 bool live_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned int start = ((main_t *)value)->robots[(int)(args[0]->arg[0])]
-        .pos_infos->pos_next_instr;
-    unsigned int end = ((main_t *)value)->robots[(int)(args[0]->arg[0])]
-        .pos_infos->pos_end;
+    unsigned int player_id = uctoui(args[0]->arg, T_REG);
+    main_t *main = (main_t *)value;
+    unsigned int start = main->robots[player_id].pos_infos->pos_next_instr;
+    unsigned int end = main->robots[player_id].pos_infos->pos_end;
 
     if (start > end)
         return false;

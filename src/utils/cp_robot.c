@@ -47,7 +47,7 @@ bool cp_robot(robot_infos_t *robot)
 {
     if (robot->child)
         return true;
-    robot->child = malloc(sizeof(robot_infos_t *) * 1);
+    robot->child = malloc(sizeof(robot_infos_t) * 1);
     if (!robot->child)
         return put_error("malloc failed in cp_robot.\n", false);
     robot->child->child = NULL;
