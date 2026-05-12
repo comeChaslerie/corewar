@@ -14,26 +14,32 @@
 #include "utils.h"
 #include "game.h"
 
-static unsigned char *get_instr_mem(main_t *main, unsigned int id)
+static unsigned char *get_instr_mem(main_t *main, unsigned int robot_id)
 {
     int pos_start = 0;
     unsigned char *instr = NULL;
     unsigned int size = 0;
-    unsigned int *args_size = NULL;
+    unsigned int *args_tab = NULL;
     unsigned int nbr_args = 0;
 
-    pos_start = main->robots[id].pos_infos->pos_next_instr;
-    args_size = get_coding_byte_tab(main->arena[pos_start], id);
-    if (!args_size)
+    printf("pos start: %i\n", main->robots[robot_id].pos_infos->pos_next_instr);
+    pos_start = main->robots[robot_id].pos_infos->pos_next_instr;
+    args_tab = get_coding_byte_tab(main->arena[pos_start + 1], main->arena[pos_start]);
+    if (!args_tab)
         return put_error("incorrect coding byte tab in get_instr_mem", NULL);
-    size = get_global_size(args_size, &nbr_args);
+    size = get_global_size(args_tab, &nbr_args) + 2;
+    printf("size: %i\n", size);
+    printf("id instr: %i\n", main->arena[pos_start]);
+    printf("nbr_args: %i\n", nbr_args);
+    printf("nbr_args_actual: %i\n", op_tab[main->arena[pos_start]].nbr_args);
     if (main->arena[pos_start] <= 0 || main->arena[pos_start] > NB_INSTR
         || nbr_args != op_tab[main->arena[pos_start]].nbr_args)
         return NULL;
     instr = my_ustrndup(main->arena, pos_start, pos_start + size);
     if (!instr)
         return put_error("Error: dup in apply_instructions.\n", NULL);
-    main->robots[id].pos_infos->pos_next_instr += pos_start;
+    main->robots[robot_id].pos_infos->pos_next_instr += size;
+    free(args_tab);
     return instr;
 }
 
@@ -49,6 +55,7 @@ static bool decrement_robot_cycle(main_t *main, unsigned int id)
 static bool apply_instr(main_t *main, instr_t *instr,
     unsigned int robot_id)
 {
+    printf("id in apply: %i\n", instr->id);
     return op_tab[instr->id].instr_func(main, instr->args,
         robot_id);
 }
@@ -76,6 +83,7 @@ bool apply_robot_instr(main_t *main, unsigned int index, robot_infos_t *robot)
         robot->pos_infos->pos_next_instr = robot->pos_infos->pos_start;
     instr = get_instr_mem(main, index);
     if (!instr){
+        printf("failed\n");
         free_values((void *[2]){(void *)instr, (void *)args}, 2);
         robot->pos_infos->pos_next_instr++;
         return true;

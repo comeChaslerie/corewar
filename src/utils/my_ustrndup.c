@@ -18,7 +18,7 @@ unsigned char *my_ustrndup(unsigned char *src, unsigned int start,
     str = malloc(sizeof(char) * (ulen));
     if (!str)
         return NULL;
-    for (unsigned int i = 0; i < ulen; i++)
+    for (unsigned int i = 0; i < ulen - 1; i++)
         str[i] = src[start + i];
     return (str);
 }
