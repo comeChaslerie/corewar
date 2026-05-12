@@ -47,8 +47,8 @@ instr_t *translate_mem(unsigned char *instr)
         arg_size = get_size_from_id(instr[0]);
     if (!fill_instr(args_size, arg_size, new_instr, &(instr[1]))){
         free_values((void *[4]){(void *)new_instr->args[0],
-            (void *)new_instr->args[1], (void *)new_instr->args[2],
-            (void *)new_instr}, 4);
+                (void *)new_instr->args[1], (void *)new_instr->args[2],
+                (void *)new_instr}, 4);
         return NULL;
     }
     if (args_size)

@@ -29,7 +29,7 @@ void add_to_arena(unsigned char *arena, unsigned char *buffer,
         return;
     for (unsigned int index = 0; index < size_buffer; index++)
         arena[index] = buffer[index];
-    free(buffer); 
+    free(buffer);
 }
 
 unsigned char *check_instr(unsigned char instr, unsigned int *size_buffer,
