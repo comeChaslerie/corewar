@@ -74,7 +74,9 @@ main_t *init_main(args_t *args)
 
     if (main == NULL)
         return put_error("Main alloc failed.", NULL);
-    main->arena = malloc(sizeof(unsigned char) * (MEM_SIZE));
+    main->arena = malloc(sizeof(unsigned char) * MEM_SIZE);
+    for (unsigned int i = 0; i < MEM_SIZE; i++)
+        main->arena[i] = 0;
     if (main->arena == NULL)
         return free_main("Arena alloc failed.", main, args);
     main->robots = init_robots(args, main);
