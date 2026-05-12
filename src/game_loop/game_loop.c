@@ -19,7 +19,7 @@ bool game_loop(main_t *main)
         if (!apply_cycle(main))
             return put_error("instr apply fail", false);
         if (main->cycle_dump == i)
-            write(1, "dump\n", 6);
+            dump(main);
     }
     return true;
 }

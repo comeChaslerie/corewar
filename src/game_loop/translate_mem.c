@@ -10,6 +10,7 @@
 #include "game.h"
 #include "op.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 static bool fill_instr(unsigned int *args_size, unsigned int arg_size,
     instr_t *instr, unsigned char *args)
