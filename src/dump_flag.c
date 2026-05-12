@@ -27,8 +27,6 @@ static void print_index_hexa(unsigned int index, char *index_arena)
         index /= NB_HEXA;
     }
     write(1, index_arena, 8);
-    write(1, COLON_CHAR, 1);
-    write(1, SPACE_CHAR, 1);
 }
 
 static void print_arena(unsigned char *arena)
@@ -36,8 +34,11 @@ static void print_arena(unsigned char *arena)
     char index_arena[9] = "00000000";
 
     for (unsigned int index = 0; index < (MEM_SIZE); index++){
-        if (index % NB_BYTE_LINE == 0)
+        if (index % NB_BYTE_LINE == 0) {
             print_index_hexa(index, index_arena);
+            write(1, COLON_CHAR, 1);
+            write(1, SPACE_CHAR, 1);
+        }
         if (arena[index] < NB_HEXA)
             write(1, ZERO_CHAR, 1);
         my_puthexa(arena[index]);
@@ -67,18 +68,17 @@ static void print_memory(void)
         if (index < NB_HEXA)
             write(1, ZERO_CHAR, 1);
         my_puthexa(index);
-        write(1, SPACE_CHAR, 1);
+        if (index < NB_BYTE_LINE - 1)
+            write(1, SPACE_CHAR, 1);
     }
     write(1, NEW_LINE_CHAR, 1);
     for (unsigned int i = 0; i < NB_BYTE_LINE + SIZE_INDEX; i++) {
         if (i < SIZE_BEFORE_SEP)
             write(1, SPACE_CHAR, 1);
-        if (i == NB_BYTE_LINE + SIZE_INDEX)
+        if (i >= SIZE_BEFORE_SEP)
             write(1, SEPARATOR_MEMORY, 2);
-        if (i >= SIZE_BEFORE_SEP) {
-            write(1, SEPARATOR_MEMORY, 2);
+        if (i >= SIZE_BEFORE_SEP && i < NB_BYTE_LINE + SIZE_INDEX - 1)
             write(1, SPACE_CHAR, 1);
-        }
     }
     write(1, NEW_LINE_CHAR, 1);
 }
@@ -106,12 +106,14 @@ static void print_register(unsigned char **regs)
         for (unsigned int j = 0; j < NB_SPACE; j++)
             write(1, SPACE_CHAR, 1);
         write(1, REGISTER_LETTER, 1);
-        my_put_nbr_u(i);
-        if (i < 10)
+        my_put_nbr_u(i + 1);
+        if (i < 9)
             write(1, SPACE_CHAR, 1);
         write(1, COLON_CHAR, 1);
         write(1, SPACE_CHAR, 1);
         print_index_hexa(regs[i][0], register_value);
+        if ((i + 1) % NB_REG_LINE == 0)
+            write(1, NEW_LINE_CHAR, 1);
     }
     write(1, NEW_LINE_CHAR, 1);
 }
@@ -135,6 +137,7 @@ static void print_robot(main_t *main)
         my_puthexa(main->robots[i].game_infos->carry);
         write(1, NEW_LINE_CHAR, 1);
     }
+    write(1, NEW_LINE_CHAR, 1);
 }
 
 void dump(main_t *main)

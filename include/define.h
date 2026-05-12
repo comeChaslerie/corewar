@@ -109,5 +109,5 @@ typedef char args_type_t;
     #define PC_SIZE 8
     #define NB_REG 16
     #define REGISTER_LETTER "r"
-
+    #define NB_REG_LINE 6
 #endif /* DEFINE_H_ */
