@@ -80,7 +80,7 @@ main_t *init_main(args_t *args)
     main->robots = init_robots(args, main);
     if (main->robots == NULL)
         return free_main("Robots alloc failed.", main, args);
-    main->cycle = 1;
+    main->cycle = 0;
     main->cycle_dump = args->cycle_dump;
     main->nbr_robots = args->nbr_robots;
     free_args_struct(args);
