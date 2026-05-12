@@ -24,10 +24,16 @@ static unsigned char *get_instr_mem(main_t *main, unsigned int robot_id)
 
     printf("pos start: %i\n", main->robots[robot_id].pos_infos->pos_next_instr);
     pos_start = main->robots[robot_id].pos_infos->pos_next_instr;
-    args_tab = get_coding_byte_tab(main->arena[pos_start + 1], main->arena[pos_start]);
-    if (!args_tab)
-        return put_error("incorrect coding byte tab in get_instr_mem", NULL);
-    size = get_global_size(args_tab, &nbr_args) + 2;
+    if (op_tab[main->arena[pos_start]].coding_byte){
+        args_tab = get_coding_byte_tab(main->arena[pos_start + 1], main->arena[pos_start]);
+        if (!args_tab)
+            return put_error("incorrect coding byte tab in get_instr_mem", NULL);
+        size = get_global_size(args_tab, &nbr_args) + 2;
+        printf("has_bytecode\n");
+    } else {
+        size = get_size_from_id(main->arena[pos_start]) + 1;
+        nbr_args = 1;
+    }
     printf("size: %i\n", size);
     printf("id instr: %i\n", main->arena[pos_start]);
     printf("nbr_args: %i\n", nbr_args);
@@ -39,7 +45,7 @@ static unsigned char *get_instr_mem(main_t *main, unsigned int robot_id)
     if (!instr)
         return put_error("Error: dup in apply_instructions.\n", NULL);
     main->robots[robot_id].pos_infos->pos_next_instr += size;
-    free(args_tab);
+    //free_values((void **){(void *)args_tab}, 1);
     return instr;
 }
 

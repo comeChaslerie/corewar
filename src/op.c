@@ -32,7 +32,7 @@ const op_t op_tab[] = {
     {"ldi", 3, {T_REG | T_DIR | T_IND, T_REG | T_DIR, T_REG}, 10, 25,
         "load indirect", false, true, &load_ind_instr},
     {"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_REG | T_DIR }, 11, 25,
-        "store indirect", false, true, &store_ind_instr},
+        "store indirect", true, true, &store_ind_instr},
     {"fork", 1, {T_DIR}, 12, 800, "fork", false, true, &fork_instr},
     {"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", false, false,
         &load_long_instr},
