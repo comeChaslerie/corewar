@@ -65,7 +65,7 @@ bool get_instructions(main_t *main, robot_infos_t *robot_infos, FILE *fp)
     unsigned char *buffer = NULL;
     unsigned int size_buffer = 0;
     unsigned int size_total = 0;
-    unsigned int pos = robot_infos->pos_infos->pos_start;
+    unsigned int pos = robot_infos->game_infos->pc;
 
     while (fread(&elem, sizeof(unsigned char), 1, fp) != 0) {
         buffer = check_instr(elem, &size_buffer, fp, buffer);
@@ -78,8 +78,6 @@ bool get_instructions(main_t *main, robot_infos_t *robot_infos, FILE *fp)
         size_total += size_buffer;
         size_buffer = 0;
     }
-    robot_infos->pos_infos->pos_end =
-        robot_infos->pos_infos->pos_start + size_total;
     return true;
 }
 

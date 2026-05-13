@@ -17,7 +17,7 @@ bool load_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int reg_id = (unsigned int)args[1]->arg[0];
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
 
-    source += ((main_t *)value)->robots[robot_id].pos_infos->pos_next_instr;
+    source += ((main_t *)value)->robots[robot_id].game_infos->pc;
     for (unsigned int i = 0; i < REG_SIZE; i++)
         infos->regs[reg_id][i] = ((main_t *)value)->arena[(source + i)
             % MEM_SIZE];

@@ -32,17 +32,6 @@ static bool cp_robot_infos(robot_infos_t *robot)
     return true;
 }
 
-static bool cp_robot_pos(robot_infos_t *robot)
-{
-    robot->child->pos_infos = malloc(sizeof(pos_infos_t *) * 1);
-    if (!robot->child->pos_infos)
-        return put_error("malloc failed in cp_robot_pos", false);
-    robot->child->pos_infos->pos_end = robot->pos_infos->pos_end;
-    robot->child->pos_infos->pos_next_instr = robot->pos_infos->pos_next_instr;
-    robot->child->pos_infos->pos_start = robot->pos_infos->pos_start;
-    return true;
-}
-
 bool cp_robot(robot_infos_t *robot)
 {
     if (robot->child)
@@ -54,7 +43,7 @@ bool cp_robot(robot_infos_t *robot)
     robot->child->parent = robot;
     robot->child->header = robot->header;
     robot->child->id = robot->id;
-    if (!cp_robot_infos(robot) || !cp_robot_pos(robot))
+    if (!cp_robot_infos(robot))
         return false;
     return true;
 }

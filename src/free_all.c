@@ -54,8 +54,6 @@ static void free_robot_info(robot_infos_t *infos)
 {
     if (!infos)
         return;
-    if (infos->pos_infos)
-        free(infos->pos_infos);
     if (infos->game_infos)
         free_game_infos(infos->game_infos);
     if (infos->child)
