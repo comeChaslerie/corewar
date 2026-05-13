@@ -67,6 +67,7 @@ typedef struct main_s {
     unsigned int cycle_dump;
     unsigned int nbr_robots;
     unsigned int nb_live;
+    unsigned int total_cycles;
 } main_t;
 
 #endif

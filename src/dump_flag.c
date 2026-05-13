@@ -135,7 +135,7 @@ static void print_robot(main_t *main)
 
 void dump(main_t *main)
 {
-    print_cycle(main->cycle);
+    print_cycle(main->total_cycles);
     print_robot(main);
     print_memory();
     print_arena(main->arena);

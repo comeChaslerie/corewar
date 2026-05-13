@@ -105,6 +105,7 @@ main_t *init_main(args_t *args)
     }
     main->cycle = 0;
     main->nb_live = 0;
+    main->total_cycles = 0;
     main->cycle_dump = args->cycle_dump;
     main->nbr_robots = args->nbr_robots;
     free_args_struct(args);
