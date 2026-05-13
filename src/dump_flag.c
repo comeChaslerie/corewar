@@ -20,22 +20,19 @@ static void my_puthexa(unsigned char nbr)
     write(1, &LIST_HEXA[nbr % NB_HEXA], 1);
 }
 
-static void print_index_hexa(unsigned int index, char *index_arena)
+static void print_index_hexa(unsigned int index, unsigned int i)
 {
-    for (int i = 7; i >= 0; i--) {
-        index_arena[i] = LIST_HEXA[index % NB_HEXA];
-        index /= NB_HEXA;
+    if (i < 8) {
+        print_index_hexa(index / NB_HEXA, i + 1);
+        write(1, &LIST_HEXA[index % NB_HEXA], 1);
     }
-    write(1, index_arena, 8);
 }
 
 static void print_arena(unsigned char *arena)
 {
-    char index_arena[9] = "00000000";
-
     for (unsigned int index = 0; index < MEM_SIZE; index++){
         if (index % NB_BYTE_LINE == 0) {
-            print_index_hexa(index, index_arena);
+            print_index_hexa(index, 0);
             write(1, COLON_CHAR, 1);
             write(1, SPACE_CHAR, 1);
         }
@@ -100,8 +97,6 @@ static void print_robot_name(robot_infos_t *robots)
 
 static void print_register(unsigned char **regs)
 {
-    char register_value[9] = "000000000";
-
     for (unsigned int i = 0; i < NB_REG; i++) {
         for (unsigned int j = 0; j < NB_SPACE; j++)
             write(1, SPACE_CHAR, 1);
@@ -111,7 +106,7 @@ static void print_register(unsigned char **regs)
             write(1, SPACE_CHAR, 1);
         write(1, COLON_CHAR, 1);
         write(1, SPACE_CHAR, 1);
-        print_index_hexa(regs[i][0], register_value);
+        print_index_hexa(regs[i][0], 1);
         if ((i + 1) % NB_REG_LINE == 0)
             write(1, NEW_LINE_CHAR, 1);
     }
@@ -120,8 +115,6 @@ static void print_register(unsigned char **regs)
 
 static void print_robot(main_t *main)
 {
-    char index_pc[9] = "00000000";
-
     write(1, "Registers:", 10);
     write(1, NEW_LINE_CHAR, 1);
     for (unsigned int i = 0; i < main->nbr_robots; i++) {
@@ -130,7 +123,7 @@ static void print_robot(main_t *main)
         for (unsigned int j = 0; j < NB_SPACE; j++)
             write(1, SPACE_CHAR, 1);
         write(1, "PC : ", 5);
-        print_index_hexa(main->robots[i].game_infos->pc, index_pc);
+        print_index_hexa(main->robots[i].game_infos->pc, 1);
         for (unsigned int j = 0; j < NB_SPACE; j++)
             write(1, SPACE_CHAR, 1);
         write(1, "carry: ", 7);

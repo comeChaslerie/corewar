@@ -12,21 +12,33 @@
 #include "handle_main.h"
 #include <stdlib.h>
 
+static unsigned char **init_regs(void)
+{
+    unsigned char **regs = malloc(sizeof(unsigned char *)
+        * REG_NUMBER);
+    
+    if (regs == NULL)
+        return NULL;
+    for (unsigned int i = 0; i < REG_NUMBER; i++){
+        regs[i] = malloc(sizeof(unsigned char *)
+            * REG_SIZE);
+        if (regs[i] == NULL)
+            return NULL;
+        for (unsigned int j = 0; j < REG_SIZE; j++) {
+            regs[i][j] = 0;
+        }
+    }
+    return regs;
+}
+
 bool init_game_infos(robot_infos_t *robot_infos)
 {
     robot_infos->game_infos = malloc(sizeof(robot_game_infos_t));
     if (robot_infos->game_infos == NULL)
         return false;
-    robot_infos->game_infos->regs = malloc(sizeof(unsigned char *)
-        * REG_NUMBER);
-    if (robot_infos->game_infos->regs == NULL)
+    robot_infos->game_infos->regs = init_regs();
+    if (!robot_infos->game_infos->regs)
         return false;
-    for (unsigned int i = 0; i < REG_NUMBER; i++){
-        robot_infos->game_infos->regs[i] = malloc(sizeof(unsigned char *)
-            * REG_SIZE);
-        if (robot_infos->game_infos->regs[i] == NULL)
-            return false;
-    }
     robot_infos->game_infos->carry = 0;
     robot_infos->game_infos->pc = 0;
     robot_infos->game_infos->cycles_remaining = 0;
