@@ -11,9 +11,9 @@
     #include "struct.h"
 
 int main_functions(int argc, char **argv);
-void *free_robots(main_t *main);
+void free_robots(main_t *main);
 main_t *init_main(args_t *args);
-void *free_main(char *str, main_t *main, args_t *args);
+void free_main(char *str, main_t *main, args_t *args);
 bool fill_robot_instr(main_t *main, robot_infos_t *robot_infos,
     robot_args_t *robot_args);
 bool check_id(unsigned char elem, unsigned int *size_elem,

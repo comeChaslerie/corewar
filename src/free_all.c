@@ -23,22 +23,22 @@ void free_instr(instr_t *instr)
     free(instr);
 }
 
-void *free_args_struct(args_t *args)
+void free_args_struct(args_t *args)
 {
-    if (args == NULL)
-        return NULL;
+    if (!args)
+        return;
     if (args->robots_args == NULL)
-        return NULL;
+        return;
     for (unsigned int index = 0; index < MAX_ARGS_NUMBER; index++) {
         if (args->robots_args[index].filepath != NULL)
             free(args->robots_args[index].filepath);
     }
     free(args->robots_args);
     free(args);
-    return NULL;
+    return;
 }
 
-static void free_infos(robot_game_infos_t *infos)
+static void free_game_infos(robot_game_infos_t *infos)
 {
     if (!infos)
         return;
@@ -50,40 +50,40 @@ static void free_infos(robot_game_infos_t *infos)
     free(infos);
 }
 
-static void free_robot(robot_infos_t *infos)
+static void free_robot_info(robot_infos_t *infos)
 {
     if (!infos)
         return;
     if (infos->pos_infos)
         free(infos->pos_infos);
     if (infos->game_infos)
-        free_infos(infos->game_infos);
+        free_game_infos(infos->game_infos);
     if (infos->child)
-        free_robot(infos->child);
+        free_robot_info(infos->child);
     infos->child = NULL;
     if (infos)
         free(infos);
 }
 
-void *free_robots(main_t *main)
+void free_robots(main_t *main)
 {
     if (main->robots == NULL)
-        return NULL;
+        return;
     for (unsigned int index = 0; index < main->nbr_robots; index++) {
-        free_robot(&(main->robots[index]));
+        free_robot_info(&(main->robots[index]));
     }
-    return NULL;
+    return;
 }
 
-void *free_main(char *str, main_t *main, args_t *args)
+void free_main(char *str, main_t *main, args_t *args)
 {
     if (!main)
-        return NULL;
+        return;
     if (main->arena)
         free(main->arena);
     if (main->robots != NULL) {
         free_robots(main);
     }
     free(main);
-    return NULL;
+    return;
 }

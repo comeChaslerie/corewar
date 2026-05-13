@@ -17,7 +17,7 @@ void display_hello(void);
 args_t *parse_args(int argc, char **argv);
 
 args_t *alloc_args(void);
-void *free_args_struct(args_t *args);
+void free_args_struct(args_t *args);
 
 bool check_magic_champions(header_t *header);
 int get_champion_infos(FILE *fp);
