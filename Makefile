@@ -85,6 +85,8 @@ clean:
 	rm -f *.gcda
 	rm -f unit_tests
 	rm -f valgrind-out.txt
+	rm -f *.gcda
+	rm -f *.gcno
 
 fclean:	clean
 	rm -f $(NAME)
