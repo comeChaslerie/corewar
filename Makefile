@@ -24,6 +24,11 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/instructions/fork_instr.c		\
 		src/instructions/load_instr.c		\
 		src/instructions/store_instr.c		\
+		src/linked_lists/add_to_list.c	\
+		src/linked_lists/delete_node.c	\
+		src/linked_lists/destroy_list.c	\
+		src/linked_lists/disp_list.c	\
+		src/linked_lists/get_len_list.c	\
 		src/parsing_args/alloc_args.c			\
 		src/parsing_args/manage_flag.c			\
 		src/parsing_args/parse_args.c			\
@@ -114,7 +119,7 @@ valgrind: re
          --show-leak-kinds=all \
          --track-origins=yes \
          --log-file=valgrind-out.txt \
-         ./$(NAME) -dump 0 examples/champions/bill.cor
+         ./$(NAME) -dump 0 examples/champions/bill.cor -n 1 examples/champions/abel.cor
 
 
 re_mac:
