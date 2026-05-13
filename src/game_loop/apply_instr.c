@@ -78,9 +78,7 @@ static bool translate_and_apply(instr_t *args, unsigned char *instr,
     }
     main->robots[index].game_infos->cycles_remaining =
         op_tab[args->id].nbr_cycles;
-    free_values((void *[5]){(void *)instr, (void *)(&(args->args[0])),
-            (void *)(&(args->args[1])), (void *)(&(args->args[2])),
-            (void *)args}, 5);
+    free_instr(args);
     return true;
 }
 
@@ -101,6 +99,7 @@ bool apply_robot_instr(main_t *main, unsigned int index, robot_infos_t *robot)
     }
     if (!translate_and_apply(args, instr, main, index))
         return false;
+    free(instr);
     if (robot->child)
         return apply_robot_instr(main, index, robot->child);
     return true;

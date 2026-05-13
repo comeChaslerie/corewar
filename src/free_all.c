@@ -16,8 +16,11 @@ void free_instr(instr_t *instr)
     if (!instr)
         return;
     for (unsigned int i = 0; i < MAX_ARGS_NUMBER; i++)
-        if (instr->args[i])
+        if (instr->args[i]) {
+            free(instr->args[i]->arg);
             free(instr->args[i]);
+        }
+    free(instr);
 }
 
 void *free_args_struct(args_t *args)
@@ -57,7 +60,9 @@ static void free_robot(robot_infos_t *infos)
         free_infos(infos->game_infos);
     if (infos->child)
         free_robot(infos->child);
-    free(infos);
+    infos->child = NULL;
+    if (infos)
+        free(infos);
 }
 
 void *free_robots(main_t *main)
@@ -67,7 +72,6 @@ void *free_robots(main_t *main)
     for (unsigned int index = 0; index < main->nbr_robots; index++) {
         free_robot(&(main->robots[index]));
     }
-    free(main->robots);
     return NULL;
 }
 
