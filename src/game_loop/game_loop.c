@@ -15,7 +15,7 @@ static void kill_robots(main_t *main)
 {
     for (unsigned int i = 0; i < main->nbr_robots; i++){
         main->robots[i].game_infos->alive = main->robots[i].live;
-        main->robots[i].game_infos->alive = false;
+        main->robots[i].live = false;
     }
 }
 

@@ -15,9 +15,9 @@
 bool live_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned int player_id = uctoui(args[0]->arg, T_REG);
+    unsigned int player_id = uctoui(args[0]->arg, T_DIR);
 
-    ((main_t *)value)->robots[robot_id].live = true;
+    ((main_t *)value)->robots[player_id].live = true;
     ((main_t *)value)->nb_live++;
     return true;
 }
@@ -48,7 +48,7 @@ bool sub_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned char *dest = malloc(sizeof(unsigned char) * 8);
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
 
-    if (!rega || !regb || !dest || !hexa_sum(&rega, &regb, &dest)
+    if (!rega || !regb || !dest || !hexa_diff(&rega, &regb, &dest)
         || !hextouc(dest, infos->regs[(int)args[2]->arg[0]])){
         free_values((void *[3]){(void *)rega, (void *)regb, (void *)dest}, 3);
         return false;

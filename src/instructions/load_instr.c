@@ -37,7 +37,7 @@ bool load_ind_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 
     source = (infos->pc + source % IDX_MOD) % MEM_SIZE;
     for (unsigned int i = 0; i < REG_SIZE; i++)
-        infos->regs[reg_id][i] = ((main_t *)value)->arena[source + i];
+        infos->regs[reg_id][i] = ((main_t *)value)->arena[(source + i) % MEM_SIZE];
     set_carry_null_reg(infos->regs[reg_id], infos);
     return true;
 }
@@ -51,7 +51,7 @@ bool load_long_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 
     source = (infos->pc + source) % MEM_SIZE;
     for (unsigned int i = 0; i < REG_SIZE; i++)
-        infos->regs[reg_id][i] = ((main_t *)value)->arena[source + i];
+        infos->regs[reg_id][i] = ((main_t *)value)->arena[(source + i) % MEM_SIZE];
     set_carry_null_reg(infos->regs[reg_id], infos);
     return true;
 }
@@ -67,7 +67,7 @@ bool load_long_ind_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 
     source = (infos->pc + source) % MEM_SIZE;
     for (unsigned int i = 0; i < REG_SIZE; i++)
-        infos->regs[reg_id][i] = ((main_t *)value)->arena[source + i];
+        infos->regs[reg_id][i] = ((main_t *)value)->arena[(source + i) % MEM_SIZE];
     set_carry_null_reg(infos->regs[reg_id], infos);
     return true;
 }

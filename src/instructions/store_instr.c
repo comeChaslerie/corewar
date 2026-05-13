@@ -26,7 +26,7 @@ bool store_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     dest = uctoui(args[1]->arg, args[1]->type);
     dest = (main->robots[robot_id].game_infos->pc + dest % IDX_MOD) % MEM_SIZE;
     for (unsigned int i = 0; i < REG_SIZE; i++)
-        main->arena[dest + i] = regs[src][i];
+        main->arena[(dest + i) % MEM_SIZE] = regs[src][i];
     return true;
 }
 
@@ -43,6 +43,6 @@ bool store_ind_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     dest = (main->robots[robot_id].game_infos->pc + (val_a + val_b) % IDX_MOD)
         % MEM_SIZE;
     for (unsigned int i = 0; i < REG_SIZE; i++)
-        main->arena[dest + i] = regs[src][i];
+        main->arena[(dest + i) % MEM_SIZE] = regs[src][i];
     return true;
 }
