@@ -42,7 +42,8 @@ static bool is_finish_game(main_t *main)
     return false;
 }
 
-static void reset_cycle(main_t *main, unsigned int *cycle, unsigned int cycle_to_die)
+static void reset_cycle(main_t *main, unsigned int *cycle,
+    unsigned int cycle_to_die)
 {
     kill_robots(main);
     *cycle %= cycle_to_die;
