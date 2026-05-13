@@ -16,8 +16,10 @@ void free_instr(instr_t *instr)
     if (!instr)
         return;
     for (unsigned int i = 0; i < MAX_ARGS_NUMBER; i++)
-        if (instr->args[i])
+        if (instr->args[i]) {
+            free(instr->args[i]->arg);
             free(instr->args[i]);
+        }
     free(instr);
 }
 
