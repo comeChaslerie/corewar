@@ -12,7 +12,7 @@
 #include "handle_main.h"
 #include <stdlib.h>
 
-static unsigned char **init_regs(void)
+static  unsigned char **init_regs(void)
 {
     unsigned char **regs = malloc(sizeof(unsigned char *)
         * REG_NUMBER);
