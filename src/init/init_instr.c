@@ -15,8 +15,9 @@ instr_t *init_instr(void)
 
     if (!instr)
         return put_error("Error: malloc in init_instr.\n", NULL);
-    for (unsigned int i = 0; i < MAX_ARGS_NUMBER; i++)
+    for (unsigned int i = 0; i < MAX_ARGS_NUMBER; i++) {
         instr->args[i] = NULL;
+    }
     instr->id = 0;
     return instr;
 }

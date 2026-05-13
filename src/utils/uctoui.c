@@ -6,6 +6,7 @@
 */
 
 #include "utils.h"
+#include <stdio.h>
 
 unsigned int uctoui(unsigned char *arg, int type)
 {
@@ -13,8 +14,8 @@ unsigned int uctoui(unsigned char *arg, int type)
     unsigned int pow = 1;
     unsigned int size = get_type_size(type);
 
-    for (unsigned int i = size; i > 0; i--){
-        result += arg[i - 1] * pow;
+    for (int i = size - 1; i >= 0; i--){
+        result += arg[i] * pow;
         pow *= 256;
     }
     return result;

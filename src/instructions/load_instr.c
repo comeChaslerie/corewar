@@ -9,6 +9,7 @@
 #include "struct.h"
 #include "hexa_calc.h"
 #include "utils.h"
+#include <stdio.h>
 
 bool load_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
@@ -17,6 +18,10 @@ bool load_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int reg_id = (unsigned int)args[1]->arg[0];
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
 
+    if (reg_id < 0 || reg_id > 15) {
+        printf("reg_id = %u\n", reg_id);
+        return true;
+    }
     source += ((main_t *)value)->robots[robot_id].game_infos->pc;
     for (unsigned int i = 0; i < REG_SIZE; i++)
         infos->regs[reg_id][i] = ((main_t *)value)->arena[(source + i)

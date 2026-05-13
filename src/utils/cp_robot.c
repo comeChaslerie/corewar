@@ -17,10 +17,10 @@ static bool cp_robot_infos(robot_infos_t *robot)
     if (!robot->child->game_infos)
         return put_error("malloc failed in cp_robot_infos", false);
     robot->child->game_infos->carry = robot->game_infos->carry;
-    robot->child->game_infos->cycles_remaining =
-        robot->game_infos->cycles_remaining;
+    robot->child->game_infos->cycles_remaining = 0;
     robot->child->game_infos->pc = robot->game_infos->pc;
-    robot->child->game_infos->regs = malloc(sizeof(unsigned char *) * 1);
+    robot->child->game_infos->regs = malloc(sizeof(unsigned char *) *
+        REG_NUMBER);
     if (!robot->child->game_infos->regs)
         return put_error("malloc failed in cp_robot_infos", false);
     for (unsigned int i = 0; i < REG_NUMBER; i++){
