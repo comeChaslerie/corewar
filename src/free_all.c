@@ -60,7 +60,9 @@ static void free_robot(robot_infos_t *infos)
         free_infos(infos->game_infos);
     if (infos->child)
         free_robot(infos->child);
-    free(infos);
+    infos->child = NULL;
+    if (infos)
+        free(infos);
 }
 
 void *free_robots(main_t *main)
@@ -70,7 +72,6 @@ void *free_robots(main_t *main)
     for (unsigned int index = 0; index < main->nbr_robots; index++) {
         free_robot(&(main->robots[index]));
     }
-    free(main->robots);
     return NULL;
 }
 
