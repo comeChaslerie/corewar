@@ -14,7 +14,7 @@ bool hexa_diff(unsigned char **value1, unsigned char **value2,
 {
     unsigned char retain = 0;
 
-    for (unsigned int i = HEXA_SIZE - 1; i > 0; i++){
+    for (unsigned int i = 0; i < HEXA_SIZE; i++){
         (*result)[i] = (*value1)[i] - (*value2)[i] - retain;
         if ((*result)[i] > HEXA_MAX && i == HEXA_SIZE)
             return false;
