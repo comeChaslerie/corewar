@@ -16,9 +16,9 @@ bool live_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
     unsigned int player_id = uctoui(args[0]->arg, T_REG);
-    main_t *main = (main_t *)value;
-    unsigned int start = main->robots[player_id].game_infos->pc;
 
+    ((main_t *)value)->robots[robot_id].live = true;
+    ((main_t *)value)->nb_live++;
     return true;
 }
 

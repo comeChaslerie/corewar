@@ -12,21 +12,33 @@
 #include "handle_main.h"
 #include <stdlib.h>
 
+static unsigned char **init_regs(void)
+{
+    unsigned char **regs = malloc(sizeof(unsigned char *)
+        * REG_NUMBER);
+    
+    if (regs == NULL)
+        return NULL;
+    for (unsigned int i = 0; i < REG_NUMBER; i++){
+        regs[i] = malloc(sizeof(unsigned char *)
+            * REG_SIZE);
+        if (regs[i] == NULL)
+            return NULL;
+        for (unsigned int j = 0; j < REG_SIZE; j++) {
+            regs[i][j] = 0;
+        }
+    }
+    return regs;
+}
+
 bool init_game_infos(robot_infos_t *robot_infos)
 {
     robot_infos->game_infos = malloc(sizeof(robot_game_infos_t));
     if (robot_infos->game_infos == NULL)
         return false;
-    robot_infos->game_infos->regs = malloc(sizeof(unsigned char *)
-        * REG_NUMBER);
-    if (robot_infos->game_infos->regs == NULL)
+    robot_infos->game_infos->regs = init_regs();
+    if (!robot_infos->game_infos->regs)
         return false;
-    for (unsigned int i = 0; i < REG_NUMBER; i++){
-        robot_infos->game_infos->regs[i] = malloc(sizeof(unsigned char *)
-            * REG_SIZE);
-        if (robot_infos->game_infos->regs[i] == NULL)
-            return false;
-    }
     robot_infos->game_infos->carry = 0;
     robot_infos->game_infos->pc = 0;
     robot_infos->game_infos->cycles_remaining = 0;
@@ -42,6 +54,7 @@ bool init_one_robot(robot_infos_t *robot_infos, robot_args_t *robot_args,
     if (!init_game_infos(robot_infos))
         return put_error("Game alloc failed.", false);
     robot_infos->id = robot_args->id;
+    robot_infos->live = false;
     robot_infos->game_infos->pc = robot_args->load_pos;
     if (!fill_robot_instr(main, robot_infos, robot_args))
         return put_error("Fill robot failed.", false);
@@ -91,6 +104,7 @@ main_t *init_main(args_t *args)
         return NULL;
     }
     main->cycle = 0;
+    main->nb_live = 0;
     main->cycle_dump = args->cycle_dump;
     main->nbr_robots = args->nbr_robots;
     free_args_struct(args);

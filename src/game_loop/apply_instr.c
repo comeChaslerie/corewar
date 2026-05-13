@@ -110,7 +110,8 @@ bool apply_cycle(main_t *main)
     unsigned int size = 0;
 
     for (unsigned int i = 0; i < main->nbr_robots; i++)
-        if (!apply_robot_instr(main, i, &(main->robots[i])))
+        if (main->robots[i].game_infos->alive
+            && !apply_robot_instr(main, i, &(main->robots[i])))
             return false;
     return true;
 }
