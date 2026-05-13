@@ -11,12 +11,12 @@
 
 Test(get_type_size, basic_nbr)
 {
-    cr_assert(get_type_size(T_REG) == 4);
+    cr_assert(get_type_size(T_REG) == 1);
 }
 
-Test(get_type_size, t_reg_returns_reg_size)
+Test(get_type_size, t_reg_returns_reg_arg_size)
 {
-    cr_assert_eq(get_type_size(T_REG), REG_SIZE);
+    cr_assert_eq(get_type_size(T_REG), REG_ARG_SIZE);
 }
 
 Test(get_type_size, t_dir_returns_dir_size)

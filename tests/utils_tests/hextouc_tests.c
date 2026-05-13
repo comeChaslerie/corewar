@@ -7,8 +7,8 @@
 
 #include <criterion/criterion.h>
 #include <stdlib.h>
-#include "hexa_calc.h"
 #include "define.h"
+#include "compute.h"
 
 Test(hextouc, basic_nbr)
 {

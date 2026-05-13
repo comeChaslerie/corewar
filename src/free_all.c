@@ -50,7 +50,18 @@ static void free_game_infos(robot_game_infos_t *infos)
     free(infos);
 }
 
-static void free_robot_info(robot_infos_t *infos);
+static void free_child_chain(robot_infos_t *child)
+{
+    robot_infos_t *next = NULL;
+
+    while (child) {
+        next = child->child;
+        if (child->game_infos)
+            free_game_infos(child->game_infos);
+        free(child);
+        child = next;
+    }
+}
 
 static void free_robot_contents(robot_infos_t *infos)
 {
@@ -59,16 +70,8 @@ static void free_robot_contents(robot_infos_t *infos)
     if (infos->game_infos)
         free_game_infos(infos->game_infos);
     if (infos->child)
-        free_robot_info(infos->child);
+        free_child_chain(infos->child);
     infos->child = NULL;
-}
-
-static void free_robot_info(robot_infos_t *infos)
-{
-    if (!infos)
-        return;
-    free_robot_contents(infos);
-    free(infos);
 }
 
 void free_robots(main_t *main)

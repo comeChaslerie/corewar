@@ -84,6 +84,7 @@ clean:
 	rm -f *.gcno
 	rm -f *.gcda
 	rm -f unit_tests
+	rm -f valgrind-out.txt
 
 fclean:	clean
 	rm -f $(NAME)
@@ -119,7 +120,7 @@ valgrind: re
          --show-leak-kinds=all \
          --track-origins=yes \
          --log-file=valgrind-out.txt \
-         ./$(NAME) -dump 0 examples/champions/bill.cor -n 1 examples/champions/abel.cor
+         ./$(NAME) -dump 0 examples/champions/bill.cor examples/champions/abel.cor examples/champions/pdd.cor 
 
 
 re_mac:

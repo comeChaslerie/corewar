@@ -33,29 +33,36 @@ static unsigned int get_instr_mem_size(main_t *main, unsigned int **args_tab,
     }
 }
 
-static unsigned char *get_instr_mem(main_t *main, unsigned int robot_id)
+static unsigned char *build_instr_mem(main_t *main,
+    robot_game_infos_t *infos, unsigned int size, unsigned int nbr_args)
 {
-    int pos_start = 0;
+    unsigned int pos_start = infos->pc % MEM_SIZE;
     unsigned char *instr = NULL;
-    unsigned int size = 0;
-    unsigned int *args_tab = NULL;
-    unsigned int nbr_args = 0;
 
-    pos_start = main->robots[robot_id].game_infos->pc % MEM_SIZE;
-    size = get_instr_mem_size(main, &args_tab, pos_start, &nbr_args);
-    if (!size)
-        return NULL;
-    if (args_tab)
-        free(args_tab);
     if (main->arena[pos_start] <= 0 || main->arena[pos_start] > NB_INSTR
         || nbr_args != op_tab[main->arena[pos_start]].nbr_args)
         return NULL;
     instr = my_ustrndup(main->arena, pos_start, pos_start + size);
     if (!instr)
         return NULL;
-    main->robots[robot_id].game_infos->pc =
-        (main->robots[robot_id].game_infos->pc + size) % MEM_SIZE;
+    infos->pc = (infos->pc + size) % MEM_SIZE;
     return instr;
+}
+
+static unsigned char *get_instr_mem(main_t *main, unsigned int robot_id)
+{
+    robot_game_infos_t *infos = main->robots[robot_id].game_infos;
+    unsigned int size = 0;
+    unsigned int *args_tab = NULL;
+    unsigned int nbr_args = 0;
+
+    size = get_instr_mem_size(main, &args_tab,
+        infos->pc % MEM_SIZE, &nbr_args);
+    if (!size)
+        return NULL;
+    if (args_tab)
+        free(args_tab);
+    return build_instr_mem(main, infos, size, nbr_args);
 }
 
 static bool decrement_robot_cycle(main_t *main, unsigned int id)
