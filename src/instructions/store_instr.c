@@ -7,7 +7,7 @@
 #include <stdbool.h>
 #include "define.h"
 #include "struct.h"
-#include "hexa_calc.h"
+#include "compute.h"
 
 bool store_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
@@ -24,14 +24,23 @@ bool store_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
         return true;
     }
     dest = uctoui(args[1]->arg, args[1]->type);
-    dest += main->robots[robot_id].game_infos->pc;
+    dest = (main->robots[robot_id].game_infos->pc + dest % IDX_MOD) % MEM_SIZE;
     for (unsigned int i = 0; i < REG_SIZE; i++)
-        regs[src][i] = main->arena[dest + i];
+        main->arena[dest + i] = regs[src][i];
     return true;
 }
 
 bool store_ind_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
+    unsigned int val_a = uctoui(args[0]->arg, args[0]->type);
+    unsigned int val_b = uctoui(args[1]->arg, args[1]->type);
+    unsigned int src = (unsigned int)args[2]->arg[0];
+    unsigned int dest = (val_a + val_b) % IDX_MOD;
+    main_t *main = (main_t *)value;
+
+    dest = (main->robots[robot_id].game_infos->pc + dest) % MEM_SIZE;
+    for (unsigned int i = 0; i < REG_SIZE; i++)
+        main->arena[dest + i] = main->robots[robot_id].game_infos->regs[src][i];
     return true;
 }

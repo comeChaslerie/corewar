@@ -9,11 +9,21 @@
 #include "define.h"
 #include "struct.h"
 #include "utils.h"
-#include "hexa_calc.h"
+#include "compute.h"
 
 bool fork_long_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
+    main_t *main = (main_t *)value;
+    unsigned int offset = uctoui(args[0]->arg, T_IND);
+    unsigned int child_pos = 0;
+
+    if (main->robots[robot_id].parent)
+        return true;
+    if (!cp_robot(&(main->robots[robot_id])))
+        return false;
+    child_pos = main->robots[robot_id].child->game_infos->pc;
+    main->robots[robot_id].child->game_infos->pc += offset;
     return true;
 }
 
@@ -29,6 +39,6 @@ bool fork_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     if (!cp_robot(&(main->robots[robot_id])))
         return false;
     child_pos = main->robots[robot_id].child->game_infos->pc;
-    main->robots[robot_id].child->game_infos->pc += offset;
+    main->robots[robot_id].child->game_infos->pc += offset % IDX_MOD;
     return true;
 }

@@ -7,7 +7,7 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
-#include "hexa_calc.h"
+#include "compute.h"
 #include "define.h"
 #include "struct.h"
 #include "utils.h"
@@ -61,6 +61,15 @@ bool sub_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 bool print_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
+    unsigned char *reg = uctohex(args[0]->arg, args[0]->type);
+
+    if (!reg) {
+        free_values((void *[1]){(void *)reg}, 1);
+        return false;
+    }
+    for (unsigned int i = 0; i < REG_SIZE; i++)
+        my_putchar((char)reg[i]);
+    free_values((void *[1]){(void *)reg}, 1);
     return true;
 }
 
@@ -71,6 +80,6 @@ bool jump_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
 
     if (infos->carry)
-        infos->pc += jump % IDX_MOD;
+        infos->pc += (jump % IDX_MOD) % MEM_SIZE;
     return true;
 }

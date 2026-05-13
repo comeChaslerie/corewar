@@ -5,8 +5,8 @@
 ** file
 */
 
-#ifndef HEXA_CALC_H
-    #define HEXA_CALC_H
+#ifndef COMPUTE_H
+    #define COMPUTE_H
 
     #include <stdbool.h>
 
@@ -24,4 +24,13 @@ bool hexa_diff(unsigned char **value1, unsigned char **value2,
 bool hexa_sum(unsigned char **value1, unsigned char **value2,
     unsigned char **result);
 
-#endif /* !HEXA_CALC_H */
+bool bin_and(unsigned char **value1, unsigned char **value2,
+    unsigned char **result);
+
+bool bin_or(unsigned char **value1, unsigned char **value2,
+    unsigned char **result);
+
+bool bin_xor(unsigned char **value1, unsigned char **value2,
+    unsigned char **result);
+
+#endif /* !COMPUTE_H */
