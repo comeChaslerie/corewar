@@ -24,4 +24,13 @@ bool hexa_diff(unsigned char **value1, unsigned char **value2,
 bool hexa_sum(unsigned char **value1, unsigned char **value2,
     unsigned char **result);
 
+bool hexa_and(unsigned char **value1, unsigned char **value2,
+    unsigned char **result);
+
+bool hexa_or(unsigned char **value1, unsigned char **value2,
+    unsigned char **result);
+
+bool hexa_xor(unsigned char **value1, unsigned char **value2,
+    unsigned char **result);
+
 #endif /* !HEXA_CALC_H */
