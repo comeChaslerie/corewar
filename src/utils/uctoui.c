@@ -5,16 +5,14 @@
 ** file
 */
 
-#include "utils.h"
-#include <stdio.h>
+#include "compute.h"
 
-unsigned int uctoui(unsigned char *arg, int type)
+unsigned int uctoui(unsigned char *arg, unsigned int size)
 {
     unsigned int result = 0;
     unsigned int pow = 1;
-    unsigned int size = get_type_size(type);
 
-    for (int i = size - 1; i >= 0; i--){
+    for (int i = (int)size - 1; i >= 0; i--){
         result += arg[i] * pow;
         pow *= 256;
     }

@@ -23,6 +23,7 @@ header_s {
 
 typedef struct argument_s {
     char type;
+    unsigned int size;
     unsigned char *arg;
 } arg_t;
 

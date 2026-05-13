@@ -15,7 +15,7 @@ bool fork_long_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
     main_t *main = (main_t *)value;
-    unsigned int offset = uctoui(args[0]->arg, T_IND);
+    unsigned int offset = uctoui(args[0]->arg, args[0]->size);
     unsigned int child_pos = 0;
 
     if (main->robots[robot_id].parent)
@@ -31,7 +31,7 @@ bool fork_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
     main_t *main = (main_t *)value;
-    unsigned int offset = uctoui(args[0]->arg, T_IND);
+    unsigned int offset = uctoui(args[0]->arg, args[0]->size);
     unsigned int child_pos = 0;
 
     if (main->robots[robot_id].parent)

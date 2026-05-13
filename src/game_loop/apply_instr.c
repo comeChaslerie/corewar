@@ -17,16 +17,19 @@
 static unsigned int get_instr_mem_size(main_t *main, unsigned int **args_tab,
     unsigned int pos_start, unsigned int *nbr_args)
 {
-    if (op_tab[main->arena[pos_start]].coding_byte){
-        *args_tab = get_coding_byte_tab(main->arena[pos_start + 1],
-            main->arena[pos_start]);
+    unsigned char id_instr = main->arena[pos_start];
+
+    if (id_instr <= 0 || id_instr > NB_INSTR)
+        return 0;
+    if (op_tab[id_instr].coding_byte){
+        *args_tab = get_coding_byte_tab(
+            main->arena[(pos_start + 1) % MEM_SIZE], id_instr);
         if (!*args_tab)
-            return (unsigned long)put_error("incorrect coding byte tab in get_"
-                "instr_mem", (void *)0);
+            return 0;
         return get_global_size(*args_tab, nbr_args) + 2;
     } else {
         *nbr_args = 1;
-        return get_size_from_id(main->arena[pos_start]) + 1;
+        return get_size_from_id(id_instr) + 1;
     }
 }
 
@@ -38,10 +41,10 @@ static unsigned char *get_instr_mem(main_t *main, unsigned int robot_id)
     unsigned int *args_tab = NULL;
     unsigned int nbr_args = 0;
 
-    pos_start = main->robots[robot_id].game_infos->pc;
+    pos_start = main->robots[robot_id].game_infos->pc % MEM_SIZE;
     size = get_instr_mem_size(main, &args_tab, pos_start, &nbr_args);
     if (!size)
-        return put_error("Error: invalid size in get instr mem\n", NULL);
+        return NULL;
     if (args_tab)
         free(args_tab);
     if (main->arena[pos_start] <= 0 || main->arena[pos_start] > NB_INSTR
@@ -49,8 +52,9 @@ static unsigned char *get_instr_mem(main_t *main, unsigned int robot_id)
         return NULL;
     instr = my_ustrndup(main->arena, pos_start, pos_start + size);
     if (!instr)
-        return put_error("Error: dup in apply_instructions.\n", NULL);
-    main->robots[robot_id].game_infos->pc += size;
+        return NULL;
+    main->robots[robot_id].game_infos->pc =
+        (main->robots[robot_id].game_infos->pc + size) % MEM_SIZE;
     return instr;
 }
 
@@ -76,7 +80,7 @@ static bool translate_and_apply(instr_t *args, unsigned char *instr,
     args = translate_mem(instr);
     if (!args || !apply_instr(main, args, index)){
         free_instr(args);
-        return put_error("incorrects args or apply_instr failed", false);
+        return false;
     }
     main->robots[index].game_infos->cycles_remaining =
         op_tab[args->id].nbr_cycles;

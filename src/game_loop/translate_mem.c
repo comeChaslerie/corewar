@@ -52,7 +52,7 @@ instr_t *translate_mem(unsigned char *instr)
 {
     instr_t *new_instr = init_instr();
     unsigned int *args_tab = NULL;
-    unsigned char start = instr[1];
+    unsigned char *args_start = &instr[1];
 
     if (!new_instr || !instr)
         return NULL;
@@ -60,8 +60,8 @@ instr_t *translate_mem(unsigned char *instr)
     if (op_tab[(int)new_instr->id].coding_byte)
         args_tab = get_coding_byte_tab(instr[1], new_instr->id);
     if (args_tab)
-        start = instr[2];
-    if (!fill_instr(args_tab, new_instr, &start)){
+        args_start = &instr[2];
+    if (!fill_instr(args_tab, new_instr, args_start)){
         free_values((void *[4]){(void *)new_instr->args[0],
                 (void *)new_instr->args[1], (void *)new_instr->args[2],
                 (void *)new_instr}, 4);

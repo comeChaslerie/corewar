@@ -14,7 +14,7 @@
     #define HEXA_MAX 15
     #define HEXA_MODULO 16
 
-unsigned int uctoui(unsigned char *arg, int type);
+unsigned int uctoui(unsigned char *arg, unsigned int size);
 unsigned char *uctohex(unsigned char *reg, int type);
 bool hextouc(unsigned char *hex, unsigned char *reg);
 

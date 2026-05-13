@@ -15,10 +15,16 @@
 bool live_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned int player_id = uctoui(args[0]->arg, T_DIR);
+    unsigned int player_id = uctoui(args[0]->arg, args[0]->size);
+    main_t *main = (main_t *)value;
 
-    ((main_t *)value)->robots[player_id].live = true;
-    ((main_t *)value)->nb_live++;
+    for (unsigned int i = 0; i < main->nbr_robots; i++) {
+        if (main->robots[i].id == player_id) {
+            main->robots[i].live = true;
+            main->nb_live++;
+            return true;
+        }
+    }
     return true;
 }
 
@@ -76,7 +82,7 @@ bool print_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 bool jump_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned int jump = uctoui(args[0]->arg, T_IND);
+    unsigned int jump = uctoui(args[0]->arg, args[0]->size);
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
 
     if (infos->carry)

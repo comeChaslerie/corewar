@@ -50,7 +50,9 @@ static void free_game_infos(robot_game_infos_t *infos)
     free(infos);
 }
 
-static void free_robot_info(robot_infos_t *infos)
+static void free_robot_info(robot_infos_t *infos);
+
+static void free_robot_contents(robot_infos_t *infos)
 {
     if (!infos)
         return;
@@ -59,15 +61,23 @@ static void free_robot_info(robot_infos_t *infos)
     if (infos->child)
         free_robot_info(infos->child);
     infos->child = NULL;
-    if (infos)
-        free(infos);
+}
+
+static void free_robot_info(robot_infos_t *infos)
+{
+    if (!infos)
+        return;
+    free_robot_contents(infos);
+    free(infos);
 }
 
 void free_robots(main_t *main)
 {
     if (main->robots == NULL)
         return;
-    free_robot_info(main->robots);
+    for (unsigned int i = 0; i < main->nbr_robots; i++)
+        free_robot_contents(&main->robots[i]);
+    free(main->robots);
     return;
 }
 

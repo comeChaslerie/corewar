@@ -21,5 +21,6 @@ arg_t *init_arg(unsigned char *arg, char type, unsigned int size)
         return put_error("Error: malloc in init_arg.\n", NULL);
     }
     new_arg->type = type;
+    new_arg->size = size;
     return new_arg;
 }
