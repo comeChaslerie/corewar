@@ -24,7 +24,7 @@ bool store_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
         return true;
     }
     dest = uctoui(args[1]->arg, args[1]->type);
-    dest += main->robots[robot_id].pos_infos->pos_next_instr;
+    dest += main->robots[robot_id].game_infos->pc;
     for (unsigned int i = 0; i < REG_SIZE; i++)
         regs[src][i] = main->arena[dest + i];
     return true;

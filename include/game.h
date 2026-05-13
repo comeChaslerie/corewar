@@ -12,19 +12,12 @@
     #include <stdbool.h>
 
 void dump(main_t *main);
-
 int main_functions(int argc, char **argv);
-
 bool apply_cycle(main_t *main);
-
 instr_t *translate_mem(unsigned char *instr);
-
 unsigned int get_size_from_id(unsigned int instr_id);
-
 unsigned int *get_coding_byte_tab(unsigned char elem, unsigned int id_instr);
-
 unsigned int get_global_size(unsigned int *tab, unsigned int *nbr_args);
-
 bool game_loop(main_t *main);
 
 #endif

@@ -96,11 +96,11 @@ args_t *parse_args(int argc, char **argv)
     args = alloc_args();
     if (args == NULL)
         return put_error("Args struct alloc failed.", NULL);
-    if (!check_all_flags(argc, argv, args))
-        return free_args_struct(args);
-    if (!check_id_after_parsing(args->robots_args))
-        return free_args_struct(args);
-    if (!finish_completing_struct(args))
-        return free_args_struct(args);
+    if (!check_all_flags(argc, argv, args) ||
+        !check_id_after_parsing(args->robots_args) ||
+        !finish_completing_struct(args)) {
+        free_args_struct(args);
+        return NULL;
+    }
     return args;
 }

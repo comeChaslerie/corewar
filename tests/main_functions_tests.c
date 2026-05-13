@@ -10,10 +10,10 @@
 
 Test(main_functions, basic_args)
 {
-    int argc = 2;
-    char *argv[2] = {"./corewar", "examples/champions/bill.cor"};
+    int argc = 4;
+    char *argv[4] = {"./corewar", "-dump", "0", "examples/champions/bill.cor"};
 
-    cr_assert(main_functions(argc, argv) == 84); //should return 0
+    cr_assert(main_functions(argc, argv) == 0);
 }
 
 Test(main_functions, basic_wrong_args)

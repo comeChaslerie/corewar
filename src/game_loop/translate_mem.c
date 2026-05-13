@@ -9,6 +9,7 @@
 #include "init.h"
 #include "game.h"
 #include "op.h"
+#include "utils.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -44,8 +45,12 @@ instr_t *translate_mem(unsigned char *instr)
         args_size = get_coding_byte_tab(instr[1], new_instr->id);
     else
         arg_size = get_size_from_id(instr[0]);
-    if (!fill_instr(args_size, arg_size, new_instr, &(instr[1])))
+    if (!fill_instr(args_size, arg_size, new_instr, &(instr[1]))){
+        free_values((void *[4]){(void *)new_instr->args[0],
+                (void *)new_instr->args[1], (void *)new_instr->args[2],
+                (void *)new_instr}, 4);
         return NULL;
+    }
     if (args_size)
         free(args_size);
     return new_instr;

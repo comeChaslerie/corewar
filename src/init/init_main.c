@@ -30,6 +30,7 @@ bool init_game_infos(robot_infos_t *robot_infos)
     robot_infos->game_infos->carry = 0;
     robot_infos->game_infos->pc = 0;
     robot_infos->game_infos->cycles_remaining = 0;
+    robot_infos->game_infos->alive = true;
     robot_infos->child = NULL;
     robot_infos->parent = NULL;
     return true;
@@ -41,12 +42,7 @@ bool init_one_robot(robot_infos_t *robot_infos, robot_args_t *robot_args,
     if (!init_game_infos(robot_infos))
         return put_error("Game alloc failed.", false);
     robot_infos->id = robot_args->id;
-    robot_infos->pos_infos = malloc(sizeof(pos_infos_t));
-    if (robot_infos->pos_infos == NULL)
-        return put_error("Pos alloc failed.", false);
-    robot_infos->pos_infos->pos_start = robot_args->load_pos;
-    robot_infos->pos_infos->pos_end = 0;
-    robot_infos->pos_infos->pos_next_instr = robot_args->load_pos;
+    robot_infos->game_infos->pc = robot_args->load_pos;
     if (!fill_robot_instr(main, robot_infos, robot_args))
         return put_error("Fill robot failed.", false);
     return true;
@@ -67,18 +63,33 @@ robot_infos_t *init_robots(args_t *args, main_t *main)
     return robot_infos;
 }
 
+bool init_arena(main_t **main, args_t *args)
+{
+    (*main)->arena = malloc(sizeof(unsigned char) * MEM_SIZE);
+    if ((*main)->arena == NULL) {
+        free_main(*main, args);
+        return false;
+    }
+    for (unsigned int i = 0; i < MEM_SIZE; i++)
+        (*main)->arena[i] = 0;
+    return true;
+}
+
 main_t *init_main(args_t *args)
 {
     main_t *main = malloc(sizeof(main_t));
 
     if (main == NULL)
         return put_error("Main alloc failed.", NULL);
-    main->arena = malloc(sizeof(unsigned char) * (MEM_SIZE));
-    if (main->arena == NULL)
-        return free_main("Arena alloc failed.", main, args);
+    if (!init_arena(&main, args)) {
+        free_main(main, args);
+        return NULL;
+    }
     main->robots = init_robots(args, main);
-    if (main->robots == NULL)
-        return free_main("Robots alloc failed.", main, args);
+    if (main->robots == NULL) {
+        free_main(main, args);
+        return NULL;
+    }
     main->cycle = 0;
     main->cycle_dump = args->cycle_dump;
     main->nbr_robots = args->nbr_robots;
