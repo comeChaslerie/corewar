@@ -31,10 +31,10 @@ bool live_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 bool add_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned char *rega = uctohex(args[0]->arg, args[0]->type);
-    unsigned char *regb = uctohex(args[1]->arg, args[1]->type);
-    unsigned char *dest = malloc(sizeof(unsigned char) * 8);
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
+    unsigned char *rega = uctohex(infos->regs[(int)args[0]->arg[0]], REG_SIZE);
+    unsigned char *regb = uctohex(infos->regs[(int)args[1]->arg[0]], REG_SIZE);
+    unsigned char *dest = malloc(sizeof(unsigned char) * HEXA_SIZE);
 
     if (!rega || !regb || !dest || !hexa_sum(&rega, &regb, &dest)
         || !hextouc(dest, infos->regs[(int)args[2]->arg[0]])){
@@ -49,10 +49,10 @@ bool add_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 bool sub_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned char *rega = uctohex(args[0]->arg, args[0]->type);
-    unsigned char *regb = uctohex(args[1]->arg, args[1]->type);
-    unsigned char *dest = malloc(sizeof(unsigned char) * 8);
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
+    unsigned char *rega = uctohex(infos->regs[(int)args[0]->arg[0]], REG_SIZE);
+    unsigned char *regb = uctohex(infos->regs[(int)args[1]->arg[0]], REG_SIZE);
+    unsigned char *dest = malloc(sizeof(unsigned char) * HEXA_SIZE);
 
     if (!rega || !regb || !dest || !hexa_diff(&rega, &regb, &dest)
         || !hextouc(dest, infos->regs[(int)args[2]->arg[0]])){
@@ -67,7 +67,7 @@ bool sub_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 bool print_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned char *reg = uctohex(args[0]->arg, args[0]->type);
+    unsigned char *reg = uctohex(args[0]->arg, args[0]->size);
 
     if (!reg) {
         free_values((void *[1]){(void *)reg}, 1);

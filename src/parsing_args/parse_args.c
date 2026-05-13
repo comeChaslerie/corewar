@@ -54,8 +54,8 @@ static bool update_id(args_t *args)
 {
     unsigned int index_tab = 0;
 
-    for (unsigned int index_robot = 1; args->robots_args[index_tab].id !=
-        NO_ROBOT && index_tab < MAX_ROBOT_NBR; index_robot++) {
+    for (unsigned int index_robot = 1; index_tab < MAX_ROBOT_NBR &&
+        args->robots_args[index_tab].id != NO_ROBOT; index_robot++) {
         if (args->robots_args[index_tab].id != NO_ID_ROBOT) {
             index_tab += 1;
             index_robot -= 1;

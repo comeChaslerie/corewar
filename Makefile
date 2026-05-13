@@ -120,7 +120,7 @@ valgrind: re
          --show-leak-kinds=all \
          --track-origins=yes \
          --log-file=valgrind-out.txt \
-         ./$(NAME) -dump 0 examples/champions/bill.cor examples/champions/abel.cor examples/champions/pdd.cor 
+         ./$(NAME) -dump 0 examples/champions/bill.cor -a 786 examples/champions/abel.cor -n 3 -a 1 examples/champions/pdd.cor -n 1 examples/champions/tyron.cor 
 
 
 re_mac:

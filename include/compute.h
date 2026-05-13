@@ -15,7 +15,7 @@
     #define HEXA_MODULO 16
 
 unsigned int uctoui(unsigned char *arg, unsigned int size);
-unsigned char *uctohex(unsigned char *reg, int type);
+unsigned char *uctohex(unsigned char *reg, unsigned int size);
 bool hextouc(unsigned char *hex, unsigned char *reg);
 
 bool hexa_diff(unsigned char **value1, unsigned char **value2,

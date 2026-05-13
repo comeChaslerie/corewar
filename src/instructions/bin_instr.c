@@ -14,8 +14,8 @@
 bool bin_and_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned char *reg_a = uctohex(args[0]->arg, args[0]->type);
-    unsigned char *reg_b = uctohex(args[1]->arg, args[1]->type);
+    unsigned char *reg_a = uctohex(args[0]->arg, args[0]->size);
+    unsigned char *reg_b = uctohex(args[1]->arg, args[1]->size);
     unsigned char *dest = malloc(sizeof(unsigned char) * 8);
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
 
@@ -32,8 +32,8 @@ bool bin_and_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 bool bin_or_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned char *reg_a = uctohex(args[0]->arg, args[0]->type);
-    unsigned char *reg_b = uctohex(args[1]->arg, args[1]->type);
+    unsigned char *reg_a = uctohex(args[0]->arg, args[0]->size);
+    unsigned char *reg_b = uctohex(args[1]->arg, args[1]->size);
     unsigned char *dest = malloc(sizeof(unsigned char) * 8);
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
 
@@ -50,8 +50,8 @@ bool bin_or_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 bool bin_xor_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned char *reg_a = uctohex(args[0]->arg, args[0]->type);
-    unsigned char *reg_b = uctohex(args[1]->arg, args[1]->type);
+    unsigned char *reg_a = uctohex(args[0]->arg, args[0]->size);
+    unsigned char *reg_b = uctohex(args[1]->arg, args[1]->size);
     unsigned char *dest = malloc(sizeof(unsigned char) * 8);
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
 
