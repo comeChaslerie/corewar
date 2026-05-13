@@ -40,6 +40,8 @@ static unsigned char *get_instr_mem(main_t *main, unsigned int robot_id)
 
     pos_start = main->robots[robot_id].pos_infos->pos_next_instr;
     size = get_instr_mem_size(main, &args_tab, pos_start, &nbr_args);
+    if (!size)
+        return put_error("Error: invalid size in get instr mem\n", NULL);
     if (main->arena[pos_start] <= 0 || main->arena[pos_start] > NB_INSTR
         || nbr_args != op_tab[main->arena[pos_start]].nbr_args)
         return NULL;
