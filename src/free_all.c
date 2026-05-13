@@ -18,6 +18,7 @@ void free_instr(instr_t *instr)
     for (unsigned int i = 0; i < MAX_ARGS_NUMBER; i++)
         if (instr->args[i])
             free(instr->args[i]);
+    free(instr);
 }
 
 void *free_args_struct(args_t *args)
