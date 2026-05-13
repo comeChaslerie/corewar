@@ -13,8 +13,10 @@
 
 static void kill_robots(main_t *main)
 {
-    for (unsigned int i = 0; i < main->nbr_robots; i++)
+    for (unsigned int i = 0; i < main->nbr_robots; i++){
         main->robots[i].game_infos->alive = main->robots[i].live;
+        main->robots[i].game_infos->alive = false;
+    }
 }
 
 static bool is_finish_game(main_t *main)
@@ -40,6 +42,12 @@ static bool is_finish_game(main_t *main)
     return false;
 }
 
+static void reset_cycle(main_t *main, unsigned int *cycle, unsigned int cycle_to_die)
+{
+    kill_robots(main);
+    *cycle %= cycle_to_die;
+}
+
 bool game_loop(main_t *main)
 {
     unsigned int cycles_to_die = CYCLE_TO_DIE;
@@ -51,14 +59,15 @@ bool game_loop(main_t *main)
             return put_error("instr apply fail", false);
         if (main->cycle_dump == i)
             dump(main);
-        if (i != 0 && (i % cycles_to_die) == 0)
-            kill_robots(main);
         if (main->nb_live >= NBR_LIVE){
             cycles_to_die -= CYCLE_DELTA;
             main->nb_live %= NBR_LIVE;
         }
+        if (i != 0 && i > cycles_to_die)
+            reset_cycle(main, &i, cycles_to_die);
         if (is_finish_game(main))
             return true;
+        main->total_cycles++;
     }
     return true;
 }
