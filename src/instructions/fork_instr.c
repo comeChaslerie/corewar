@@ -9,7 +9,7 @@
 #include "define.h"
 #include "struct.h"
 #include "utils.h"
-#include "hexa_calc.h"
+#include "compute.h"
 
 bool fork_long_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)

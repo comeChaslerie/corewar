@@ -7,7 +7,7 @@
 #include <stdbool.h>
 #include "define.h"
 #include "struct.h"
-#include "hexa_calc.h"
+#include "compute.h"
 #include "utils.h"
 
 bool load_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
@@ -28,10 +28,10 @@ bool load_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 bool load_ind_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned int vala = uctoui(args[0]->arg, args[0]->type);
-    unsigned int valb = uctoui(args[1]->arg, args[1]->type);
+    unsigned int val_a = uctoui(args[0]->arg, args[0]->type);
+    unsigned int val_b = uctoui(args[1]->arg, args[1]->type);
     unsigned int reg_id = (unsigned int)args[2]->arg[0];
-    unsigned int source = (vala + valb);
+    unsigned int source = (val_a + val_b);
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
 
     source = (infos->pc + source % IDX_MOD) % MEM_SIZE;
@@ -58,10 +58,10 @@ bool load_long_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 bool load_long_ind_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned int vala = uctoui(args[0]->arg, args[0]->type);
-    unsigned int valb = uctoui(args[1]->arg, args[1]->type);
+    unsigned int val_a = uctoui(args[0]->arg, args[0]->type);
+    unsigned int val_b = uctoui(args[1]->arg, args[1]->type);
     unsigned int reg_id = (unsigned int)args[2]->arg[0];
-    unsigned int source = (vala + valb);
+    unsigned int source = (val_a + val_b);
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
 
     source = (infos->pc + source) % MEM_SIZE;

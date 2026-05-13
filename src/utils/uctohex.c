@@ -5,7 +5,7 @@
 ** file
 */
 
-#include "hexa_calc.h"
+#include "compute.h"
 #include "define.h"
 #include "utils.h"
 #include <stdlib.h>

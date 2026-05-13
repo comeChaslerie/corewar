@@ -7,9 +7,9 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
-#include "hexa_calc.h"
+#include "compute.h"
 
-bool hexa_xor(unsigned char **value1, unsigned char **value2,
+bool bin_xor(unsigned char **value1, unsigned char **value2,
     unsigned char **result)
 {
     for (unsigned int i = 0; i < HEXA_SIZE; i++){

@@ -16,7 +16,7 @@ static unsigned char **init_regs(void)
 {
     unsigned char **regs = malloc(sizeof(unsigned char *)
         * REG_NUMBER);
-    
+
     if (regs == NULL)
         return NULL;
     for (unsigned int i = 0; i < REG_NUMBER; i++){

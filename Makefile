@@ -11,8 +11,11 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/game_loop/translate_mem.c		\
 		src/game_loop/apply_instr.c			\
 		src/game_loop/game_loop.c			\
-		src/hexa_calc/hexa_diff.c	\
-		src/hexa_calc/hexa_sum.c	\
+		src/compute/bin_and.c	\
+		src/compute/bin_or.c	\
+		src/compute/bin_xor.c	\
+		src/compute/hexa_diff.c	\
+		src/compute/hexa_sum.c	\
 		src/init/init_arg.c		\
 		src/init/init_instr.c	\
 		src/init/init_main.c	\

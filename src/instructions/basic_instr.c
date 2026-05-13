@@ -7,7 +7,7 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
-#include "hexa_calc.h"
+#include "compute.h"
 #include "define.h"
 #include "struct.h"
 #include "utils.h"
