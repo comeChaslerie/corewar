@@ -24,11 +24,6 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/instructions/fork_instr.c		\
 		src/instructions/load_instr.c		\
 		src/instructions/store_instr.c		\
-		src/linked_lists/add_to_list.c			\
-		src/linked_lists/delete_node.c			\
-		src/linked_lists/destroy_list.c			\
-		src/linked_lists/disp_list.c			\
-		src/linked_lists/get_len_list.c			\
 		src/parsing_args/alloc_args.c			\
 		src/parsing_args/manage_flag.c			\
 		src/parsing_args/parse_args.c			\
@@ -55,7 +50,16 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/main_functions.c 	\
 		src/dump_flag.c			\
 		src/op.c
-		
+
+TEST =	tests/utils_tests/conversion_tests.c		\
+		tests/utils_tests/get_type_size_tests.c		\
+		tests/utils_tests/hextouc_tests.c			\
+		tests/utils_tests/is_nbr_tests.c			\
+		tests/utils_tests/my_getnbr_tests.c			\
+		tests/utils_tests/my_strcmp_tests.c			\
+		tests/utils_tests/my_strdup_tests.c			\
+		tests/utils_tests/put_error_tests.c			\
+		tests/main_functions_tests.c
 
 NAME =	corewar
 
@@ -84,7 +88,7 @@ re:
 	$(MAKE) all
 
 tests_run:	clean
-	$(CC) -o unit_tests $(SRC) tests/*.c -lcriterion --coverage $(CFLAGS)
+	$(CC) -o unit_tests $(SRC) $(TEST) -lcriterion --coverage $(CFLAGS)
 	./unit_tests
 
 coverage:	tests_run

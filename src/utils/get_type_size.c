@@ -15,7 +15,7 @@ unsigned int get_type_size(int type)
         case T_IND:
             return IND_SIZE;
         case T_REG:
-            return REG_SIZE;
+            return REG_ARG_SIZE;
         default:
             return 0;
     }

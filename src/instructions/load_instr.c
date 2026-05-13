@@ -9,6 +9,7 @@
 #include "struct.h"
 #include "compute.h"
 #include "utils.h"
+#include <stdio.h>
 
 bool load_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)

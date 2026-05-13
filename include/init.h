@@ -12,6 +12,6 @@
 
 instr_t *init_instr(void);
 
-arg_t *init_arg(unsigned char *arg, char type);
+arg_t *init_arg(unsigned char *arg, char type, unsigned int size);
 
 #endif /* !INIT_H */
