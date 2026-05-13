@@ -75,7 +75,7 @@ void free_robots(main_t *main)
     return;
 }
 
-void free_main(char *str, main_t *main, args_t *args)
+void free_main(main_t *main, args_t *args)
 {
     if (!main)
         return;

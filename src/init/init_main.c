@@ -68,20 +68,33 @@ robot_infos_t *init_robots(args_t *args, main_t *main)
     return robot_infos;
 }
 
+bool init_arena(main_t **main, args_t *args)
+{
+    (*main)->arena = malloc(sizeof(unsigned char) * MEM_SIZE);
+    if ((*main)->arena == NULL) {
+        free_main(*main, args);
+        return false;
+    }
+    for (unsigned int i = 0; i < MEM_SIZE; i++)
+        (*main)->arena[i] = 0;
+    return true;
+}
+
 main_t *init_main(args_t *args)
 {
     main_t *main = malloc(sizeof(main_t));
 
     if (main == NULL)
         return put_error("Main alloc failed.", NULL);
-    main->arena = malloc(sizeof(unsigned char) * MEM_SIZE);
-    for (unsigned int i = 0; i < MEM_SIZE; i++)
-        main->arena[i] = 0;
-    if (main->arena == NULL)
-        return free_main("Arena alloc failed.", main, args);
+    if (!init_arena(&main, args)) {
+        free_main(main, args);
+        return NULL;
+    }
     main->robots = init_robots(args, main);
-    if (main->robots == NULL)
-        return free_main("Robots alloc failed.", main, args);
+    if (main->robots == NULL) {
+        free_main(main, args);
+        return NULL;
+    }
     main->cycle = 0;
     main->cycle_dump = args->cycle_dump;
     main->nbr_robots = args->nbr_robots;
