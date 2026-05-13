@@ -42,6 +42,7 @@ bool init_one_robot(robot_infos_t *robot_infos, robot_args_t *robot_args,
     if (!init_game_infos(robot_infos))
         return put_error("Game alloc failed.", false);
     robot_infos->id = robot_args->id;
+    robot_infos->live = false;
     robot_infos->game_infos->pc = robot_args->load_pos;
     if (!fill_robot_instr(main, robot_infos, robot_args))
         return put_error("Fill robot failed.", false);
@@ -91,6 +92,7 @@ main_t *init_main(args_t *args)
         return NULL;
     }
     main->cycle = 0;
+    main->nb_live = 0;
     main->cycle_dump = args->cycle_dump;
     main->nbr_robots = args->nbr_robots;
     free_args_struct(args);

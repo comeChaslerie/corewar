@@ -35,7 +35,7 @@ typedef struct robot_game_infos_s {
     unsigned char **regs;
     int cycles_remaining;
     bool carry;
-    int pc;
+    unsigned int pc;
     bool alive;
 } robot_game_infos_t;
 
@@ -45,6 +45,7 @@ typedef struct robot_infos_s {
     robot_game_infos_t *game_infos;
     struct robot_infos_s *child;
     struct robot_infos_s *parent;
+    bool live;
 } robot_infos_t;
 
 typedef struct robot_args_s {
@@ -65,6 +66,7 @@ typedef struct main_s {
     unsigned int cycle;
     unsigned int cycle_dump;
     unsigned int nbr_robots;
+    unsigned int nb_live;
 } main_t;
 
 #endif
