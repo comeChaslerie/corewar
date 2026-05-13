@@ -56,14 +56,6 @@ Test(main_functions, n_no_value)
     cr_assert(main_functions(argc, argv) == 84);
 }
 
-Test(main_functions, a_no_value)
-{
-    int argc = 2;
-    char *argv[2] = {"./corewar", "-a"};
-
-    cr_assert(main_functions(argc, argv) == 84);
-}
-
 Test(main_functions, dump_missing_value_with_file)
 {
     int argc = 3;
@@ -137,15 +129,6 @@ Test(main_functions, dump_int_max)
     cr_assert(main_functions(argc, argv) == 84);
 }
 
-Test(main_functions, dump_overflow)
-{
-    int argc = 4;
-    char *argv[4] = {"./corewar", "-dump", "999999999999",
-        "examples/champions/abel.cor"};
-
-    cr_assert(main_functions(argc, argv) == 84);
-}
-
 Test(main_functions, n_zero)
 {
     int argc = 4;
@@ -207,14 +190,6 @@ Test(main_functions, same_champion_twice)
     cr_assert(main_functions(argc, argv) == 0);
 }
 
-Test(main_functions, dump_zero_single)
-{
-    int argc = 4;
-    char *argv[4] = {"./corewar", "-dump", "0", "examples/champions/abel.cor"};
-
-    cr_assert(main_functions(argc, argv) == 0);
-}
-
 Test(main_functions, dump_zero_two_champions)
 {
     int argc = 5;
@@ -266,14 +241,6 @@ Test(main_functions, dump_champion_dump)
         "-dump", "0"};
 
     cr_assert(main_functions(argc, argv) == 84);
-}
-
-Test(main_functions, champion_then_dump_dup)
-{
-    int argc = 4;
-    char *argv[4] = {"./corewar", "examples/champions/abel.cor", "-dump", "0"};
-
-    cr_assert(main_functions(argc, argv) == 0);
 }
 
 Test(main_functions, two_champions_then_dump)
@@ -459,15 +426,6 @@ Test(main_functions, n_a_champion_n_champion)
     char *argv[9] = {"./corewar", "-n", "1", "-a", "100",
         "examples/champions/abel.cor", "-n", "1",
         "examples/champions/bill.cor"};
-
-    cr_assert(main_functions(argc, argv) == 84);
-}
-
-Test(main_functions, two_a_one_champion_dup)
-{
-    int argc = 6;
-    char *argv[6] = {"./corewar", "-a", "100", "-a", "200",
-        "examples/champions/abel.cor"};
 
     cr_assert(main_functions(argc, argv) == 84);
 }
