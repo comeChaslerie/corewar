@@ -47,7 +47,16 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/main_functions.c 	\
 		src/dump_flag.c			\
 		src/op.c
-		
+
+TEST =	tests/utils_tests/conversion_tests.c		\
+		tests/utils_tests/get_type_size_tests.c		\
+		tests/utils_tests/hextouc_tests.c			\
+		tests/utils_tests/is_nbr_tests.c			\
+		tests/utils_tests/my_getnbr_tests.c			\
+		tests/utils_tests/my_strcmp_tests.c			\
+		tests/utils_tests/my_strdup_tests.c			\
+		tests/utils_tests/put_error_tests.c			\
+		tests/main_functions_tests.c
 
 NAME =	corewar
 
@@ -76,7 +85,7 @@ re:
 	$(MAKE) all
 
 tests_run:	clean
-	$(CC) -o unit_tests $(SRC) tests/*.c -lcriterion --coverage $(CFLAGS)
+	$(CC) -o unit_tests $(SRC) $(TEST) -lcriterion --coverage $(CFLAGS)
 	./unit_tests
 
 coverage:	tests_run
