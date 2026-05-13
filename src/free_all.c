@@ -67,9 +67,7 @@ void free_robots(main_t *main)
 {
     if (main->robots == NULL)
         return;
-    for (unsigned int index = 0; index < main->nbr_robots; index++) {
-        free_robot_info(&(main->robots[index]));
-    }
+    free_robot_info(main->robots);
     return;
 }
 
