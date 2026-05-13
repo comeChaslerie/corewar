@@ -19,10 +19,8 @@ int main_functions(int argc, char **argv)
     if (args == NULL)
         return 84;
     main = init_main(args);
-    printf("init done\n");
     if (main == NULL)
         return 84;
-    printf("main done\n");
     if (!game_loop(main)){
         free_main(main, args);
         put_error("game loop failed.\n", NULL);
