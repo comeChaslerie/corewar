@@ -17,6 +17,29 @@ static void kill_robots(main_t *main)
         main->robots[i].game_infos->alive = main->robots[i].live;
 }
 
+static bool is_finish_game(main_t *main)
+{
+    unsigned int nb_alive = 0;
+    unsigned int last_alive = 0;
+
+    for (unsigned int i = 0; i < main->nbr_robots; i++)
+        if (main->robots[i].game_infos->alive){
+            nb_alive++;
+            last_alive = main->robots[i].id;
+        }
+    if (nb_alive == 1){
+        write(1, "Player: ", 9);
+        my_put_nbr_u(last_alive);
+        write(1, " has win!\n", 11);
+        return true;
+    }
+    if (!nb_alive){
+        write(1, "Nobody wins...\n", 16);
+        return true;
+    }
+    return false;
+}
+
 bool game_loop(main_t *main)
 {
     unsigned int cycles_to_die = CYCLE_TO_DIE;
@@ -34,6 +57,8 @@ bool game_loop(main_t *main)
             cycles_to_die -= CYCLE_DELTA;
             main->nb_live %= NBR_LIVE;
         }
+        if (is_finish_game(main))
+            return true;
     }
     return true;
 }
