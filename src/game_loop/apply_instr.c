@@ -14,6 +14,22 @@
 #include "utils.h"
 #include "game.h"
 
+static unsigned int get_instr_mem_size(main_t *main, unsigned int **args_tab,
+    unsigned int pos_start, unsigned int *nbr_args)
+{
+    if (op_tab[main->arena[pos_start]].coding_byte){
+        *args_tab = get_coding_byte_tab(main->arena[pos_start + 1],
+            main->arena[pos_start]);
+        if (!*args_tab)
+            return (unsigned long)put_error("incorrect coding byte tab in get_"
+                "instr_mem", (void *)0);
+        return get_global_size(*args_tab, nbr_args) + 2;
+    } else {
+        *nbr_args = 1;
+        return get_size_from_id(main->arena[pos_start]) + 1;
+    }
+}
+
 static unsigned char *get_instr_mem(main_t *main, unsigned int robot_id)
 {
     int pos_start = 0;
@@ -23,18 +39,9 @@ static unsigned char *get_instr_mem(main_t *main, unsigned int robot_id)
     unsigned int nbr_args = 0;
 
     pos_start = main->robots[robot_id].pos_infos->pos_next_instr;
-    if (op_tab[main->arena[pos_start]].coding_byte){
-        args_tab = get_coding_byte_tab(main->arena[pos_start + 1],
-            main->arena[pos_start]);
-        if (!args_tab)
-            return put_error("incorrect coding byte tab in get_instr_mem",
-                NULL);
-        size = get_global_size(args_tab, &nbr_args) + 2;
-        free(args_tab);
-    } else {
-        size = get_size_from_id(main->arena[pos_start]) + 1;
-        nbr_args = 1;
-    }
+    size = get_instr_mem_size(main, &args_tab, pos_start, &nbr_args);
+    if (!size)
+        return put_error("Error: invalid size in get instr mem\n", NULL);
     if (main->arena[pos_start] <= 0 || main->arena[pos_start] > NB_INSTR
         || nbr_args != op_tab[main->arena[pos_start]].nbr_args)
         return NULL;
