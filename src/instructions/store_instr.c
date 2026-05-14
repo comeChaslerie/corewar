@@ -8,21 +8,22 @@
 #include "define.h"
 #include "struct.h"
 #include "compute.h"
-#include "game.h"
 
 bool store_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned int src = uctoui(args[0]->arg, args[0]->size);
-    unsigned int dest = uctoui(args[1]->arg, args[1]->size);
+    unsigned int src = (unsigned int)args[0]->arg[0];
     main_t *main = (main_t *)value;
     unsigned char **regs = main->robots[robot_id].game_infos->regs;
+    unsigned int dest;
 
-    if (args[1]->type == T_REG){
+    if (args[1]->type == T_REG) {
+        dest = (unsigned int)args[1]->arg[0];
         for (unsigned int i = 0; i < REG_SIZE; i++)
             regs[dest][i] = regs[src][i];
         return true;
     }
+    dest = uctoui(args[1]->arg, args[1]->size);
     dest = (main->robots[robot_id].game_infos->pc + dest % IDX_MOD) % MEM_SIZE;
     for (unsigned int i = 0; i < REG_SIZE; i++)
         main->arena[(dest + i) % MEM_SIZE] = regs[src][i];
@@ -33,12 +34,13 @@ bool store_ind_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
-    unsigned int arg_a = get_u_arg_content(args[0], robot_id, (main_t *)value);
-    unsigned int arg_b = get_u_arg_content(args[1], robot_id, (main_t *)value);
-    unsigned int source = uctoui(args[2]->arg, args[2]->size);
+    unsigned int source = (unsigned int)args[0]->arg[0];
+    unsigned int arg_a = uctoui(args[1]->arg, args[1]->size);
+    unsigned int arg_b = uctoui(args[2]->arg, args[2]->size);
     unsigned int dest = (infos->pc + (arg_a + arg_b) % IDX_MOD) % MEM_SIZE;
 
     for (unsigned int i = 0; i < REG_SIZE; i++)
-        ((main_t *)value)->arena[(dest + i) % MEM_SIZE] = infos->regs[source][i];
+        ((main_t *)value)->arena[(dest + i) % MEM_SIZE] =
+            infos->regs[source][i];
     return true;
 }
