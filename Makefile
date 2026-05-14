@@ -58,15 +58,8 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/dump_flag.c			\
 		src/op.c
 
-TEST =	tests/utils_tests/conversion_tests.c		\
-		tests/utils_tests/get_type_size_tests.c		\
-		tests/utils_tests/hextouc_tests.c			\
-		tests/utils_tests/is_nbr_tests.c			\
-		tests/utils_tests/my_getnbr_tests.c			\
-		tests/utils_tests/my_strcmp_tests.c			\
-		tests/utils_tests/my_strdup_tests.c			\
-		tests/utils_tests/put_error_tests.c			\
-		tests/instructions_tests/live_tests.c 		\
+TEST = 	tests/utils_tests/*.c			\
+		tests/instructions_tests/*.c			\
 		tests/main_functions_tests.c
 
 NAME =	corewar
@@ -109,7 +102,7 @@ coverage:	tests_run
 #for mac
 
 mac_tests_run:	clean
-	gcc -o unit_tests $(SRC) tests/*.c tests/utils_tests/*.c -lcriterion --coverage $(CFLAGS)
+	gcc -o unit_tests $(SRC) tests/*.c tests/utils_tests/*.c tests/instructions_tests/*.c -lcriterion --coverage $(CFLAGS)
 	./unit_tests
 
 gcovrex:	re
