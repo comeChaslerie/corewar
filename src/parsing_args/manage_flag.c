@@ -67,6 +67,9 @@ bool manage_flag_id(int argc, char **argv, unsigned int *index,
                 false);
         if (!check_following_nb(argc, argv, index, &robots_args->id))
             return false;
+        if (robots_args->id == 0)
+            return put_error("The id can't be 0.",
+                false);
         if (robots_args->id > MAX_ROBOT_NBR || robots_args->id < 0)
             return put_error("The argument for the -n flag is out of range.",
                 false);
@@ -103,6 +106,8 @@ bool manage_flag_dump(int argc, char **argv, unsigned int *index, args_t *args)
             return put_error("Too many -dump flags.", false);
         if (!check_following_nb(argc, argv, index, &args->cycle_dump))
             return false;
+        if (args->cycle_dump < 0)
+            return put_error("The cycle dump can't be negative.", false);
         *index += 1;
     }
     return true;
@@ -121,6 +126,8 @@ bool check_all_flags(int argc, char **argv, args_t *args)
         if (!manage_flag_id(argc, argv, &index,
                 &args->robots_args[robot_index]))
             return false;
+        if (index >= argc)
+            break;
         if (!manage_flags_robot(argv, &index, &robot_index, args))
             return false;
         if (!is_a_flag(argv[index], &index))
