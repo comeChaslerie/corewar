@@ -12,6 +12,7 @@
 #include "define.h"
 #include "struct.h"
 #include "utils.h"
+#include "game.h"
 
 static void display_live(robot_infos_t *robot)
 {
@@ -78,13 +79,16 @@ bool sub_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 bool print_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned char **regs = ((main_t *)value)->robots[robot_id].game_infos->regs;
-    unsigned char *reg = uctohex(regs[args[0]->arg[0]], args[0]->size);
+    unsigned char *content = get_arg_content(args[0], robot_id,
+        (main_t *)value);
+    unsigned char *reg;
 
-    if (!reg) {
-        free_values((void *[1]){(void *)reg}, 1);
+    if (!content)
         return false;
-    }
+    reg = uctohex(content, args[0]->size);
+    free(content);
+    if (!reg)
+        return false;
     for (unsigned int i = 0; i < REG_SIZE; i++)
         my_putchar((char)reg[i]);
     free_values((void *[1]){(void *)reg}, 1);
@@ -97,7 +101,8 @@ bool jump_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int jump = uctoui(args[0]->arg, args[0]->size);
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
 
+    if (!infos->carry)
+        return true;
     infos->pc = (infos->pc + jump % IDX_MOD) % MEM_SIZE;
-    infos->carry = false;
     return true;
 }
