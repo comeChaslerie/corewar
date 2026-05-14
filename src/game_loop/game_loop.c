@@ -19,7 +19,7 @@ static void kill_robots(main_t *main)
     }
 }
 
-static void display_winner(robot_infos_t *winner)
+void display_winner(robot_infos_t *winner)
 {
     write(1, "The player ", 11);
     my_put_nbr_u(winner->id);

@@ -10,6 +10,15 @@
 #include "game.h"
 #include "utils.h"
 #include <stdio.h>
+#include <unistd.h>
+
+static int handle_solo_robot(main_t *main, args_t *args)
+{
+    write(1, "Your robot is alone...\n", 23);
+    display_winner(&main->robots[0]);
+    free_main(main, args);
+    return 0;
+}
 
 int main_functions(int argc, char **argv)
 {
@@ -21,6 +30,8 @@ int main_functions(int argc, char **argv)
     main = init_main(args);
     if (main == NULL)
         return 84;
+    if (main->nbr_robots == 1)
+        return handle_solo_robot(main, args);
     if (!game_loop(main)){
         free_main(main, args);
         put_error("game loop failed.\n", NULL);
