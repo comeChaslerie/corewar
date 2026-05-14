@@ -40,6 +40,8 @@ static bool is_finish_game(main_t *main)
             winner = &main->robots[i];
         }
     if (nb_alive == 1){
+        if (main->cycle_dump >= main->total_cycles)
+            dump(main);
         display_winner(winner);
         return true;
     }
