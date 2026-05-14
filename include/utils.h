@@ -35,6 +35,6 @@ int my_put_nbr_u(unsigned int n);
 void my_putchar(char c);
 unsigned char *add_to_arena(unsigned char *arena, unsigned char *buffer,
     unsigned int size_buffer);
-bool cp_robot(robot_infos_t *robot);
+robot_infos_t *cp_robot(robot_infos_t *src_robot);
 
 #endif

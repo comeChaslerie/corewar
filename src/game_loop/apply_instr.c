@@ -100,6 +100,8 @@ bool apply_robot_instr(main_t *main, unsigned int index, robot_infos_t *robot)
     unsigned char *instr = NULL;
     instr_t *args = NULL;
 
+    if (robot->child)
+        return apply_robot_instr(main, index, robot->child);
     if (decrement_robot_cycle(main, index))
         return true;
     instr = get_instr_mem(main, index);
@@ -111,8 +113,6 @@ bool apply_robot_instr(main_t *main, unsigned int index, robot_infos_t *robot)
     if (!translate_and_apply(args, instr, main, index))
         return false;
     free(instr);
-    if (robot->child)
-        return apply_robot_instr(main, index, robot->child);
     return true;
 }
 
