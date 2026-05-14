@@ -54,6 +54,7 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/utils/get_type_size.c		\
 		src/utils/hextouc.c				\
 		src/utils/cp_robot.c			\
+		src/utils/get_arg.c				\
 		src/free_all.c 			\
 		src/main_functions.c 	\
 		src/dump_flag.c			\

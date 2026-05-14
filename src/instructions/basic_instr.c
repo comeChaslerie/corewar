@@ -78,7 +78,8 @@ bool sub_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
 bool print_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
-    unsigned char *reg = uctohex(args[0]->arg, args[0]->size);
+    unsigned char **regs = ((main_t *)value)->robots[robot_id].game_infos->regs;
+    unsigned char *reg = uctohex(regs[args[0]->arg[0]], args[0]->size);
 
     if (!reg) {
         free_values((void *[1]){(void *)reg}, 1);

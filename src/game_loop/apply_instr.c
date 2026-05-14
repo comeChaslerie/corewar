@@ -101,7 +101,7 @@ bool apply_robot_instr(main_t *main, unsigned int index, robot_infos_t *robot)
     instr_t *args = NULL;
 
     if (robot->child)
-        return apply_robot_instr(main, index, robot->child);
+        apply_robot_instr(main, index, robot->child);
     if (decrement_robot_cycle(main, index))
         return true;
     instr = get_instr_mem(main, index);
