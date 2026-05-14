@@ -25,7 +25,6 @@ bool fork_long_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     if (!child->child)
         return false;
     child->child->game_infos->pc += offset;
-    fprintf(stdout, "fork succed\n");
     return true;
 }
 
@@ -42,6 +41,5 @@ bool fork_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     if (!child->child)
         return false;
     child->child->game_infos->pc += offset % IDX_MOD;
-    fprintf(stdout, "fork succed\n");
     return true;
 }
