@@ -77,7 +77,7 @@ Test(main_functions, dump_negative_value)
     int argc = 4;
     char *argv[4] = {"./corewar", "-dump", "-1", "examples/champions/abel.cor"};
 
-    cr_assert(main_functions(argc, argv) == 0);
+    cr_assert(main_functions(argc, argv) == 84);
 }
 
 Test(main_functions, dump_alpha_value)
@@ -126,7 +126,7 @@ Test(main_functions, dump_int_max)
     char *argv[4] = {"./corewar", "-dump", "2147483647",
         "examples/champions/abel.cor"};
 
-    cr_assert(main_functions(argc, argv) == 84);
+    cr_assert(main_functions(argc, argv) == 0);
 }
 
 Test(main_functions, n_zero)
@@ -277,7 +277,7 @@ Test(main_functions, champions_two_dumps_diff)
     char *argv[7] = {"./corewar", "examples/champions/abel.cor",
         "examples/champions/bill.cor", "-dump", "0", "-dump", "100"};
 
-    cr_assert(main_functions(argc, argv) == 0);
+    cr_assert(main_functions(argc, argv) == 84);
 }
 
 Test(main_functions, n_per_champion)
@@ -365,7 +365,7 @@ Test(main_functions, champion_n_champion_a)
     char *argv[7] = {"./corewar", "examples/champions/abel.cor", "-n", "2",
         "examples/champions/bill.cor", "-a", "200"};
 
-    cr_assert(main_functions(argc, argv) == 84);
+    cr_assert(main_functions(argc, argv) == 0);
 }
 
 Test(main_functions, a_champion_n_champion)
@@ -382,7 +382,7 @@ Test(main_functions, dump_value_no_champion)
     int argc = 3;
     char *argv[3] = {"./corewar", "-dump", "10"};
 
-    cr_assert(main_functions(argc, argv) == 0);
+    cr_assert(main_functions(argc, argv) == 84);
 }
 
 Test(main_functions, fake_filename)
@@ -426,6 +426,15 @@ Test(main_functions, n_a_champion_n_champion)
     char *argv[9] = {"./corewar", "-n", "1", "-a", "100",
         "examples/champions/abel.cor", "-n", "1",
         "examples/champions/bill.cor"};
+
+    cr_assert(main_functions(argc, argv) == 84);
+}
+
+Test(main_functions, two_a_one_champion_dup)
+{
+    int argc = 6;
+    char *argv[6] = {"./corewar", "-a", "100", "-a", "200",
+        "examples/champions/abel.cor"};
 
     cr_assert(main_functions(argc, argv) == 84);
 }
