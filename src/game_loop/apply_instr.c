@@ -45,7 +45,6 @@ static unsigned char *build_instr_mem(main_t *main,
     instr = my_ustrndup(main->arena, pos_start, pos_start + size);
     if (!instr)
         return NULL;
-    infos->pc = (infos->pc + size) % MEM_SIZE;
     return instr;
 }
 
@@ -60,6 +59,7 @@ static unsigned char *get_instr_mem(main_t *main, unsigned int robot_id)
         infos->pc % MEM_SIZE, &nbr_args);
     if (!size)
         return NULL;
+    infos->pc = (infos->pc + size) % MEM_SIZE;
     if (args_tab)
         free(args_tab);
     return build_instr_mem(main, infos, size, nbr_args);

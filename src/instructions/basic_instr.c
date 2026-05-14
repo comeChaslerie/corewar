@@ -98,5 +98,6 @@ bool jump_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
 
     infos->pc = (infos->pc + jump % IDX_MOD) % MEM_SIZE;
+    infos->carry = false;
     return true;
 }
