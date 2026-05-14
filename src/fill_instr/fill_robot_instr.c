@@ -24,12 +24,16 @@ int my_htonl(int val)
 }
 
 unsigned char *add_to_arena(unsigned char *arena, unsigned char *buffer,
-    unsigned int size_buffer)
+    unsigned int size_buffer, unsigned int pos)
 {
+    unsigned int index_arena = pos;
+
     if (buffer == NULL)
         return NULL;
-    for (unsigned int index = 0; index < size_buffer; index++)
-        arena[index] = buffer[index];
+    for (unsigned int index = 0; index < size_buffer; index++) {
+        arena[index_arena] = buffer[index];
+        index_arena = (index_arena + 1) % MEM_SIZE;
+    }
     free(buffer);
     buffer = NULL;
     return buffer;
@@ -72,8 +76,8 @@ bool get_instructions(main_t *main, robot_infos_t *robot_infos, FILE *fp)
         buffer = check_instr(elem, &size_buffer, fp, buffer);
         if (buffer == NULL)
             return put_error("Buffer equals null.", false);
-        buffer = add_to_arena(&main->arena[pos + size_total % MEM_SIZE], buffer,
-            size_buffer);
+        buffer = add_to_arena(main->arena, buffer, size_buffer,
+            ((pos + size_total) % MEM_SIZE));
         size_total += size_buffer;
         size_buffer = 0;
     }

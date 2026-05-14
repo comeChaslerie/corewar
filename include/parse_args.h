@@ -33,6 +33,9 @@ bool manage_flag_dump(int argc, char **argv, unsigned int *index,
     args_t *args);
 bool check_all_flags(int argc, char **argv, args_t *args);
 
+unsigned char *add_to_arena(unsigned char *arena, unsigned char *buffer,
+    unsigned int size_buffer, unsigned int pos);
+
 void update_load_pos(robot_args_t *robots_args, unsigned int nbr_robots);
 
 #endif /* !MY_H_ */
