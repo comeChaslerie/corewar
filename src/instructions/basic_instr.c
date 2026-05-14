@@ -6,11 +6,21 @@
 */
 
 #include <stdbool.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include "compute.h"
 #include "define.h"
 #include "struct.h"
 #include "utils.h"
+
+static void display_live(robot_infos_t *robot)
+{
+    write(1, "The player ", 11);
+    my_put_nbr_u(robot->id);
+    write(1, "(", 1);
+    write(1, robot->header.prog_name, my_strlen(robot->header.prog_name));
+    write(1, ") is alive.\n", 12);
+}
 
 bool live_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
@@ -22,6 +32,7 @@ bool live_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
         if (main->robots[i].id == player_id) {
             main->robots[i].live = true;
             main->nb_live++;
+            display_live(&main->robots[i]);
             return true;
         }
     }
