@@ -36,5 +36,6 @@ void my_putchar(char c);
 unsigned char *add_to_arena(unsigned char *arena, unsigned char *buffer,
     unsigned int size_buffer);
 bool cp_robot(robot_infos_t *robot);
+char *my_strcpy(char *dest, char const *src);
 
 #endif

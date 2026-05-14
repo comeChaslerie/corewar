@@ -41,6 +41,7 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/utils/put_error.c 			\
 		src/utils/my_getnbr.c 			\
 		src/utils/my_strlen.c 			\
+		src/utils/my_strcpy.c			\
 		src/utils/my_strdup.c 			\
 		src/utils/my_ustrcat.c 			\
 		src/utils/my_ustrndup.c			\
@@ -65,6 +66,7 @@ TEST =	tests/utils_tests/conversion_tests.c		\
 		tests/utils_tests/my_strcmp_tests.c			\
 		tests/utils_tests/my_strdup_tests.c			\
 		tests/utils_tests/put_error_tests.c			\
+		tests/instructions_tests/live_tests.c 		\
 		tests/main_functions_tests.c
 
 NAME =	corewar
