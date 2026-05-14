@@ -26,11 +26,13 @@ arg_t *create_arg(char type, unsigned int size, unsigned char *data)
 main_t *init_test_env(unsigned int robot_id)
 {
     main_t *m = malloc(sizeof(main_t));
-    
+
+    my_bzero(m, sizeof(main_t));
     m->arena = malloc(MEM_SIZE);
     my_bzero(m->arena, MEM_SIZE);
-    
+
     m->robots = malloc(sizeof(robot_infos_t) * MAX_ROBOT_NBR);
+    my_bzero(m->robots, sizeof(robot_infos_t) * MAX_ROBOT_NBR);
     m->robots[robot_id].game_infos = malloc(sizeof(robot_game_infos_t));
     my_bzero(m->robots[robot_id].game_infos, sizeof(robot_game_infos_t));
     m->robots[robot_id].game_infos->regs = malloc(sizeof(unsigned char *) * REG_NUMBER);
