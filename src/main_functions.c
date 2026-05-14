@@ -20,11 +20,33 @@ static int handle_solo_robot(main_t *main, args_t *args)
     return 0;
 }
 
+static int display_help(void)
+{
+    put_str("USAGE\n");
+    put_str("./corewar [-dump nbr_cycle] [[-n prog_number]"
+        " [-a load_address] prog_name] ...\n");
+    put_str("DESCRIPTION\n");
+    put_str("-dump nbr_cycle dumps the state of the virtual"
+        " machine after the nbr_cycle execution\n");
+    put_str("-n prog_number sets the next program's number."
+        " By default, the first free number in the parameter"
+        " order\n");
+    put_str("-a load_address sets the next program's loading"
+        " address. When no address is specified, optimize the"
+        " addresses so that the processes are as far away"
+        " from each other as possible. The addresses are"
+        " MEM_SIZE modulo.\n");
+    return 0;
+}
+
 int main_functions(int argc, char **argv)
 {
-    args_t *args = parse_args(argc, argv);
+    args_t *args = NULL;
     main_t *main = NULL;
 
+    if (argc == 2 && my_strcmp(argv[1], "-h") == 0)
+        return display_help();
+    args = parse_args(argc, argv);
     if (args == NULL)
         return 84;
     main = init_main(args);

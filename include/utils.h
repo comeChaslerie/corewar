@@ -33,6 +33,7 @@ int my_intlen(int nb);
 int my_intlen_u(unsigned int nb);
 int my_put_nbr_u(unsigned int n);
 void my_putchar(char c);
+void put_str(char *str);
 unsigned char *add_to_arena(unsigned char *arena, unsigned char *buffer,
     unsigned int size_buffer);
 char *my_strcpy(char *dest, char const *src);
