@@ -39,12 +39,19 @@ static unsigned char *get_arg_ind_type(arg_t *arg, unsigned int pc,
     return arg_content;
 }
 
+static unsigned char *get_arg_dir_type(arg_t *arg)
+{
+    return my_ustrndup(arg->arg, 0, arg->size);
+}
+
 unsigned char *get_arg_content(arg_t *arg, unsigned int robot_id, main_t *main)
 {
     unsigned char **regs = main->robots[robot_id].game_infos->regs;
     unsigned int pc = main->robots[robot_id].game_infos->pc;
 
-    if (arg->type == T_IND || arg->type == T_DIR)
+    if (arg->type == T_DIR)
+        return get_arg_dir_type(arg);
+    if (arg->type == T_IND)
         return get_arg_ind_type(arg, pc, main->arena);
     if (arg->type == T_REG)
         return get_arg_reg_type(arg, regs);
