@@ -113,6 +113,25 @@ static void print_register(unsigned char **regs)
     write(1, NEW_LINE_CHAR, 1);
 }
 
+static void print_child(robot_infos_t *child, unsigned int parent_id)
+{
+    if (child) {
+        write(1, SPACE_CHAR, 1);
+        print_robot_name(child);
+        print_register(child->game_infos->regs);
+        for (unsigned int j = 0; j < NB_SPACE; j++)
+            write(1, SPACE_CHAR, 1);
+        write(1, "PC : ", 5);
+        print_index_hexa(child->game_infos->pc, 1);
+        for (unsigned int j = 0; j < NB_SPACE; j++)
+            write(1, SPACE_CHAR, 1);
+        write(1, "carry: ", 7);
+        my_puthexa(child->game_infos->carry);
+        write(1, NEW_LINE_CHAR, 1);
+        print_child(child->child, parent_id);
+    }
+}
+
 static void print_robot(main_t *main)
 {
     write(1, "Registers:", 10);
@@ -129,6 +148,7 @@ static void print_robot(main_t *main)
         write(1, "carry: ", 7);
         my_puthexa(main->robots[i].game_infos->carry);
         write(1, NEW_LINE_CHAR, 1);
+        print_child(main->robots[i].child, i);
     }
     write(1, NEW_LINE_CHAR, 1);
 }
