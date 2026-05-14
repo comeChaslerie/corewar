@@ -55,20 +55,22 @@ bool game_loop(main_t *main)
 
     if (!main)
         return put_error("incorrect arg in game_loop\n", false);
-    for (unsigned int i = 0; i < cycles_to_die; i++){
+    for (unsigned int i = 0; cycles_to_die > 0; i++){
         if (!apply_cycle(main))
             return put_error("instr apply fail", false);
-        if (main->cycle_dump == i)
+        if (main->cycle_dump == main->total_cycles)
             dump(main);
         if (main->nb_live >= NBR_LIVE){
             cycles_to_die -= CYCLE_DELTA;
             main->nb_live %= NBR_LIVE;
         }
-        if (i != 0 && i > cycles_to_die)
+        if (i != 0 && i >= cycles_to_die)
             reset_cycle(main, &i, cycles_to_die);
         if (is_finish_game(main))
             return true;
         main->total_cycles++;
     }
+    kill_robots(main);
+    is_finish_game(main);
     return true;
 }
