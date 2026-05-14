@@ -10,8 +10,3 @@
 #include "utils.h"
 #include "instructions.h"
 
-Test(live_instr, basic_nbr)
-{
-    
-}
-
