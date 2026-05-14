@@ -37,6 +37,7 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/utils/my_intlen.c			\
 		src/utils/my_put_nbr.c			\
 		src/utils/my_putchar.c			\
+		src/utils/put_str.c			\
 		src/utils/my_strcmp.c 			\
 		src/utils/put_error.c 			\
 		src/utils/my_getnbr.c 			\
