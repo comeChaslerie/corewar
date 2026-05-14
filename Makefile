@@ -83,6 +83,7 @@ TEST = 	tests/instructions_tests/add_tests.c	\
 		tests/utils_tests/my_strcmp_tests.c	\
 		tests/utils_tests/my_strdup_tests.c	\
 		tests/utils_tests/put_error_tests.c	\
+		tests/main_functions_tests.c
 
 NAME =	corewar
 
