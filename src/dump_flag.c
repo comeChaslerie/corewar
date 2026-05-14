@@ -92,6 +92,8 @@ static void print_robot_name(robot_infos_t *robots, unsigned int nb_space)
     write(1, SPACE_CHAR, 1);
     if (robots->game_infos->alive == true)
         write(1, "alive", 5);
+    else
+        write(1, "dead", 4);
     write(1, NEW_LINE_CHAR, 1);
 }
 
@@ -129,7 +131,7 @@ static void print_robot(robot_infos_t *robot, unsigned int nb_space)
     write(1, "carry: ", 7);
     my_puthexa(robot->game_infos->carry);
     write(1, NEW_LINE_CHAR, 1);
-    if (robot->child)
+    if (robot->child && robot->game_infos->alive)
         print_robot(robot->child, NB_SPACE_CHILD);
 }
 
