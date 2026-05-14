@@ -37,19 +37,6 @@ static bool check_id_after_parsing(robot_args_t *robots_args)
     return true;
 }
 
-static void update_load_pos(robot_args_t *robots_args, unsigned int nbr_robots)
-{
-    int slice_size = (MEM_SIZE) / nbr_robots;
-
-    for (unsigned int index_tab = 0; index_tab < nbr_robots; index_tab++) {
-        if (index_tab - 1 == nbr_robots)
-            slice_size -= SECURE_DIST;
-        if (robots_args[index_tab].load_pos == NO_VALUE_LOAD_POS)
-            robots_args[index_tab].load_pos = slice_size *
-                (robots_args[index_tab].id - 1);
-    }
-}
-
 static bool update_id(args_t *args)
 {
     unsigned int index_tab = 0;

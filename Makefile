@@ -32,6 +32,7 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/parsing_args/alloc_args.c			\
 		src/parsing_args/manage_flag.c			\
 		src/parsing_args/parse_args.c			\
+		src/parsing_args/update_load_pos.c		\
 		src/utils/conversions.c			\
 		src/utils/my_intlen.c			\
 		src/utils/my_put_nbr.c			\
