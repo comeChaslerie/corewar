@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "define.h"
 #include "struct.h"
 #include "utils.h"
 #include "handle_main.h"
@@ -71,9 +72,7 @@ bool get_instructions(main_t *main, robot_infos_t *robot_infos, FILE *fp)
         buffer = check_instr(elem, &size_buffer, fp, buffer);
         if (buffer == NULL)
             return put_error("Buffer equals null.", false);
-        if (pos + size_total + size_buffer > MEM_SIZE)
-            return put_error("Champions instr goes out of memory.", false);
-        buffer = add_to_arena(&main->arena[pos + size_total], buffer,
+        buffer = add_to_arena(&main->arena[pos + size_total % MEM_SIZE], buffer,
             size_buffer);
         size_total += size_buffer;
         size_buffer = 0;
