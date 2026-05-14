@@ -20,5 +20,7 @@ unsigned int *get_coding_byte_tab(unsigned char elem, unsigned int id_instr);
 unsigned int get_global_size(unsigned int *tab, unsigned int *nbr_args);
 bool game_loop(main_t *main);
 void display_winner(robot_infos_t *winner);
+unsigned char *get_arg_content(arg_t *arg, unsigned int robot_id, main_t *main);
+unsigned int get_u_arg_content(arg_t *arg, unsigned int robot_id, main_t *main);
 
 #endif

@@ -43,16 +43,16 @@ bool add_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
-    unsigned char *rega = uctohex(infos->regs[(int)args[0]->arg[0]], REG_SIZE);
-    unsigned char *regb = uctohex(infos->regs[(int)args[1]->arg[0]], REG_SIZE);
+    unsigned char *reg_a = uctohex(infos->regs[(int)args[0]->arg[0]], REG_SIZE);
+    unsigned char *reg_b = uctohex(infos->regs[(int)args[1]->arg[0]], REG_SIZE);
     unsigned char *dest = malloc(sizeof(unsigned char) * HEXA_SIZE);
 
-    if (!rega || !regb || !dest || !hexa_sum(&rega, &regb, &dest)
+    if (!reg_a || !reg_b || !dest || !hexa_sum(&reg_a, &reg_b, &dest)
         || !hextouc(dest, infos->regs[(int)args[2]->arg[0]])){
-        free_values((void *[3]){(void *)rega, (void *)regb, (void *)dest}, 3);
+        free_values((void *[3]){(void *)reg_a, (void *)reg_b, (void *)dest}, 3);
         return false;
     }
-    free_values((void *[3]){(void *)rega, (void *)regb, (void *)dest}, 3);
+    free_values((void *[3]){(void *)reg_a, (void *)reg_b, (void *)dest}, 3);
     set_carry_null_reg(infos->regs[(int)args[2]->arg[0]], infos);
     return true;
 }
@@ -61,16 +61,16 @@ bool sub_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int robot_id)
 {
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
-    unsigned char *rega = uctohex(infos->regs[(int)args[0]->arg[0]], REG_SIZE);
-    unsigned char *regb = uctohex(infos->regs[(int)args[1]->arg[0]], REG_SIZE);
+    unsigned char *reg_a = uctohex(infos->regs[(int)args[0]->arg[0]], REG_SIZE);
+    unsigned char *reg_b = uctohex(infos->regs[(int)args[1]->arg[0]], REG_SIZE);
     unsigned char *dest = malloc(sizeof(unsigned char) * HEXA_SIZE);
 
-    if (!rega || !regb || !dest || !hexa_diff(&rega, &regb, &dest)
+    if (!reg_a || !reg_b || !dest || !hexa_diff(&reg_a, &reg_b, &dest)
         || !hextouc(dest, infos->regs[(int)args[2]->arg[0]])){
-        free_values((void *[3]){(void *)rega, (void *)regb, (void *)dest}, 3);
+        free_values((void *[3]){(void *)reg_a, (void *)reg_b, (void *)dest}, 3);
         return false;
     }
-    free_values((void *[3]){(void *)rega, (void *)regb, (void *)dest}, 3);
+    free_values((void *[3]){(void *)reg_a, (void *)reg_b, (void *)dest}, 3);
     set_carry_null_reg(infos->regs[(int)args[2]->arg[0]], infos);
     return true;
 }
@@ -97,7 +97,6 @@ bool jump_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     unsigned int jump = uctoui(args[0]->arg, args[0]->size);
     robot_game_infos_t *infos = ((main_t *)value)->robots[robot_id].game_infos;
 
-    if (infos->carry)
-        infos->pc += (jump % IDX_MOD) % MEM_SIZE;
+    infos->pc = (infos->pc + jump % IDX_MOD) % MEM_SIZE;
     return true;
 }

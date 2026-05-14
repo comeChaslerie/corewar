@@ -143,7 +143,7 @@ valgrind: re
          --show-leak-kinds=all \
          --track-origins=yes \
          --log-file=valgrind-out.txt \
-         ./$(NAME) -a 6144 examples/champions/abel.cor
+         ./$(NAME) -a 6144 examples/champions/abel.cor examples/champions/bill.cor examples/champions/tyron.cor examples/champions/pdd.cor
 
 
 re_mac:

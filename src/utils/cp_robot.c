@@ -19,6 +19,7 @@ static bool cp_robot_infos(robot_infos_t *src_robot, robot_infos_t *dest_robot)
     dest_robot->game_infos->carry = src_robot->game_infos->carry;
     dest_robot->game_infos->cycles_remaining = 0;
     dest_robot->game_infos->pc = src_robot->game_infos->pc;
+    dest_robot->game_infos->alive = src_robot->game_infos->alive;
     dest_robot->game_infos->regs = malloc(sizeof(unsigned char *) *
         REG_NUMBER);
     if (!dest_robot->game_infos->regs)
@@ -45,6 +46,7 @@ robot_infos_t *cp_robot(robot_infos_t *src_robot)
     dest_robot->parent = src_robot;
     dest_robot->header = src_robot->header;
     dest_robot->id = src_robot->id;
+    dest_robot->live = src_robot->live;
     if (!cp_robot_infos(src_robot, dest_robot))
         return NULL;
     return dest_robot;
