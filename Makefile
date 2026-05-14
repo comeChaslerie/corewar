@@ -76,6 +76,7 @@ TEST = 	tests/instructions_tests/add_tests.c	\
 		tests/instructions_tests/sub_tests.c	\
 		tests/instructions_tests/xor_tests.c	\
 		tests/instructions_tests/zjmp_tests.c	\
+		tests/instructions_tests/tests_utils.c	\
 		tests/utils_tests/conversion_tests.c	\
 		tests/utils_tests/get_type_size_tests.c	\
 		tests/utils_tests/hextouc_tests.c	\
