@@ -33,13 +33,13 @@ bool manage_flags_robot(char **argv, unsigned int *index,
         return true;
     if (argv[*index][0] != FLAG_CHAR && index != 0 &&
         argv[*index - 1][0] != FLAG_CHAR) {
+        if (*robot_index >= MAX_ROBOT_NBR)
+            return put_error("There can be only 4 robots.", false);
         args->robots_args[*robot_index].filepath = my_strdup(argv[*index]);
         if (args->robots_args[*robot_index].id == NO_ROBOT)
             args->robots_args[*robot_index].id = NO_ID_ROBOT;
         *robot_index += 1;
     }
-    if (*robot_index > MAX_ROBOT_NBR)
-        return put_error("There can be only 4 robots.", false);
     return true;
 }
 

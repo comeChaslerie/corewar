@@ -40,6 +40,14 @@ Test(main_functions, empty_arg)
     cr_assert(main_functions(argc, argv) == 84);
 }
 
+Test(main_functions, argc_just_binary)
+{
+    int argc = 1;
+    char *argv[1] = {"./corewar"};
+
+    cr_assert(main_functions(argc, argv) == 84);
+}
+
 Test(main_functions, dump_no_value)
 {
     int argc = 2;
@@ -52,22 +60,6 @@ Test(main_functions, n_no_value)
 {
     int argc = 2;
     char *argv[2] = {"./corewar", "-n"};
-
-    cr_assert(main_functions(argc, argv) == 84);
-}
-
-Test(main_functions, dump_missing_value_with_file)
-{
-    int argc = 3;
-    char *argv[3] = {"./corewar", "-dump", "examples/champions/abel.cor"};
-
-    cr_assert(main_functions(argc, argv) == 84);
-}
-
-Test(main_functions, n_missing_value_with_file)
-{
-    int argc = 3;
-    char *argv[3] = {"./corewar", "-n", "examples/champions/abel.cor"};
 
     cr_assert(main_functions(argc, argv) == 84);
 }
@@ -162,15 +154,6 @@ Test(main_functions, two_champions)
     cr_assert(main_functions(argc, argv) == 0);
 }
 
-Test(main_functions, three_champions)
-{
-    int argc = 4;
-    char *argv[4] = {"./corewar", "examples/champions/abel.cor",
-        "examples/champions/bill.cor", "examples/champions/pdd.cor"};
-
-    cr_assert(main_functions(argc, argv) == 0);
-}
-
 Test(main_functions, four_champions)
 {
     int argc = 5;
@@ -186,24 +169,6 @@ Test(main_functions, same_champion_twice)
     int argc = 3;
     char *argv[3] = {"./corewar", "examples/champions/abel.cor",
         "examples/champions/abel.cor"};
-
-    cr_assert(main_functions(argc, argv) == 0);
-}
-
-Test(main_functions, dump_zero_two_champions)
-{
-    int argc = 5;
-    char *argv[5] = {"./corewar", "-dump", "0", "examples/champions/abel.cor",
-        "examples/champions/bill.cor"};
-
-    cr_assert(main_functions(argc, argv) == 0);
-}
-
-Test(main_functions, dump_zero_three_champions)
-{
-    int argc = 6;
-    char *argv[6] = {"./corewar", "-dump", "0", "examples/champions/abel.cor",
-        "examples/champions/bill.cor", "examples/champions/pdd.cor"};
 
     cr_assert(main_functions(argc, argv) == 0);
 }
@@ -234,52 +199,6 @@ Test(main_functions, dump_zero_no_champion)
     cr_assert(main_functions(argc, argv) == 84);
 }
 
-Test(main_functions, dump_champion_dump)
-{
-    int argc = 6;
-    char *argv[6] = {"./corewar", "-dump", "0", "examples/champions/abel.cor",
-        "-dump", "0"};
-
-    cr_assert(main_functions(argc, argv) == 84);
-}
-
-Test(main_functions, two_champions_then_dump)
-{
-    int argc = 5;
-    char *argv[5] = {"./corewar", "examples/champions/abel.cor",
-        "examples/champions/bill.cor", "-dump", "0"};
-
-    cr_assert(main_functions(argc, argv) == 0);
-}
-
-Test(main_functions, champions_dump_champion)
-{
-    int argc = 6;
-    char *argv[6] = {"./corewar", "examples/champions/abel.cor",
-        "examples/champions/bill.cor", "-dump", "0",
-        "examples/champions/pdd.cor"};
-
-    cr_assert(main_functions(argc, argv) == 0);
-}
-
-Test(main_functions, champions_two_dumps_same)
-{
-    int argc = 7;
-    char *argv[7] = {"./corewar", "examples/champions/abel.cor",
-        "examples/champions/bill.cor", "-dump", "0", "-dump", "0"};
-
-    cr_assert(main_functions(argc, argv) == 84);
-}
-
-Test(main_functions, champions_two_dumps_diff)
-{
-    int argc = 7;
-    char *argv[7] = {"./corewar", "examples/champions/abel.cor",
-        "examples/champions/bill.cor", "-dump", "0", "-dump", "100"};
-
-    cr_assert(main_functions(argc, argv) == 84);
-}
-
 Test(main_functions, n_per_champion)
 {
     int argc = 13;
@@ -298,18 +217,6 @@ Test(main_functions, n_per_champion_with_dump)
         "-n", "3", "examples/champions/bill.cor", "-n", "2",
         "examples/champions/pdd.cor", "-n", "1",
         "examples/champions/tyron.cor", "-dump", "0"};
-
-    cr_assert(main_functions(argc, argv) == 0);
-}
-
-Test(main_functions, dump_then_n_per_champion)
-{
-    int argc = 15;
-    char *argv[15] = {"./corewar", "-dump", "0", "-n", "4",
-        "examples/champions/abel.cor", "-n", "3",
-        "examples/champions/bill.cor", "-n", "2",
-        "examples/champions/pdd.cor", "-n", "1",
-        "examples/champions/tyron.cor"};
 
     cr_assert(main_functions(argc, argv) == 0);
 }
@@ -368,23 +275,6 @@ Test(main_functions, champion_n_champion_a)
     cr_assert(main_functions(argc, argv) == 0);
 }
 
-Test(main_functions, a_champion_n_champion)
-{
-    int argc = 7;
-    char *argv[7] = {"./corewar", "-a", "100", "examples/champions/abel.cor",
-        "-n", "2", "examples/champions/bill.cor"};
-
-    cr_assert(main_functions(argc, argv) == 0);
-}
-
-Test(main_functions, dump_value_no_champion)
-{
-    int argc = 3;
-    char *argv[3] = {"./corewar", "-dump", "10"};
-
-    cr_assert(main_functions(argc, argv) == 84);
-}
-
 Test(main_functions, fake_filename)
 {
     int argc = 2;
@@ -420,30 +310,103 @@ Test(main_functions, mixed_dump_n_a_champions)
     cr_assert(main_functions(argc, argv) == 0);
 }
 
-Test(main_functions, n_a_champion_n_champion)
+Test(main_functions, invalid_flag_x)
 {
-    int argc = 9;
-    char *argv[9] = {"./corewar", "-n", "1", "-a", "100",
-        "examples/champions/abel.cor", "-n", "1",
-        "examples/champions/bill.cor"};
+    int argc = 3;
+    char *argv[3] = {"./corewar", "-x", "examples/champions/abel.cor"};
 
     cr_assert(main_functions(argc, argv) == 84);
 }
 
-Test(main_functions, two_a_one_champion_dup)
+Test(main_functions, n_above_max_robots)
+{
+    int argc = 4;
+    char *argv[4] = {"./corewar", "-n", "5", "examples/champions/abel.cor"};
+
+    cr_assert(main_functions(argc, argv) == 84);
+}
+
+Test(main_functions, a_above_mem_size)
+{
+    int argc = 4;
+    char *argv[4] = {"./corewar", "-a", "6145", "examples/champions/abel.cor"};
+
+    cr_assert(main_functions(argc, argv) == 84);
+}
+
+Test(main_functions, five_champions)
 {
     int argc = 6;
-    char *argv[6] = {"./corewar", "-a", "100", "-a", "200",
-        "examples/champions/abel.cor"};
+    char *argv[6] = {"./corewar", "examples/champions/abel.cor",
+        "examples/champions/bill.cor", "examples/champions/pdd.cor",
+        "examples/champions/tyron.cor", "examples/champions/abel.cor"};
 
     cr_assert(main_functions(argc, argv) == 84);
 }
 
-Test(main_functions, n_champion_dump_n_champion)
+Test(main_functions, n_twice_same_robot)
+{
+    int argc = 5;
+    char *argv[5] = {"./corewar", "-n", "1", "-n", "2"};
+
+    cr_assert(main_functions(argc, argv) == 84);
+}
+
+Test(main_functions, id_above_nbr_robot)
+{
+    int argc = 4;
+    char *argv[4] = {"./corewar", "-n", "2", "examples/champions/abel.cor"};
+
+    cr_assert(main_functions(argc, argv) == 84);
+}
+
+Test(main_functions, valid_a_only)
+{
+    int argc = 4;
+    char *argv[4] = {"./corewar", "-a", "100", "examples/champions/abel.cor"};
+
+    cr_assert(main_functions(argc, argv) == 0);
+}
+
+Test(main_functions, valid_a_max)
+{
+    int argc = 4;
+    char *argv[4] = {"./corewar", "-a", "6144", "examples/champions/abel.cor"};
+
+    cr_assert(main_functions(argc, argv) == 0);
+}
+
+Test(main_functions, dump_with_n_and_a)
 {
     int argc = 9;
-    char *argv[9] = {"./corewar", "-n", "1", "examples/champions/abel.cor",
-        "-dump", "100", "-n", "2", "examples/champions/bill.cor"};
+    char *argv[9] = {"./corewar", "-dump", "0", "-n", "1", "-a", "100",
+        "examples/champions/abel.cor", "examples/champions/bill.cor"};
+
+    cr_assert(main_functions(argc, argv) == 0);
+}
+
+Test(main_functions, only_flags_no_champion)
+{
+    int argc = 5;
+    char *argv[5] = {"./corewar", "-n", "1", "-a", "100"};
+
+    cr_assert(main_functions(argc, argv) == 84);
+}
+
+Test(main_functions, duplicate_id_explicit)
+{
+    int argc = 7;
+    char *argv[7] = {"./corewar", "-n", "1", "examples/champions/abel.cor",
+        "-n", "1", "examples/champions/bill.cor"};
+
+    cr_assert(main_functions(argc, argv) == 84);
+}
+
+Test(main_functions, valid_dump_high_value)
+{
+    int argc = 4;
+    char *argv[4] = {"./corewar", "-dump", "100",
+        "examples/champions/abel.cor"};
 
     cr_assert(main_functions(argc, argv) == 0);
 }
