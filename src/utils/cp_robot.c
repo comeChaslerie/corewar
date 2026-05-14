@@ -11,39 +11,41 @@
 #include "struct.h"
 #include "utils.h"
 
-static bool cp_robot_infos(robot_infos_t *robot)
+static bool cp_robot_infos(robot_infos_t *src_robot, robot_infos_t *dest_robot)
 {
-    robot->child->game_infos = malloc(sizeof(robot_game_infos_t) * 1);
-    if (!robot->child->game_infos)
+    dest_robot->game_infos = malloc(sizeof(robot_game_infos_t) * 1);
+    if (!dest_robot->game_infos)
         return put_error("malloc failed in cp_robot_infos", false);
-    robot->child->game_infos->carry = robot->game_infos->carry;
-    robot->child->game_infos->cycles_remaining = 0;
-    robot->child->game_infos->pc = robot->game_infos->pc;
-    robot->child->game_infos->regs = malloc(sizeof(unsigned char *) *
+    dest_robot->game_infos->carry = src_robot->game_infos->carry;
+    dest_robot->game_infos->cycles_remaining = 0;
+    dest_robot->game_infos->pc = src_robot->game_infos->pc;
+    dest_robot->game_infos->regs = malloc(sizeof(unsigned char *) *
         REG_NUMBER);
-    if (!robot->child->game_infos->regs)
+    if (!dest_robot->game_infos->regs)
         return put_error("malloc failed in cp_robot_infos", false);
     for (unsigned int i = 0; i < REG_NUMBER; i++){
-        robot->child->game_infos->regs[i] =
-            my_ustrndup(robot->game_infos->regs[i], 0, REG_SIZE);
-        if (!robot->child->game_infos->regs[i])
+        dest_robot->game_infos->regs[i] =
+            my_ustrndup(src_robot->game_infos->regs[i], 0, REG_SIZE);
+        if (!dest_robot->game_infos->regs[i])
             return put_error("malloc failed in cp_robot_infos", false);
     }
     return true;
 }
 
-bool cp_robot(robot_infos_t *robot)
+robot_infos_t *cp_robot(robot_infos_t *src_robot)
 {
-    if (robot->child)
-        return true;
-    robot->child = malloc(sizeof(robot_infos_t) * 1);
-    if (!robot->child)
-        return put_error("malloc failed in cp_robot.\n", false);
-    robot->child->child = NULL;
-    robot->child->parent = robot;
-    robot->child->header = robot->header;
-    robot->child->id = robot->id;
-    if (!cp_robot_infos(robot))
+    robot_infos_t *dest_robot = NULL;
+
+    if (!src_robot)
         return false;
-    return true;
+    dest_robot = malloc(sizeof(robot_infos_t) * 1);
+    if (!dest_robot)
+        return put_error("malloc failed in cp_robot.\n", false);
+    dest_robot->child = NULL;
+    dest_robot->parent = src_robot;
+    dest_robot->header = src_robot->header;
+    dest_robot->id = src_robot->id;
+    if (!cp_robot_infos(src_robot, dest_robot))
+        return NULL;
+    return dest_robot;
 }

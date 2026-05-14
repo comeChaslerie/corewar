@@ -106,8 +106,11 @@ typedef char args_type_t;
     #define OPEN_PARENTHESE "("
     #define CLOSE_PARENTHESE ")"
     #define NB_SPACE 4
+    #define NB_SPACE_CHILD 5
     #define PC_SIZE 8
     #define NB_REG 16
     #define REGISTER_LETTER "r"
     #define NB_REG_LINE 6
+    #define NB_SPACE_NAME 2
+    #define NB_SPACE_NAME_CHILD 3
 #endif /* DEFINE_H_ */
