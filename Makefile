@@ -41,6 +41,7 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/utils/put_error.c 			\
 		src/utils/my_getnbr.c 			\
 		src/utils/my_strlen.c 			\
+		src/utils/my_strcpy.c			\
 		src/utils/my_strdup.c 			\
 		src/utils/my_ustrcat.c 			\
 		src/utils/my_ustrndup.c			\
@@ -57,14 +58,31 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/dump_flag.c			\
 		src/op.c
 
-TEST =	tests/utils_tests/conversion_tests.c		\
-		tests/utils_tests/get_type_size_tests.c		\
-		tests/utils_tests/hextouc_tests.c			\
-		tests/utils_tests/is_nbr_tests.c			\
-		tests/utils_tests/my_getnbr_tests.c			\
-		tests/utils_tests/my_strcmp_tests.c			\
-		tests/utils_tests/my_strdup_tests.c			\
-		tests/utils_tests/put_error_tests.c			\
+TEST = 	tests/instructions_tests/add_tests.c	\
+		tests/instructions_tests/and_tests.c	\
+		tests/instructions_tests/fork_tests.c	\
+		tests/instructions_tests/ld_tests.c	\
+		tests/instructions_tests/ldi_tests.c	\
+		tests/instructions_tests/lfork_tests.c	\
+		tests/instructions_tests/live_tests.c	\
+		tests/instructions_tests/lld_tests.c	\
+		tests/instructions_tests/lldi_tests.c	\
+		tests/instructions_tests/or_tests.c	\
+		tests/instructions_tests/print_tests.c	\
+		tests/instructions_tests/st_tests.c	\
+		tests/instructions_tests/sti_tests.c	\
+		tests/instructions_tests/sub_tests.c	\
+		tests/instructions_tests/xor_tests.c	\
+		tests/instructions_tests/zjmp_tests.c	\
+		tests/utils_tests/conversion_tests.c	\
+		tests/utils_tests/get_type_size_tests.c	\
+		tests/utils_tests/hextouc_tests.c	\
+		tests/utils_tests/is_nbr_tests.c	\
+		tests/utils_tests/my_getnbr_tests.c	\
+		tests/utils_tests/my_intlen_tests.c	\
+		tests/utils_tests/my_strcmp_tests.c	\
+		tests/utils_tests/my_strdup_tests.c	\
+		tests/utils_tests/put_error_tests.c	\
 		tests/main_functions_tests.c
 
 NAME =	corewar
@@ -107,7 +125,7 @@ coverage:	tests_run
 #for mac
 
 mac_tests_run:	clean
-	gcc -o unit_tests $(SRC) tests/*.c tests/utils_tests/*.c -lcriterion --coverage $(CFLAGS)
+	gcc -o unit_tests $(SRC) tests/*.c tests/utils_tests/*.c tests/instructions_tests/*.c -lcriterion --coverage $(CFLAGS)
 	./unit_tests
 
 gcovrex:	re
