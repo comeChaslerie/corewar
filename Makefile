@@ -29,7 +29,7 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/linked_lists/destroy_list.c	\
 		src/linked_lists/disp_list.c	\
 		src/linked_lists/get_len_list.c	\
-		src/parsing_args/alloc_args.c			\
+		src/parsing_args/update_id.c			\
 		src/parsing_args/manage_flag.c			\
 		src/parsing_args/parse_args.c			\
 		src/parsing_args/update_load_pos.c		\
@@ -54,7 +54,6 @@ SRC = 	src/fill_instr/check_instr.c 			\
 		src/utils/get_type_size.c		\
 		src/utils/hextouc.c				\
 		src/utils/cp_robot.c			\
-		src/utils/get_arg.c				\
 		src/free_all.c 			\
 		src/main_functions.c 	\
 		src/dump_flag.c			\
@@ -131,7 +130,7 @@ mac_tests_run:	clean
 	gcc -o unit_tests $(SRC) tests/*.c tests/utils_tests/*.c tests/instructions_tests/*.c -lcriterion --coverage $(CFLAGS)
 	./unit_tests
 
-gcovrex:	re
+gcovrex:	$(NAME)
 	$(MAKE) mac_tests_run
 	gcovr --gcov-executable "llvm-cov gcov" \
 		--exclude "tests/.*"

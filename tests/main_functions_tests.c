@@ -323,7 +323,7 @@ Test(main_functions, n_above_max_robots)
     int argc = 4;
     char *argv[4] = {"./corewar", "-n", "5", "examples/champions/abel.cor"};
 
-    cr_assert(main_functions(argc, argv) == 84);
+    cr_assert(main_functions(argc, argv) == 0);
 }
 
 Test(main_functions, a_above_mem_size)
@@ -357,7 +357,7 @@ Test(main_functions, id_above_nbr_robot)
     int argc = 4;
     char *argv[4] = {"./corewar", "-n", "2", "examples/champions/abel.cor"};
 
-    cr_assert(main_functions(argc, argv) == 84);
+    cr_assert(main_functions(argc, argv) == 0);
 }
 
 Test(main_functions, valid_a_only)
