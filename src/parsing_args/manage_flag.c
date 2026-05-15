@@ -67,7 +67,7 @@ bool manage_flag_id(int argc, char **argv, unsigned int *index,
                 false);
         if (!check_following_nb(argc, argv, index, &robots_args->id))
             return false;
-        if (robots_args->id > MAX_ROBOT_NBR || robots_args->id <= 0)
+        if (robots_args->id <= 0)
             return put_error("The argument for the -n flag is out of range.",
                 false);
         *index += 1;
