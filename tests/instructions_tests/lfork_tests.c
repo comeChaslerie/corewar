@@ -56,3 +56,48 @@ Test(fork_long_instr, test_chain_children)
 	cr_assert_not_null(m->robots[r_id].child->child);
 	cr_assert_eq(m->robots[r_id].child->child->game_infos->pc, 20);
 }
+
+Test(fork_long_instr, parent_link)
+{
+	unsigned int r_id = 1;
+	main_t *m = init_test_env(r_id);
+	arg_t *args[MAX_ARGS_NUMBER] = {
+		create_arg(T_DIR, REG_SIZE, (unsigned char[]){0, 0, 0, 1}),
+		NULL
+	};
+
+	fork_long_instr(m, args, r_id);
+	cr_assert_not_null(m->robots[r_id].child);
+	cr_assert_eq(m->robots[r_id].child->parent, &m->robots[r_id]);
+}
+
+Test(fork_long_instr, mem_size_wrap)
+{
+	unsigned int r_id = 1;
+	main_t *m = init_test_env(r_id);
+	arg_t *args[MAX_ARGS_NUMBER] = {
+		create_arg(T_DIR, REG_SIZE, (unsigned char[]){0, 0, 0, 0x10}),
+		NULL
+	};
+
+	m->robots[r_id].game_infos->pc = MEM_SIZE - 5;
+	fork_long_instr(m, args, r_id);
+	cr_assert_not_null(m->robots[r_id].child);
+	cr_assert_eq(m->robots[r_id].child->game_infos->pc,
+		(MEM_SIZE - 5 + 0x10) % MEM_SIZE);
+}
+
+Test(fork_long_instr, copies_registers)
+{
+	unsigned int r_id = 1;
+	main_t *m = init_test_env(r_id);
+	arg_t *args[MAX_ARGS_NUMBER] = {
+		create_arg(T_DIR, REG_SIZE, (unsigned char[]){0, 0, 0, 1}),
+		NULL
+	};
+
+	m->robots[r_id].game_infos->regs[7][1] = 0xAB;
+	fork_long_instr(m, args, r_id);
+	cr_assert_not_null(m->robots[r_id].child);
+	cr_assert_eq(m->robots[r_id].child->game_infos->regs[7][1], 0xAB);
+}

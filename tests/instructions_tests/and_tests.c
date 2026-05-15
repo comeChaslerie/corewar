@@ -46,3 +46,37 @@ Test(bin_and_instr, test_non_zero)
 	cr_assert_eq(m->robots[r_id].game_infos->regs[1][3], 0x00);
 	cr_assert_eq(m->robots[r_id].game_infos->carry, false);
 }
+
+Test(bin_and_instr, all_set)
+{
+	unsigned int r_id = 1;
+	main_t *m = init_test_env(r_id);
+	arg_t *args[MAX_ARGS_NUMBER] = {
+		create_arg(T_DIR, REG_SIZE, (unsigned char[]){0xFF, 0xFF, 0xFF, 0xFF}),
+		create_arg(T_DIR, REG_SIZE, (unsigned char[]){0xFF, 0xFF, 0xFF, 0xFF}),
+		create_arg(T_REG, REG_SIZE, (unsigned char[]){3}),
+		NULL
+	};
+
+	cr_assert_eq(bin_and_instr(m, args, r_id), true);
+	for (int i = 0; i < REG_SIZE; i++)
+		cr_assert_eq(m->robots[r_id].game_infos->regs[3][i], 0xFF);
+	cr_assert_eq(m->robots[r_id].game_infos->carry, false);
+}
+
+Test(bin_and_instr, returns_true)
+{
+	unsigned int r_id = 1;
+	main_t *m = init_test_env(r_id);
+	arg_t *args[MAX_ARGS_NUMBER] = {
+		create_arg(T_DIR, REG_SIZE, (unsigned char[]){0x55, 0x55, 0x55, 0x55}),
+		create_arg(T_DIR, REG_SIZE, (unsigned char[]){0xAA, 0xAA, 0xAA, 0xAA}),
+		create_arg(T_REG, REG_SIZE, (unsigned char[]){0}),
+		NULL
+	};
+
+	cr_assert_eq(bin_and_instr(m, args, r_id), true);
+	for (int i = 0; i < REG_SIZE; i++)
+		cr_assert_eq(m->robots[r_id].game_infos->regs[0][i], 0x00);
+	cr_assert_eq(m->robots[r_id].game_infos->carry, true);
+}
