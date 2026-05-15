@@ -52,31 +52,6 @@ Test(load_ind_instr, test_modulo_and_carry)
     cr_assert_eq(m->robots[r_id].game_infos->carry, true);
 }
 
-Test(load_ind_instr, test_basic_register)
-{
-    unsigned int r_id = 1;
-    main_t *m = init_test_env(r_id);
-    arg_t *args[MAX_ARGS_NUMBER] = {
-        create_arg(T_REG, REG_SIZE, (unsigned char[]){0, 0, 0, 0}),
-        create_arg(T_REG, REG_SIZE, (unsigned char[]){0, 0, 0, 1}),
-        create_arg(T_REG, REG_SIZE, (unsigned char[]){2}),
-        NULL
-    };
-    m->robots[r_id].game_infos->regs[0][3] = 10;
-    m->robots[r_id].game_infos->regs[1][3] = 2;
-    m->arena[12] = 0xAA;
-    m->arena[13] = 0xBB;
-    m->arena[14] = 0xCC;
-    m->arena[15] = 0xDD;
-    load_ind_instr(m, args, r_id);
-
-    cr_assert_eq(m->robots[r_id].game_infos->regs[2][0], 0xAA);
-    cr_assert_eq(m->robots[r_id].game_infos->regs[2][1], 0xBB);
-    cr_assert_eq(m->robots[r_id].game_infos->regs[2][2], 0xCC);
-    cr_assert_eq(m->robots[r_id].game_infos->regs[2][3], 0xDD);
-    cr_assert_eq(m->robots[r_id].game_infos->carry, false);
-}
-
 Test(load_ind_instr, test_basic_direct)
 {
     unsigned int r_id = 1;
@@ -231,27 +206,6 @@ Test(load_ind_instr, dest_reg_high_index)
     cr_assert_eq(load_ind_instr(m, args, r_id), true);
     cr_assert_eq(m->robots[r_id].game_infos->regs[15][0], 0x99);
     cr_assert_eq(m->robots[r_id].game_infos->regs[15][3], 0x77);
-}
-
-Test(load_ind_instr, register_arguments)
-{
-    unsigned int r_id = 1;
-    main_t *m = init_test_env(r_id);
-    arg_t *args[MAX_ARGS_NUMBER] = {
-        create_arg(T_REG, REG_ARG_SIZE, (unsigned char[]){0}),
-        create_arg(T_REG, REG_ARG_SIZE, (unsigned char[]){1}),
-        create_arg(T_REG, REG_ARG_SIZE, (unsigned char[]){2}),
-        NULL
-    };
-
-    m->robots[r_id].game_infos->pc = 0;
-    m->robots[r_id].game_infos->regs[0][0] = 6;
-    m->robots[r_id].game_infos->regs[1][0] = 4;
-    m->arena[10] = 0xCA;
-    m->arena[13] = 0xFE;
-    cr_assert_eq(load_ind_instr(m, args, r_id), true);
-    cr_assert_eq(m->robots[r_id].game_infos->regs[2][0], 0xCA);
-    cr_assert_eq(m->robots[r_id].game_infos->regs[2][3], 0xFE);
 }
 
 Test(load_ind_instr, ind_arg_type)

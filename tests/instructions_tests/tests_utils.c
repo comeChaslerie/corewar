@@ -5,6 +5,7 @@
 ** file
 */
 #include <stdlib.h>
+#include "define.h"
 #include "struct.h"
 
 void my_bzero(void *s, size_t n)
@@ -35,8 +36,8 @@ main_t *init_test_env(unsigned int robot_id)
     my_bzero(m->robots, sizeof(robot_infos_t) * MAX_ROBOT_NBR);
     m->robots[robot_id].game_infos = malloc(sizeof(robot_game_infos_t));
     my_bzero(m->robots[robot_id].game_infos, sizeof(robot_game_infos_t));
-    m->robots[robot_id].game_infos->regs = malloc(sizeof(unsigned char *) * REG_NUMBER);
-    for (int i = 0; i < REG_NUMBER; i++) {
+    m->robots[robot_id].game_infos->regs = malloc(sizeof(unsigned char *) * REG_TAB_SIZE);
+    for (int i = 0; i < REG_TAB_SIZE; i++) {
         m->robots[robot_id].game_infos->regs[i] = malloc(REG_SIZE);
         my_bzero(m->robots[robot_id].game_infos->regs[i], REG_SIZE);
     }
