@@ -48,27 +48,28 @@ static unsigned char *build_instr_mem(main_t *main,
     return instr;
 }
 
-static unsigned char *get_instr_mem(main_t *main, unsigned int robot_id)
+static unsigned char *get_instr_mem(main_t *main, unsigned int robot_id,
+    unsigned int *size)
 {
     robot_game_infos_t *infos = main->robots[robot_id].game_infos;
-    unsigned int size = 0;
     unsigned int *args_tab = NULL;
     unsigned int nbr_args = 0;
+    unsigned char *instr = NULL;
 
-    size = get_instr_mem_size(main, &args_tab,
+    *size = get_instr_mem_size(main, &args_tab,
         infos->pc % MEM_SIZE, &nbr_args);
-    if (!size)
+    if (!*size)
         return NULL;
-    infos->pc = (infos->pc + size) % MEM_SIZE;
+    instr = build_instr_mem(main, infos, *size, nbr_args);
     if (args_tab)
         free(args_tab);
-    return build_instr_mem(main, infos, size, nbr_args);
+    return instr;
 }
 
-static bool decrement_robot_cycle(main_t *main, unsigned int id)
+static bool decrement_robot_cycle(robot_infos_t *robot, unsigned int id)
 {
-    if (main->robots[id].game_infos->cycles_remaining){
-        main->robots[id].game_infos->cycles_remaining--;
+    if (robot->game_infos->cycles_remaining){
+        robot->game_infos->cycles_remaining--;
         return true;
     }
     return false;
@@ -81,10 +82,11 @@ static bool apply_instr(main_t *main, instr_t *instr,
         robot_id);
 }
 
-static bool translate_and_apply(instr_t *args, unsigned char *instr,
+static bool translate_and_apply(unsigned char *instr,
     main_t *main, unsigned int index)
 {
-    args = translate_mem(instr);
+    instr_t *args = translate_mem(instr);
+
     if (!args || !apply_instr(main, args, index)){
         free_instr(args);
         return false;
@@ -95,24 +97,30 @@ static bool translate_and_apply(instr_t *args, unsigned char *instr,
     return true;
 }
 
-bool apply_robot_instr(main_t *main, unsigned int index, robot_infos_t *robot)
+static bool apply_robot_instr(main_t *main, unsigned int index,
+    robot_infos_t *robot)
 {
     unsigned char *instr = NULL;
-    instr_t *args = NULL;
+    unsigned int size = 0;
+    unsigned int pc_start = 0;
 
     if (robot->child)
         apply_robot_instr(main, index, robot->child);
-    if (decrement_robot_cycle(main, index))
+    if (decrement_robot_cycle(robot, index))
         return true;
-    instr = get_instr_mem(main, index);
+    pc_start = main->robots[index].game_infos->pc % MEM_SIZE;
+    instr = get_instr_mem(main, index, &size);
     if (!instr){
-        free_values((void *[2]){(void *)instr, (void *)args}, 2);
-        robot->game_infos->pc++;
+        robot->game_infos->pc = (robot->game_infos->pc + 1) % MEM_SIZE;
         return true;
     }
-    if (!translate_and_apply(args, instr, main, index))
+    if (!translate_and_apply(instr, main, index)){
+        free(instr);
         return false;
+    }
     free(instr);
+    if (robot->game_infos->pc % MEM_SIZE == pc_start)
+        robot->game_infos->pc = (pc_start + size) % MEM_SIZE;
     return true;
 }
 

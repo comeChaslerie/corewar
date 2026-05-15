@@ -69,6 +69,7 @@ typedef struct main_s {
     unsigned int nbr_robots;
     unsigned int nb_live;
     unsigned int total_cycles;
+    robot_infos_t *last_live;
 } main_t;
 
 #endif

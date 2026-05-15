@@ -32,6 +32,7 @@ bool live_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     for (unsigned int i = 0; i < main->nbr_robots; i++) {
         if (main->robots[i].id == player_id) {
             main->robots[i].live = true;
+            main->last_live = &main->robots[i];
             main->nb_live++;
             display_live(&main->robots[i]);
             return true;

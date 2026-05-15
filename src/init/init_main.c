@@ -48,12 +48,19 @@ bool init_game_infos(robot_infos_t *robot_infos)
     return true;
 }
 
+static void init_player_reg(robot_game_infos_t *infos, unsigned int id)
+{
+    for (unsigned int i = 0; i < REG_SIZE; i++)
+        infos->regs[1][i] = (id >> (8 * (REG_SIZE - 1 - i))) & 0xFF;
+}
+
 bool init_one_robot(robot_infos_t *robot_infos, robot_args_t *robot_args,
     main_t *main)
 {
     if (!init_game_infos(robot_infos))
         return put_error("Game alloc failed.", false);
     robot_infos->id = robot_args->id;
+    init_player_reg(robot_infos->game_infos, robot_args->id);
     robot_infos->live = false;
     robot_infos->game_infos->pc = robot_args->load_pos;
     if (!fill_robot_instr(main, robot_infos, robot_args))
@@ -105,6 +112,7 @@ main_t *init_main(args_t *args)
     }
     main->cycle = 0;
     main->nb_live = 0;
+    main->last_live = NULL;
     main->total_cycles = 0;
     main->cycle_dump = args->cycle_dump;
     main->nbr_robots = args->nbr_robots;

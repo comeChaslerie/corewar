@@ -138,12 +138,14 @@ valgrind: re
          --show-leak-kinds=all \
          --track-origins=yes \
          --log-file=valgrind-out.txt \
-         ./$(NAME) -a 6144 -dump 1000000000 examples/champions/abel.cor examples/champions/bill.cor examples/champions/tyron.cor examples/champions/pdd.cor
-
+         ./$(NAME) -dump 0 -n 234 examples/champions/abel.cor -n 1 examples/champions/bill.cor -n 123 examples/champions/tyron.cor -n 2 examples/champions/pdd.cor
 
 re_mac:
 	$(MAKE) fclean
 	$(MAKE) -j8 all
+
+exe:	re_mac
+	./$(NAME) -dump 10000000 -n 234 examples/champions/abel.cor -n 1 examples/champions/bill.cor -n 123 examples/champions/tyron.cor -n 2 examples/champions/pdd.cor
 
 tester_run: $(NAME)
 	python3 tester/run.py

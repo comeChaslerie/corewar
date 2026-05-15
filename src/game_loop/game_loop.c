@@ -21,7 +21,7 @@ static void kill_robots(main_t *main)
 
 void display_winner(robot_infos_t *winner)
 {
-    write(1, "\nThe player ", 11);
+    write(1, "\nThe player ", 12);
     my_put_nbr_u(winner->id);
     write(1, "(", 1);
     write(1, winner->header.prog_name,
@@ -46,14 +46,19 @@ static bool is_finish_game(main_t *main)
         return true;
     }
     if (!nb_alive){
-        write(1, "Nobody wins...\n", 16);
+        if (main->cycle_dump >= main->total_cycles)
+            dump(main);
+        if (main->last_live)
+            display_winner(main->last_live);
+        else
+            write(1, "Nobody wins...\n", 15);
         return true;
     }
     return false;
 }
 
 static bool run_one_cycle(main_t *main, unsigned int *i,
-    unsigned int *cycles_to_die)
+    unsigned int *cycles_to_die, bool *end_reach)
 {
     if (!apply_cycle(main))
         return put_error("instr apply fail", false);
@@ -66,6 +71,8 @@ static bool run_one_cycle(main_t *main, unsigned int *i,
     if (*i != 0 && *i >= *cycles_to_die) {
         kill_robots(main);
         *i %= *cycles_to_die;
+        if (is_finish_game(main))
+            *end_reach = true;
     }
     return true;
 }
@@ -73,13 +80,14 @@ static bool run_one_cycle(main_t *main, unsigned int *i,
 bool game_loop(main_t *main)
 {
     unsigned int cycles_to_die = CYCLE_TO_DIE;
+    bool end_reach = false;
 
     if (!main)
         return put_error("incorrect arg in game_loop\n", false);
     for (unsigned int i = 0; cycles_to_die > 0; i++){
-        if (!run_one_cycle(main, &i, &cycles_to_die))
+        if (!run_one_cycle(main, &i, &cycles_to_die, &end_reach))
             return false;
-        if (is_finish_game(main))
+        if (end_reach)
             return true;
         main->total_cycles++;
     }
