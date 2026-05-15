@@ -21,7 +21,7 @@ static void kill_robots(main_t *main)
 
 void display_winner(robot_infos_t *winner)
 {
-    write(1, "The player ", 11);
+    write(1, "\nThe player ", 11);
     my_put_nbr_u(winner->id);
     write(1, "(", 1);
     write(1, winner->header.prog_name,
