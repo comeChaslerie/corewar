@@ -111,9 +111,9 @@ static void print_register(unsigned char **regs, unsigned int nb_spaces)
         write(1, COLON_CHAR, 1);
         write(1, SPACE_CHAR, 1);
         val = (regs[i + 1][0] << 24) |
-              (regs[i + 1][1] << 16) |
-              (regs[i + 1][2] << 8)  |
-              (regs[i + 1][3]);
+            (regs[i + 1][1] << 16) |
+            (regs[i + 1][2] << 8) |
+            (regs[i + 1][3]);
         print_index_hexa(val, 0);
         if ((i + 1) % NB_REG_LINE == 0)
             write(1, NEW_LINE_CHAR, 1);
