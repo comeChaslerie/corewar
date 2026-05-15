@@ -34,7 +34,6 @@ int my_intlen_u(unsigned int nb);
 int my_put_nbr_u(unsigned int n);
 void my_putchar(char c);
 void put_str(char *str);
-char *my_strcpy(char *dest, char const *src);
 robot_infos_t *cp_robot(robot_infos_t *src_robot);
 
 #endif

@@ -13,16 +13,19 @@ bool hexa_diff(unsigned char **value1, unsigned char **value2,
     unsigned char **result)
 {
     unsigned char retain = 0;
+    unsigned char nb = 0;
+    unsigned char to_sub = 0;
 
-    for (unsigned int i = 0; i < HEXA_SIZE; i++){
-        (*result)[i] = (*value1)[i] - (*value2)[i] - retain;
-        if ((*result)[i] > HEXA_MAX && i == HEXA_SIZE)
-            return false;
-        if ((*value1)[i] < (*value2)[i]){
+    for (int i = HEXA_SIZE - 1; i >= 0; i--){
+        nb = (*value1)[i];
+        to_sub = (*value2)[i] + retain;
+        if (nb < to_sub){
+            (*result)[i] = nb + HEXA_MODULO - to_sub;
             retain = 1;
-            (*result)[i] += HEXA_MODULO;
-        } else
+        } else {
+            (*result)[i] = nb - to_sub;
             retain = 0;
+        }
     }
     return true;
 }

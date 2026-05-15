@@ -24,7 +24,8 @@ bool fork_long_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     child->child = cp_robot(&(main->robots[robot_id]));
     if (!child->child)
         return false;
-    child->child->game_infos->pc += offset;
+    child->child->game_infos->pc = (child->child->game_infos->pc +
+        offset) % MEM_SIZE;
     return true;
 }
 
@@ -40,6 +41,7 @@ bool fork_instr(void *value, arg_t *args[MAX_ARGS_NUMBER],
     child->child = cp_robot(&(main->robots[robot_id]));
     if (!child->child)
         return false;
-    child->child->game_infos->pc += offset % IDX_MOD;
+    child->child->game_infos->pc = (child->child->game_infos->pc +
+        offset % IDX_MOD) % MEM_SIZE;
     return true;
 }
