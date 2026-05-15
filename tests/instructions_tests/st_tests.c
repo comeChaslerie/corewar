@@ -77,3 +77,52 @@ Test(store_instr, test_out_of_bounds)
 	cr_assert_eq(m->arena[4], 0x30);
 	cr_assert_eq(m->arena[5], 0x40);
 }
+
+Test(store_instr, indirect_pc_zero)
+{
+	unsigned int r_id = 1;
+	main_t *m = init_test_env(r_id);
+	arg_t *args[MAX_ARGS_NUMBER] = {
+		create_arg(T_REG, REG_ARG_SIZE, (unsigned char[]){4}),
+		create_arg(T_IND, IND_SIZE, (unsigned char[]){0, 50}),
+		NULL
+	};
+
+	m->robots[r_id].game_infos->regs[4][0] = 0x99;
+	m->robots[r_id].game_infos->regs[4][3] = 0x66;
+	cr_assert_eq(store_instr(m, args, r_id), true);
+	cr_assert_eq(m->arena[50], 0x99);
+	cr_assert_eq(m->arena[53], 0x66);
+}
+
+Test(store_instr, register_to_register_overwrites)
+{
+	unsigned int r_id = 1;
+	main_t *m = init_test_env(r_id);
+	arg_t *args[MAX_ARGS_NUMBER] = {
+		create_arg(T_REG, REG_ARG_SIZE, (unsigned char[]){5}),
+		create_arg(T_REG, REG_ARG_SIZE, (unsigned char[]){5}),
+		NULL
+	};
+
+	m->robots[r_id].game_infos->regs[5][0] = 0x12;
+	m->robots[r_id].game_infos->regs[5][3] = 0x34;
+	cr_assert_eq(store_instr(m, args, r_id), true);
+	cr_assert_eq(m->robots[r_id].game_infos->regs[5][0], 0x12);
+	cr_assert_eq(m->robots[r_id].game_infos->regs[5][3], 0x34);
+}
+
+Test(store_instr, all_zero_register)
+{
+	unsigned int r_id = 1;
+	main_t *m = init_test_env(r_id);
+	arg_t *args[MAX_ARGS_NUMBER] = {
+		create_arg(T_REG, REG_ARG_SIZE, (unsigned char[]){0}),
+		create_arg(T_REG, REG_ARG_SIZE, (unsigned char[]){1}),
+		NULL
+	};
+
+	cr_assert_eq(store_instr(m, args, r_id), true);
+	for (int i = 0; i < REG_SIZE; i++)
+		cr_assert_eq(m->robots[r_id].game_infos->regs[1][i], 0);
+}

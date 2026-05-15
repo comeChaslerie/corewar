@@ -52,3 +52,58 @@ Test(live_instr, test_unknown_player)
 	cr_assert_eq(m->nb_live, 0);
 }
 
+Test(live_instr, multiple_calls_increment_count)
+{
+	unsigned int r_id = 0;
+	main_t *m = init_test_env(r_id);
+	arg_t *args[MAX_ARGS_NUMBER] = {
+		create_arg(T_DIR, REG_SIZE, (unsigned char[]){0, 0, 0, 7}),
+		NULL
+	};
+
+	m->nbr_robots = 1;
+	m->robots[0].id = 7;
+	strcpy(m->robots[0].header.prog_name, "p");
+
+	live_instr(m, args, r_id);
+	live_instr(m, args, r_id);
+	live_instr(m, args, r_id);
+	cr_assert_eq(m->nb_live, 3);
+	cr_assert_eq(m->robots[0].live, true);
+}
+
+Test(live_instr, no_robots_at_all)
+{
+	unsigned int r_id = 0;
+	main_t *m = init_test_env(r_id);
+	arg_t *args[MAX_ARGS_NUMBER] = {
+		create_arg(T_DIR, REG_SIZE, (unsigned char[]){0, 0, 0, 1}),
+		NULL
+	};
+
+	m->nbr_robots = 0;
+	cr_assert_eq(live_instr(m, args, r_id), true);
+	cr_assert_eq(m->nb_live, 0);
+}
+
+Test(live_instr, finds_second_robot)
+{
+	unsigned int r_id = 0;
+	main_t *m = init_test_env(r_id);
+	arg_t *args[MAX_ARGS_NUMBER] = {
+		create_arg(T_DIR, REG_SIZE, (unsigned char[]){0, 0, 0, 84}),
+		NULL
+	};
+
+	m->nbr_robots = 2;
+	m->robots[0].id = 42;
+	strcpy(m->robots[0].header.prog_name, "bot_a");
+	m->robots[1].id = 84;
+	strcpy(m->robots[1].header.prog_name, "bot_b");
+
+	live_instr(m, args, r_id);
+	cr_assert_eq(m->robots[1].live, true);
+	cr_assert_eq(m->robots[0].live, false);
+	cr_assert_eq(m->nb_live, 1);
+}
+
