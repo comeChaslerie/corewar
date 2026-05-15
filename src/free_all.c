@@ -42,7 +42,7 @@ static void free_game_infos(robot_game_infos_t *infos)
 {
     if (!infos)
         return;
-    for (unsigned int i = 0; i < REG_NUMBER && infos->regs; i++)
+    for (unsigned int i = 0; i < REG_TAB_SIZE && infos->regs; i++)
         if (infos->regs[i])
             free(infos->regs[i]);
     if (infos->regs)

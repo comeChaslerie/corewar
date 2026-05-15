@@ -31,6 +31,7 @@
 ** regs
 */
     #define REG_NUMBER 16 /* r1 <--> rx */
+    #define REG_TAB_SIZE (REG_NUMBER + 1) /* indices 0..16, r1..r16 utilises */
 
 /*
 **

@@ -21,10 +21,10 @@ static bool cp_robot_infos(robot_infos_t *src_robot, robot_infos_t *dest_robot)
     dest_robot->game_infos->pc = src_robot->game_infos->pc;
     dest_robot->game_infos->alive = src_robot->game_infos->alive;
     dest_robot->game_infos->regs = malloc(sizeof(unsigned char *) *
-        REG_NUMBER);
+        REG_TAB_SIZE);
     if (!dest_robot->game_infos->regs)
         return put_error("malloc failed in cp_robot_infos", false);
-    for (unsigned int i = 0; i < REG_NUMBER; i++){
+    for (unsigned int i = 0; i < REG_TAB_SIZE; i++){
         dest_robot->game_infos->regs[i] =
             my_ustrndup(src_robot->game_infos->regs[i], 0, REG_SIZE);
         if (!dest_robot->game_infos->regs[i])

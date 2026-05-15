@@ -29,6 +29,16 @@ void display_winner(robot_infos_t *winner)
     write(1, ") has won.\n", 11);
 }
 
+static void display_end(main_t *main)
+{
+    if (main->cycle_dump >= main->total_cycles)
+        dump(main);
+    if (main->last_live)
+        display_winner(main->last_live);
+    else
+        write(1, "Nobody wins...\n", 15);
+}
+
 static bool is_finish_game(main_t *main)
 {
     unsigned int nb_alive = 0;
@@ -46,12 +56,7 @@ static bool is_finish_game(main_t *main)
         return true;
     }
     if (!nb_alive){
-        if (main->cycle_dump >= main->total_cycles)
-            dump(main);
-        if (main->last_live)
-            display_winner(main->last_live);
-        else
-            write(1, "Nobody wins...\n", 15);
+        display_end(main);
         return true;
     }
     return false;

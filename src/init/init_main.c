@@ -15,12 +15,12 @@
 static unsigned char **init_regs(void)
 {
     unsigned char **regs = malloc(sizeof(unsigned char *)
-        * REG_NUMBER);
+        * REG_TAB_SIZE);
 
     if (regs == NULL)
         return NULL;
-    for (unsigned int i = 0; i < REG_NUMBER; i++){
-        regs[i] = malloc(sizeof(unsigned char *)
+    for (unsigned int i = 0; i < REG_TAB_SIZE; i++){
+        regs[i] = malloc(sizeof(unsigned char)
             * REG_SIZE);
         if (regs[i] == NULL)
             return NULL;
@@ -95,6 +95,16 @@ bool init_arena(main_t **main, args_t *args)
     return true;
 }
 
+static void init_main_variables(main_t *main, args_t *args)
+{
+    main->cycle = 0;
+    main->nb_live = 0;
+    main->last_live = NULL;
+    main->total_cycles = 0;
+    main->cycle_dump = args->cycle_dump;
+    main->nbr_robots = args->nbr_robots;
+}
+
 main_t *init_main(args_t *args)
 {
     main_t *main = malloc(sizeof(main_t));
@@ -110,12 +120,7 @@ main_t *init_main(args_t *args)
         free_main(main, args);
         return NULL;
     }
-    main->cycle = 0;
-    main->nb_live = 0;
-    main->last_live = NULL;
-    main->total_cycles = 0;
-    main->cycle_dump = args->cycle_dump;
-    main->nbr_robots = args->nbr_robots;
+    init_main_variables(main, args);
     free_args_struct(args);
     return main;
 }

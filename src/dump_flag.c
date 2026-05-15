@@ -108,7 +108,7 @@ static void print_register(unsigned char **regs, unsigned int nb_spaces)
             write(1, SPACE_CHAR, 1);
         write(1, COLON_CHAR, 1);
         write(1, SPACE_CHAR, 1);
-        print_index_hexa(regs[i][0], 1);
+        print_index_hexa(regs[i + 1][0], 1);
         if ((i + 1) % NB_REG_LINE == 0)
             write(1, NEW_LINE_CHAR, 1);
     }

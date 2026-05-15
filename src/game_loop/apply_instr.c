@@ -97,17 +97,13 @@ static bool translate_and_apply(unsigned char *instr,
     return true;
 }
 
-static bool apply_robot_instr(main_t *main, unsigned int index,
+static bool get_and_apply_robot(unsigned int index, main_t *main,
     robot_infos_t *robot)
 {
     unsigned char *instr = NULL;
-    unsigned int size = 0;
     unsigned int pc_start = 0;
+    unsigned int size = 0;
 
-    if (robot->child)
-        apply_robot_instr(main, index, robot->child);
-    if (decrement_robot_cycle(robot, index))
-        return true;
     pc_start = main->robots[index].game_infos->pc % MEM_SIZE;
     instr = get_instr_mem(main, index, &size);
     if (!instr){
@@ -121,6 +117,18 @@ static bool apply_robot_instr(main_t *main, unsigned int index,
     free(instr);
     if (robot->game_infos->pc % MEM_SIZE == pc_start)
         robot->game_infos->pc = (pc_start + size) % MEM_SIZE;
+    return true;
+}
+
+static bool apply_robot_instr(main_t *main, unsigned int index,
+    robot_infos_t *robot)
+{
+    if (robot->child)
+        apply_robot_instr(main, index, robot->child);
+    if (decrement_robot_cycle(robot, index))
+        return true;
+    if (!get_and_apply_robot(index, main, robot))
+        return false;
     return true;
 }
 

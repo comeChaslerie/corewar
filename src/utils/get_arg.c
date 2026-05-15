@@ -17,8 +17,8 @@ static unsigned char *get_arg_reg_type(arg_t *arg, unsigned char **regs)
     unsigned int u_arg = 0;
 
     u_arg = uctoui(arg->arg, arg->size);
-    if (u_arg < 0 || u_arg > REG_NUMBER)
-        return false;
+    if (u_arg < 1 || u_arg > REG_NUMBER)
+        return NULL;
     arg_content = my_ustrndup(regs[u_arg], 0, REG_SIZE);
     if (!arg_content)
         return NULL;
