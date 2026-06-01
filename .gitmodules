@@ -1,0 +1,3 @@
+[submodule "robot-factory"]
+	path = robot-factory
+	url = git@github.com:comeChaslerie/robot-factory.git

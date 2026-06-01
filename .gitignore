@@ -7,6 +7,8 @@
 !*.c
 !*.h
 !.gitignore
+!.gitmodules
+!robot-factory
 !*.md
 !tester/run.py
 !examples/binaries/*
