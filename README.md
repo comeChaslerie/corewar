@@ -8,7 +8,7 @@ champion still reporting itself *alive* wins.
 This repository contains the **VM / arena** side of Corewar (the runtime that
 executes compiled `.cor` champions). The assembler that compiles `.s` source
 files into `.cor` bytecode lives in the companion
-[robot-factory](https://github.com/comeChaslerie/robot-factory-mirror) project.
+[robot-factory](https://github.com/comeChaslerie/robot-factory) project.
 
 ## Features
 
